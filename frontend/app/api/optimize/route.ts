@@ -274,98 +274,10 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ task_id: mlResult.task_id, status: mlResult.status || 'pending' })
     }
 
-    // Otherwise, treat as synchronous result and proceed as before:
-    // ── 4. Insert session (optional, ideally handled in backend)
-    // [Insert handling below can be refactored/removed if backend writes to DB]
-    const { data: session, error: sessionErr } = await supabase
-      .from('optimization_sessions')
-      .insert({
-        user_id: userId,
-        file_name: fileName,
-        total_processed: mlResult.total_processed,
-        total_optimized: mlResult.total_optimized,
-        total_not_optimized: mlResult.total_processed - mlResult.total_optimized,
-        total_savings: mlResult.total_savings,
-        success_rate: mlResult.total_processed > 0 ? (mlResult.total_optimized / mlResult.total_processed) * 100 : 0,
-        created_at: new Date().toISOString()
-      })
-      .select('id')
-      .single()
-
-    const sessionId = session?.id ?? null
-    if (sessionErr) console.error('[optimize] session insert error:', sessionErr.message)
-
-    // ── 5. Insert optimization_results in chunks ──────────────────
-    const allResultsToInsert = mlResult.results.map((r: any) => {
-      const fragilityData = fragilityMap[r.sku] || { fragility: 'LOW', fragility_score: 1 }
-      return {
-        session_id: sessionId,
-        user_id: userId,
-        sku: r.sku,
-        product_name: r.product_name,
-        optimized: r.recommended_box_name !== 'No box found',
-        reason_code: r.recommended_box_name !== 'No box found' ? 'SUCCESS' : 'NO_FIT',
-        reason: r.recommended_box_name !== 'No box found' ? 'Box fits requirements' : 'No suitable box found',
-        explanation: '',
-        recommendation: r.recommended_box_name !== 'No box found' ? 'Use recommended box.' : 'Consider custom packaging.',
-        fragility: fragilityData.fragility,  // 🔴 BUG #2 FIX: Use actual fragility from result
-        fragility_score: fragilityData.fragility_score,  // 🔴 BUG #2 FIX: Use calculated score
-        why_chosen: 'Optimal fit and price',
-        baseline_box: r.old_box_name,
-        optimized_box: r.recommended_box_name,
-        baseline_cost: r.old_box_price,
-        shipping_cost: r.new_box_price,
-        savings: r.savings_per_unit,
-        savings_percent: r.old_box_price > 0 ? (r.savings_per_unit / r.old_box_price) * 100 : 0,
-        volume_util: r.fit_score,
-        void_pct: 100 - r.fit_score,
-        baseline_void_pct: 0,
-        weight: r.weight_kg,
-        dimensions: { l: r.original_dims.l, w: r.original_dims.w, h: r.original_dims.h },
-        optimized_dims: { l: r.new_box_dims.l, w: r.new_box_dims.w, h: r.new_box_dims.h },
-        created_at: new Date().toISOString()
-      }
-    })
-
-for (let i = 0; i < allResultsToInsert.length; i += 50) {
-  const chunk = allResultsToInsert.slice(i, i + 50)
-  const { error: resultError, data: resultInsert } = await supabase.from('optimization_results').insert(chunk).select('id')
-  if (resultError) console.error(`[optimize] results chunk ${i} error:`, resultError.message)
-
-  // Map to orders schema, reusing chunk as source
-  const ordersChunk = chunk.map((result: any, idx: number): any => {
-    return {
-      user_id: userId,
-      optimization_session_id: sessionId,
-      // product_id: null, // If available, map it
-      // optimization_result_id: resultInsert && resultInsert[idx] ? resultInsert[idx].id : null, // link result
-      sku: result.sku,
-      product_name: result.product_name,
-      length_cm: result.dimensions.l,
-      width_cm: result.dimensions.w,
-      height_cm: result.dimensions.h,
-      weight_kg: result.weight,
-      fragility_level: result.fragility,
-      carrier: result.optimized_box && typeof result.optimized_box === 'string' ? result.optimized_box.split(' ')[0] : null,
-      product_snapshot: { sku: result.sku, product_name: result.product_name, weight_kg: result.weight, dims: result.dimensions },
-      box_snapshot: { name: result.optimized_box, dims: result.optimized_dims, price: result.shipping_cost, fit: result.volume_util },
-      quantity: 1,
-      total_cost: result.shipping_cost ?? 0,
-      currency: 'INR',
-      status: 'pending',
-      created_at: result.created_at || new Date().toISOString(),
-    }
-  })
-
-  const { error: orderError } = await supabase.from('orders').insert(ordersChunk)
-  if (orderError) console.error(`[optimize] orders chunk ${i} error:`, orderError.message)
-}
-
-// ── 6. Return success ─────────────────────────────────────────
-return NextResponse.json({
+    // ── 4. Return success to client so it can call /api/optimize/save ──
+    return NextResponse.json({
       success: true,
       ok: true,
-      session_id: sessionId,
       total_processed: mlResult.total_processed,
       total_optimized: mlResult.total_optimized,
       total_not_optimized: mlResult.total_processed - mlResult.total_optimized,

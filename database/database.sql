@@ -36,10 +36,26 @@ DROP TABLE IF EXISTS public.analytics_daily       CASCADE;
 DROP TABLE IF EXISTS public.notifications         CASCADE;
 
 -- ─────────────────────────────────────────────────────
--- TABLE 1: USER PROFILES
+-- TABLE 1: COMPANIES
+-- ─────────────────────────────────────────────────────
+CREATE TABLE IF NOT EXISTS public.companies (
+  id              UUID DEFAULT uuid_generate_v4() PRIMARY KEY,
+  owner_user_id   UUID REFERENCES auth.users(id) ON DELETE CASCADE NOT NULL UNIQUE,
+  company_name    TEXT NOT NULL,
+  industry        TEXT,
+  address         TEXT,
+  website         TEXT,
+  logo_url        TEXT,
+  created_at      TIMESTAMPTZ DEFAULT NOW(),
+  updated_at      TIMESTAMPTZ DEFAULT NOW()
+);
+
+-- ─────────────────────────────────────────────────────
+-- TABLE 1.5: USER PROFILES
 -- ─────────────────────────────────────────────────────
 CREATE TABLE IF NOT EXISTS public.profiles (
   id                  UUID PRIMARY KEY REFERENCES auth.users(id) ON DELETE CASCADE,
+  company_id          UUID REFERENCES public.companies(id) ON DELETE SET NULL,
   full_name           TEXT,
   email               TEXT,
   mobile              TEXT,
@@ -126,6 +142,24 @@ CREATE TABLE IF NOT EXISTS public.products (
   created_at  TIMESTAMPTZ DEFAULT NOW(),
   updated_at  TIMESTAMPTZ DEFAULT NOW(),
   UNIQUE(user_id, sku)
+);
+
+-- ─────────────────────────────────────────────────────
+-- TABLE 3: PRODUCTS
+-- ─────────────────────────────────────────────────────
+CREATE TABLE IF NOT EXISTS public.products (
+  id              UUID DEFAULT uuid_generate_v4() PRIMARY KEY,
+  user_id         UUID REFERENCES public.profiles(id) ON DELETE CASCADE NOT NULL,
+  sku             TEXT NOT NULL,
+  name            TEXT NOT NULL,
+  category        TEXT,
+  weight_kg       DECIMAL(10,2),
+  length_cm       DECIMAL(10,2),
+  width_cm        DECIMAL(10,2),
+  height_cm       DECIMAL(10,2),
+  fragility       TEXT DEFAULT 'LOW',
+  created_at      TIMESTAMPTZ DEFAULT NOW(),
+  updated_at      TIMESTAMPTZ DEFAULT NOW()
 );
 
 -- ─────────────────────────────────────────────────────
@@ -323,6 +357,7 @@ CREATE TABLE public.notifications (
 -- ═══════════════════════════════════════════════════
 -- ROW LEVEL SECURITY
 -- ═══════════════════════════════════════════════════
+ALTER TABLE public.companies             ENABLE ROW LEVEL SECURITY;
 ALTER TABLE public.profiles              ENABLE ROW LEVEL SECURITY;
 ALTER TABLE public.box_catalog           ENABLE ROW LEVEL SECURITY;
 ALTER TABLE public.optimization_sessions ENABLE ROW LEVEL SECURITY;
@@ -333,6 +368,7 @@ ALTER TABLE public.analytics_daily       ENABLE ROW LEVEL SECURITY;
 ALTER TABLE public.notifications         ENABLE ROW LEVEL SECURITY;
 
 -- Drop then recreate policies (safe on re-run)
+DROP POLICY IF EXISTS "companies_own"       ON public.companies;
 DROP POLICY IF EXISTS "profiles_own"        ON public.profiles;
 DROP POLICY IF EXISTS "box_catalog_own"     ON public.box_catalog;
 DROP POLICY IF EXISTS "sessions_own"        ON public.optimization_sessions;
@@ -342,6 +378,7 @@ DROP POLICY IF EXISTS "products_own"        ON public.products;
 DROP POLICY IF EXISTS "analytics_own"       ON public.analytics_daily;
 DROP POLICY IF EXISTS "notifications_own"   ON public.notifications;
 
+CREATE POLICY "companies_own"     ON public.companies             FOR ALL USING (auth.uid() = owner_user_id) WITH CHECK (auth.uid() = owner_user_id);
 CREATE POLICY "profiles_own"      ON public.profiles              FOR ALL USING (auth.uid() = id)      WITH CHECK (auth.uid() = id);
 CREATE POLICY "box_catalog_own"   ON public.box_catalog           FOR ALL USING (auth.uid() = user_id) WITH CHECK (auth.uid() = user_id);
 CREATE POLICY "sessions_own"      ON public.optimization_sessions FOR ALL USING (auth.uid() = user_id) WITH CHECK (auth.uid() = user_id);

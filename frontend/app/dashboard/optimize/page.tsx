@@ -133,6 +133,29 @@ export default function OptimizePage() {
 
       const responseData = await response.json()
 
+      const saveOptimizationResults = async (finalData: any) => {
+        setProgress(90)
+        setProgressText('Saving results to database...')
+        const saveRes = await fetch('/api/optimize/save', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${session.access_token}`
+          },
+          body: JSON.stringify({
+            userId: session.user.id,
+            fileName: file?.name || 'Manual Upload',
+            products: parsedData,
+            mlResult: finalData
+          })
+        })
+        if (!saveRes.ok) {
+          throw new Error('Failed to save results to database')
+        }
+        const savedData = await saveRes.json()
+        return savedData.session_id
+      }
+
       if (responseData.task_id) {
         // Handle async job: poll until results are ready
         setProgress(70)
@@ -141,10 +164,12 @@ export default function OptimizePage() {
           const finalData = await pollForOptimizationResult(responseData.task_id, (pct, txt) => {
             setProgress(pct); if (txt) setProgressText(txt)
           })
-          // Mimic successful result payload
+          
+          const sessionId = await saveOptimizationResults(finalData)
+          
           setProgress(100)
           setProgressText('Optimization Complete!')
-          setCurrentRun({ id: finalData.session_id } as any)
+          setCurrentRun({ id: sessionId } as any)
           setResults(finalData.results)
           toast.success('Successfully optimized ' + (finalData.total_optimized ?? finalData.results?.length) + ' products')
           setTimeout(() => {
@@ -164,10 +189,12 @@ export default function OptimizePage() {
         throw new Error(responseData.error || 'Optimization failed')
       }
 
+      const sessionId = await saveOptimizationResults(responseData)
+
       setProgress(100)
       setProgressText('Optimization Complete!')
 
-      setCurrentRun({ id: responseData.session_id } as any)
+      setCurrentRun({ id: sessionId } as any)
       setResults(responseData.results)
 
       toast.success('Successfully optimized ' + responseData.total_optimized + ' products')

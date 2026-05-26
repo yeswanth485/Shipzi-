@@ -31,6 +31,7 @@ const navItems = [
   { href: '/dashboard',             label: 'Dashboard',         icon: LayoutDashboard },
   { href: '/dashboard/optimize',    label: 'Optimize',          icon: Zap },
   { href: '/dashboard/orders',      label: 'Results',           icon: ShoppingCart },
+  { href: '/dashboard/products',    label: 'Products',          icon: Archive },
   { href: '/dashboard/box-catalog', label: 'Box Catalog',       icon: Box },
   { href: '/dashboard/labels',      label: 'Labels',            icon: Tag },
   { href: '/dashboard/analytics',   label: 'Analytics',         icon: TrendingUp },

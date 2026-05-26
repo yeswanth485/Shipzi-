@@ -22,13 +22,26 @@ export async function GET(request: Request) {
   }
 
   if (code) {
-    const supabase = await createClient()
-    const { error: sessionError } = await supabase.auth.exchangeCodeForSession(code)
-    if (!sessionError) {
+    try {
+      const supabase = await createClient()
+
+      // Exchange the code for a session. Guard against unexpected thrown errors.
+      const exchange = await supabase.auth.exchangeCodeForSession(code)
+      // exchange may be { data, error } depending on client version
+      const sessionError = (exchange as any)?.error ?? null
+      const exchangeData = (exchange as any)?.data ?? (exchange as any)
+
+      if (sessionError) {
+        console.error('[Auth Callback] Session exchange returned error:', sessionError)
+        return NextResponse.redirect(`${origin}/auth/login?error=session_error&message=${encodeURIComponent(sessionError.message || String(sessionError))}`)
+      }
+
       console.log('[Auth Callback] Session exchange successful')
+
       // Get the logged in user to filter the profile query correctly
-      const { data: { user } } = await supabase.auth.getUser()
-      
+      const userResult = await supabase.auth.getUser()
+      const user = (userResult as any)?.data?.user ?? (userResult as any)?.user ?? null
+
       if (user) {
         console.log('[Auth Callback] User found:', user.id)
         let { data: profile } = await supabase
@@ -39,12 +52,13 @@ export async function GET(request: Request) {
 
         if (!profile) {
           console.log('[Auth Callback] Profile missing, creating one')
-await (supabase.from('profiles') as any).insert({
-  id: user.id,
-  full_name: user.user_metadata?.full_name || user.email || '',
-  onboarding_complete: false
-}).select().single()
-profile = { onboarding_complete: false } as any
+          // Insert a minimal profile row for new users
+          await (supabase.from('profiles') as any).insert({
+            id: user.id,
+            full_name: user.user_metadata?.full_name || user.email || '',
+            onboarding_complete: false
+          }).select().single()
+          profile = { onboarding_complete: false } as any
         }
 
         if ((profile as any)?.onboarding_complete) {
@@ -52,12 +66,14 @@ profile = { onboarding_complete: false } as any
           return NextResponse.redirect(`${origin}${next || '/dashboard'}`)
         }
       }
-      
+
       console.log('[Auth Callback] Onboarding incomplete, redirecting to onboarding')
       return NextResponse.redirect(`${origin}/onboarding`)
-    } else {
-      console.error('[Auth Callback] Session error:', sessionError)
-      return NextResponse.redirect(`${origin}/auth/login?error=session_error&message=${encodeURIComponent(sessionError.message)}`)
+    } catch (e: any) {
+      // Catch unexpected runtime errors so the route never throws a 500 without context
+      console.error('[Auth Callback] Unexpected exception during auth callback:', e)
+      const message = e?.message ?? String(e)
+      return NextResponse.redirect(`${origin}/auth/login?error=server_exception&message=${encodeURIComponent(message)}`)
     }
   }
 

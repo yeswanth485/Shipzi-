@@ -106,15 +106,15 @@ export default function OnboardingWizard() {
 
       if (companyError) throw companyError
 
-      // Upsert User Profile
+      // Update User Profile
       const { error: profileError } = await (supabase as any)
         .from('profiles')
-        .upsert({
-          id: user.id,
+        .update({
           company_id: company.id,
           onboarding_complete: true,
           updated_at: new Date().toISOString()
-        }, { onConflict: 'id' })
+        })
+        .eq('id', user.id)
 
       if (profileError) throw profileError
 
