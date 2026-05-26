@@ -74,20 +74,28 @@ export default function OnboardingWizard() {
       if (!user) throw new Error('No authenticated user')
 
       let logoUrl = null
-      const ext = formData.logoFile.name.split('.').pop()
-      const fileName = `logos/${user.id}/company-logo.${ext}`
+      if (formData.logoFile) {
+        try {
+          const ext = formData.logoFile.name.split('.').pop()
+          const fileName = `logos/${user.id}/company-logo.${ext}`
 
-      const { data: uploadData, error: uploadError } = await supabase.storage
-        .from('company-assets')
-        .upload(fileName, formData.logoFile, { upsert: true })
+          const { data: uploadData, error: uploadError } = await supabase.storage
+            .from('company-assets')
+            .upload(fileName, formData.logoFile, { upsert: true })
 
-      if (uploadError) throw uploadError
-
-      const { data: { publicUrl } } = supabase.storage
-        .from('company-assets')
-        .getPublicUrl(uploadData.path)
-
-      logoUrl = publicUrl
+          if (uploadError) {
+            console.warn('[Onboarding] Logo upload failed:', uploadError)
+            toast.warning('Logo upload failed, but continuing setup...')
+          } else if (uploadData) {
+            const { data: { publicUrl } } = supabase.storage
+              .from('company-assets')
+              .getPublicUrl(uploadData.path)
+            logoUrl = publicUrl
+          }
+        } catch (e) {
+          console.warn('[Onboarding] Logo upload exception:', e)
+        }
+      }
 
       // Upsert Company
       const { data: company, error: companyError } = await (supabase as any)

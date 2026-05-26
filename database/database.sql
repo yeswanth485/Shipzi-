@@ -543,3 +543,17 @@ WHERE s.id = (
   ORDER BY created_at DESC
   LIMIT 1
 );
+
+-- ═══════════════════════════════════════════════════
+-- STORAGE BUCKETS & POLICIES
+-- ═══════════════════════════════════════════════════
+-- Create the bucket if it doesn't exist
+INSERT INTO storage.buckets (id, name, public)
+VALUES ('company-assets', 'company-assets', true)
+ON CONFLICT (id) DO NOTHING;
+
+-- Set up storage RLS policies for 'company-assets'
+CREATE POLICY "Public Access" ON storage.objects FOR SELECT USING (bucket_id = 'company-assets');
+CREATE POLICY "Authenticated users can upload" ON storage.objects FOR INSERT WITH CHECK (bucket_id = 'company-assets' AND auth.role() = 'authenticated');
+CREATE POLICY "Users can update their own objects" ON storage.objects FOR UPDATE USING (bucket_id = 'company-assets' AND auth.uid() = owner) WITH CHECK (bucket_id = 'company-assets' AND auth.uid() = owner);
+CREATE POLICY "Users can delete their own objects" ON storage.objects FOR DELETE USING (bucket_id = 'company-assets' AND auth.uid() = owner);
