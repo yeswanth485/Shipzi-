@@ -553,7 +553,11 @@ VALUES ('company-assets', 'company-assets', true)
 ON CONFLICT (id) DO NOTHING;
 
 -- Set up storage RLS policies for 'company-assets'
+DROP POLICY IF EXISTS "Public Access" ON storage.objects;
 CREATE POLICY "Public Access" ON storage.objects FOR SELECT USING (bucket_id = 'company-assets');
+DROP POLICY IF EXISTS "Authenticated users can upload" ON storage.objects;
 CREATE POLICY "Authenticated users can upload" ON storage.objects FOR INSERT WITH CHECK (bucket_id = 'company-assets' AND auth.role() = 'authenticated');
+DROP POLICY IF EXISTS "Users can update their own objects" ON storage.objects;
 CREATE POLICY "Users can update their own objects" ON storage.objects FOR UPDATE USING (bucket_id = 'company-assets' AND auth.uid() = owner) WITH CHECK (bucket_id = 'company-assets' AND auth.uid() = owner);
+DROP POLICY IF EXISTS "Users can delete their own objects" ON storage.objects;
 CREATE POLICY "Users can delete their own objects" ON storage.objects FOR DELETE USING (bucket_id = 'company-assets' AND auth.uid() = owner);
