@@ -92,26 +92,26 @@ export default function DashboardClient() {
             />
             <KPICard
               title="Latest Run Savings"
-              value={latestRun?.total_savings || 0}
+              value={latestRun?.estimated_savings || 0}
               unit="₹"
               icon={TrendingUp}
-              trend={calculateTrend('total_savings')}
+              trend={calculateTrend('estimated_savings')}
               delay={0.1}
             />
             <KPICard
               title="Success Rate"
-              value={latestRun?.success_rate || 0}
+              value={latestRun?.optimization_rate || 0}
               unit="%"
               icon={Zap}
-              trend={calculateTrend('success_rate')}
+              trend={calculateTrend('optimization_rate')}
               delay={0.2}
             />
             <KPICard
               title="CO2 Reduction"
-              value={Math.round((latestRun?.total_savings || 0) * 0.1)}
+              value={Math.round((latestRun?.estimated_savings || 0) * 0.1)}
               unit="kg"
               icon={Leaf}
-              trend={calculateTrend('total_savings')}
+              trend={calculateTrend('estimated_savings')}
               delay={0.3}
             />
           </div>

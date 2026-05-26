@@ -25,11 +25,11 @@ export function useOptimizationRuns() {
 
   const stats = data ? {
     totalRuns: data.length,
-    totalSavings: data.reduce((acc: number, run: any) => acc + (run.total_savings || 0), 0),
+    totalSavings: data.reduce((acc: number, run: any) => acc + (run.estimated_savings || 0), 0),
     avgUtilization: data.length > 0
-      ? data.reduce((acc: number, run: any) => acc + (run.success_rate || 0), 0) / data.length
+      ? data.reduce((acc: number, run: any) => acc + (run.optimization_rate || 0), 0) / data.length
       : 0,
-    totalCo2: data.reduce((acc: number, run: any) => acc + ((run.total_savings || 0) * 0.1), 0), // Mock CO2 based on savings
+    totalCo2: data.reduce((acc: number, run: any) => acc + ((run.estimated_savings || 0) * 0.1), 0), // Mock CO2 based on savings
 
   } : null
 

@@ -5,7 +5,7 @@ import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContaine
 export default function TotalSavedBarChart({ data }: { data: any[] }) {
   const chartData = data && data.length > 0 ? data.map(d => ({
     name: new Date(d.created_at).toLocaleDateString(undefined, { month: 'short', day: 'numeric' }),
-    saved: d.total_savings || 0
+    saved: d.estimated_savings || 0
   })) : [
     { name: 'Run 1', saved: 120 },
     { name: 'Run 2', saved: 250 },

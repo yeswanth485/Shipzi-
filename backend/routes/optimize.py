@@ -47,7 +47,7 @@ async def optimize_batch(request: Request, background_tasks: BackgroundTasks):
             try:
                 opt_input = build_opt_input(product, box_catalog)
                 result = run_xgboost_optimization(opt_input)
-                results.append(result.dict())
+                results.append(result.model_dump())
             except Exception as e:
                 results.append({"sku": product.get('sku'), "error": str(e)})
         TASKS[task_id] = {"status": "complete", "results": results}
@@ -66,7 +66,7 @@ async def optimize_batch(request: Request, background_tasks: BackgroundTasks):
         try:
             opt_input = build_opt_input(product, box_catalog)
             result = run_xgboost_optimization(opt_input)
-            results.append(result.dict())
+            results.append(result.model_dump())
         except Exception as e:
             results.append({"sku": product.get('sku'), "error": str(e)})
     return {"results": results, "status": "complete"}

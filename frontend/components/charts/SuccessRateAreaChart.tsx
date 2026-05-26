@@ -5,7 +5,7 @@ import { AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContai
 export default function SuccessRateAreaChart({ data }: { data: any[] }) {
   const chartData = data && data.length > 0 ? data.map((d, index) => ({
     name: `Run ${index + 1}`,
-    rate: d.success_rate || (d.total_items > 0 ? (d.optimized_items / d.total_items) * 100 : 0)
+    rate: d.optimization_rate || (d.total_items > 0 ? (d.optimized_items / d.total_items) * 100 : 0)
   })) : [
     { name: 'Run 1', rate: 45 },
     { name: 'Run 2', rate: 60 },
