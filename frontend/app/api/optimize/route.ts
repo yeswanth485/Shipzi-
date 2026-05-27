@@ -252,7 +252,7 @@ export async function POST(request: NextRequest) {
     const boxCatalog = [...DEFAULT_BOXES, ...customBoxes]
 
     // ── 3. Run optimization on FastAPI backend ──────────────────
-    const backendUrl = process.env.NEXT_PUBLIC_FASTAPI_URL || 'https://shipzi-backend-2k1i.onrender.com/optimize';
+    const backendUrl = process.env.NEXT_PUBLIC_FASTAPI_URL || 'https://shipzi-backend-2k1i.onrender.com/optimize/';
     const backendResponse = await fetch(backendUrl, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
