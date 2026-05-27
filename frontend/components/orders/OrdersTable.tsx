@@ -115,8 +115,13 @@ export default function OrdersTable({ data }: OrdersTableProps = {}) {
             </thead>
             <tbody className="divide-y divide-white/5">
              {paginated.map((row: any, i) => {
-                 const dimsStr = row.dimensions ? `${row.dimensions.l}x${row.dimensions.w}x${row.dimensions.h}` : '-'
-                 const optDimsStr = row.optimized_dims ? `${row.optimized_dims.l}x${row.optimized_dims.w}x${row.optimized_dims.h}` : '-'
+                 const dimsStr = (row.length_cm && row.width_cm && row.height_cm) 
+                   ? `${row.length_cm}x${row.width_cm}x${row.height_cm} cm`
+                   : (row.dimensions ? `${row.dimensions.l}x${row.dimensions.w}x${row.dimensions.h} cm` : '-')
+                 
+                 const optDimsStr = (row.new_box_length_cm && row.new_box_width_cm && row.new_box_height_cm) 
+                   ? `${row.new_box_length_cm}x${row.new_box_width_cm}x${row.new_box_height_cm} cm`
+                   : (row.new_box_dims ? row.new_box_dims : (row.optimized_dims ? `${row.optimized_dims.l}x${row.optimized_dims.w}x${row.optimized_dims.h} cm` : '-'))
                  
                  return (
                  <tr key={row.id || i} className="group hover:bg-white/[0.02] transition-colors cursor-pointer" onClick={() => setSelectedOrder(row)}>
@@ -128,20 +133,20 @@ export default function OrdersTable({ data }: OrdersTableProps = {}) {
                   </td>
                   <td className="px-6 py-4 text-zinc-400 text-sm">{dimsStr}</td>
                   <td className="px-6 py-4 text-zinc-400 text-sm">{row.weight || row.weightKg || row.weight_kg || 0} kg</td>
-                  <td className="px-6 py-4 text-zinc-400 text-sm">{row.baseline_box || row.originalBox || '-'}</td>
-                  <td className="px-6 py-4 text-zinc-400 text-sm font-bold">₹{(row.baseline_cost || row.old_box_price || 0).toFixed(2)}</td>
-                  <td className="px-6 py-4 text-blue-400 text-sm font-bold">{row.optimized_box || row.optimizedBox || row.recommended_box_name || '-'}</td>
+                  <td className="px-6 py-4 text-zinc-400 text-sm">{row.baseline_box || row.originalBox || row.old_box_name || '-'}</td>
+                  <td className="px-6 py-4 text-zinc-400 text-sm font-bold">₹{(row.baseline_cost || row.old_box_price || row.old_box_cost || 0).toFixed(2)}</td>
+                  <td className="px-6 py-4 text-blue-400 text-sm font-bold">{row.optimized_box || row.optimizedBox || row.recommended_box_name || row.new_box_name || '-'}</td>
                   <td className="px-6 py-4 text-zinc-400 text-sm">{row.carrier || row.recommended_carrier || '-'}</td>
                   <td className="px-6 py-4 text-zinc-400 text-sm">{optDimsStr}</td>
-                  <td className="px-6 py-4 text-white text-sm font-bold">₹{(row.shipping_cost || row.new_box_price || 0).toFixed(2)}</td>
+                  <td className="px-6 py-4 text-white text-sm font-bold">₹{(row.shipping_cost || row.new_box_price || row.new_box_cost || 0).toFixed(2)}</td>
                   <td className="px-6 py-4">
-                    <Badge variant={(row.volume_util || row.fit_score || 0) >= 80 ? 'green' : (row.volume_util || row.fit_score || 0) >= 50 ? 'yellow' : 'red'}>
-                      {row.volume_util || row.fit_score || 0}%
+                    <Badge variant={(row.volume_util || row.fit_score || row.volume_utilization || 0) >= 80 ? 'green' : (row.volume_util || row.fit_score || row.volume_utilization || 0) >= 50 ? 'yellow' : 'red'}>
+                      {row.volume_util || row.fit_score || row.volume_utilization || 0}%
                     </Badge>
                   </td>
                   <td className="px-6 py-4">
                     <Badge variant="green">
-                      ₹{(row.savings || row.savings_per_unit || 0).toFixed(2)}
+                      ₹{(row.savings || row.savings_per_unit || row.savings_amount || 0).toFixed(2)}
                     </Badge>
                   </td>
                 </tr>

@@ -31,15 +31,23 @@ export default function OrderDetailsModal({
   })
 
   // Extract dimensions safely
-  const dims = order.dimensions || { l: 0, w: 0, h: 0 }
-  const optDims = order.optimized_dims || { l: 0, w: 0, h: 0 }
+  const dims = {
+    l: order.length_cm || order.dimensions?.l || 0,
+    w: order.width_cm || order.dimensions?.w || 0,
+    h: order.height_cm || order.dimensions?.h || 0
+  }
+  const optDims = {
+    l: order.new_box_length_cm || order.optimized_dims?.l || 0,
+    w: order.new_box_width_cm || order.optimized_dims?.w || 0,
+    h: order.new_box_height_cm || order.optimized_dims?.h || 0
+  }
   const originalVolume = dims.l * dims.w * dims.h / 1000
   const optimizedVolume = optDims.l * optDims.w * optDims.h / 1000
-  const fitScore = order.volume_util || order.fit_score || 0
-  const savings = order.savings || order.savings_per_unit || 0
-  const baselineCost = order.baseline_cost || order.old_box_price || 0
-  const shippingCost = order.shipping_cost || order.new_box_price || 0
-  const fragility = order.fragility || 'LOW'
+  const fitScore = order.volume_utilization || order.volume_util || order.fit_score || 0
+  const savings = order.savings_amount || order.savings || order.savings_per_unit || 0
+  const baselineCost = order.old_box_cost || order.baseline_cost || order.old_box_price || 0
+  const shippingCost = order.new_box_cost || order.shipping_cost || order.new_box_price || 0
+  const fragility = order.fragility_level || order.fragility || 'LOW'
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
@@ -134,7 +142,7 @@ export default function OrderDetailsModal({
                    </div>
                    <span className="text-sm font-bold text-zinc-300">Weight</span>
                 </div>
-                <span className="text-lg font-black text-white">{order.weight} kg</span>
+                <span className="text-lg font-black text-white">{order.weight || order.weight_kg || order.weightKg || 0} kg</span>
              </div>
 
              <div className="flex items-center justify-between p-4 bg-white/[0.02] border border-white/5 rounded-2xl">
@@ -144,7 +152,7 @@ export default function OrderDetailsModal({
                    </div>
                    <span className="text-sm font-bold text-zinc-300">Baseline Box</span>
                 </div>
-                <span className="text-lg font-black text-white">{order.baseline_box || 'Original'}</span>
+                <span className="text-lg font-black text-white">{order.baseline_box || order.old_box_name || 'Original'}</span>
              </div>
           </div>
 

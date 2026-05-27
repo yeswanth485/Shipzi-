@@ -297,15 +297,20 @@ export async function POST(request: NextRequest) {
     }
 
     // ── 4. Return success to client so it can call /api/optimize/save ──
+    const results = mlResult.results || []
+    const totalProcessed = mlResult.total_processed || results.length
+    const totalOptimized = mlResult.total_optimized || results.filter((r: any) => r.recommended_box_name && r.recommended_box_name !== 'No Fits').length
+    const totalSavings = mlResult.total_savings || results.reduce((acc: number, r: any) => acc + (r.savings || 0), 0)
+
     return NextResponse.json({
       success: true,
       ok: true,
-      total_processed: mlResult.total_processed,
-      total_optimized: mlResult.total_optimized,
-      total_not_optimized: mlResult.total_processed - mlResult.total_optimized,
-      total_savings: mlResult.total_savings,
-      success_rate: mlResult.total_processed > 0 ? (mlResult.total_optimized / mlResult.total_processed) * 100 : 0,
-      results: mlResult.results
+      total_processed: totalProcessed,
+      total_optimized: totalOptimized,
+      total_not_optimized: totalProcessed - totalOptimized,
+      total_savings: totalSavings,
+      success_rate: totalProcessed > 0 ? (totalOptimized / totalProcessed) * 100 : 0,
+      results: results
     })
 
   } catch (error: unknown) {

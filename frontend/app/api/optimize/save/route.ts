@@ -103,9 +103,11 @@ export async function POST(request: NextRequest) {
         length_cm: origProduct.length_cm || 0,
         width_cm: origProduct.width_cm || 0,
         height_cm: origProduct.height_cm || 0,
+        old_box_dims: (origProduct.length_cm && origProduct.width_cm && origProduct.height_cm) ? `${origProduct.length_cm}x${origProduct.width_cm}x${origProduct.height_cm}` : null,
         new_box_length_cm: newBoxL,
         new_box_width_cm: newBoxW,
         new_box_height_cm: newBoxH,
+        new_box_dims: r.recommended_box_dims || null,
         created_at: new Date().toISOString()
       }
     })
