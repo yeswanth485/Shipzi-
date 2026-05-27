@@ -55,7 +55,6 @@ export default function Navbar() {
             </div>
           ) : (
             <>
-            <>
               {user ? (
                 <Link
                   href={profile?.onboarding_complete ? "/dashboard" : "/onboarding"}

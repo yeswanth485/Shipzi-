@@ -24,10 +24,11 @@ def load_boxes(user_id: str, provided_boxes: list = None) -> list[dict]:
     if provided_boxes:
         boxes = provided_boxes
     elif supabase:
-        if user_id:
-            result = supabase.table("box_catalog").select("*").eq("is_active", True).or_(
-                f"user_id.is.null,user_id.eq.{user_id}"
-            ).order("volume_cm3", ascending=True).execute()
+        try:
+            if user_id:
+                result = supabase.table("box_catalog").select("*").eq("is_active", True).or_(
+                    f"user_id.is.null,user_id.eq.{user_id}"
+                ).order("volume_cm3", ascending=True).execute()
             else:
                 result = supabase.table("box_catalog").select("*").eq("is_active", True).is_("user_id", "null").order("volume_cm3", ascending=True).execute()
             boxes = result.data
