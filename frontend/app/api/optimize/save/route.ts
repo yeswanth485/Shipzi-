@@ -30,17 +30,31 @@ export async function POST(request: NextRequest) {
       }
     }
 
+    // Create product lookup map from products input
+    const productMap: Record<string, any> = {}
+    for (const product of (products || [])) {
+      if (product.sku) {
+        productMap[product.sku] = product
+      }
+    }
+
+    const totalItems = mlResult.total_processed || mlResult.results.length
+    const optimizedItems = mlResult.total_optimized || mlResult.results.filter((r:any) => r.recommended_box_name && r.recommended_box_name !== 'No Fits').length
+    const unoptimizedItems = totalItems - optimizedItems
+    const estimatedSavings = mlResult.total_savings || mlResult.results.reduce((acc: number, r:any) => acc + (r.savings || 0), 0)
+    const optimizationRate = totalItems > 0 ? (optimizedItems / totalItems) * 100 : 0
+
     // 1. Insert session
     const { data: session, error: sessionErr } = await supabase
       .from('optimization_sessions')
       .insert({
         user_id: userId,
         file_name: fileName || 'upload.csv',
-        total_processed: mlResult.total_processed || mlResult.results.length,
-        total_optimized: mlResult.total_optimized || mlResult.results.filter((r:any) => r.recommended_box_name !== 'No box found').length,
-        total_not_optimized: (mlResult.total_processed || mlResult.results.length) - (mlResult.total_optimized || mlResult.results.filter((r:any) => r.recommended_box_name !== 'No box found').length),
-        total_savings: mlResult.total_savings || mlResult.results.reduce((acc: number, r:any) => acc + (r.savings_per_unit || 0), 0),
-        success_rate: mlResult.total_processed > 0 ? (mlResult.total_optimized / mlResult.total_processed) * 100 : 0,
+        total_items: totalItems,
+        optimized_items: optimizedItems,
+        unoptimized_items: unoptimizedItems,
+        estimated_savings: estimatedSavings,
+        optimization_rate: optimizationRate,
         created_at: new Date().toISOString()
       })
       .select('id')
@@ -55,31 +69,43 @@ export async function POST(request: NextRequest) {
     // 2. Insert optimization_results in chunks
     const allResultsToInsert = mlResult.results.map((r: any) => {
       const fragilityData = fragilityMap[r.sku] || { fragility: 'LOW', fragility_score: 1 }
+      const origProduct = productMap[r.sku] || {}
+      
+      let newBoxL = 0, newBoxW = 0, newBoxH = 0
+      if (r.recommended_box_dims && r.recommended_box_dims !== '—') {
+        const dimsParts = r.recommended_box_dims.split('x').map(Number)
+        if (dimsParts.length === 3) {
+          [newBoxL, newBoxW, newBoxH] = dimsParts
+        }
+      }
+
+      const isOptimized = r.recommended_box_name && r.recommended_box_name !== 'No Fits'
+
       return {
         session_id: sessionId,
         user_id: userId,
-        sku: r.sku,
-        product_name: r.product_name,
-        is_optimized: r.recommended_box_name !== 'No box found',
-        failure_reason: r.recommended_box_name !== 'No box found' ? null : 'No suitable box found',
-        recommendation_reason: r.recommended_box_name !== 'No box found' ? 'Optimal fit and price' : 'Consider custom packaging',
+        sku: r.sku || origProduct.sku || 'UNKNOWN',
+        product_name: r.product_name || origProduct.product_name || '',
+        is_optimized: isOptimized,
+        failure_reason: isOptimized ? null : (r.reasoning || 'No suitable box found'),
+        recommendation_reason: isOptimized ? (r.reasoning || 'Optimal fit and price') : 'Consider custom packaging',
         fragility_level: fragilityData.fragility,
         fragility_score: fragilityData.fragility_score,
-        old_box_name: r.old_box_name,
-        new_box_name: r.recommended_box_name !== 'No box found' ? r.recommended_box_name : null,
-        old_box_cost: r.old_box_price,
-        new_box_cost: r.new_box_price,
-        savings_amount: r.savings_per_unit,
-        savings_pct: r.old_box_price > 0 ? (r.savings_per_unit / r.old_box_price) * 100 : 0,
-        volume_utilization: r.fit_score,
-        void_percentage: 100 - (r.fit_score || 0),
-        weight_kg: r.weight_kg,
-        length_cm: r.original_dims?.l,
-        width_cm: r.original_dims?.w,
-        height_cm: r.original_dims?.h,
-        new_box_length_cm: r.new_box_dims?.l,
-        new_box_width_cm: r.new_box_dims?.w,
-        new_box_height_cm: r.new_box_dims?.h,
+        old_box_name: null,
+        new_box_name: isOptimized ? r.recommended_box_name : null,
+        old_box_cost: r.baseline_cost || 0,
+        new_box_cost: isOptimized ? r.packaging_cost : 0,
+        savings_amount: r.savings || 0,
+        savings_pct: r.savings_percent || 0,
+        volume_utilization: r.space_utilization || 0,
+        void_percentage: 100 - (r.space_utilization || 0),
+        weight_kg: origProduct.weight_kg || 0.5,
+        length_cm: origProduct.length_cm || 0,
+        width_cm: origProduct.width_cm || 0,
+        height_cm: origProduct.height_cm || 0,
+        new_box_length_cm: newBoxL,
+        new_box_width_cm: newBoxW,
+        new_box_height_cm: newBoxH,
         created_at: new Date().toISOString()
       }
     })

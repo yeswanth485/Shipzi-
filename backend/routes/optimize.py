@@ -23,6 +23,28 @@ async def optimize_batch(request: Request, background_tasks: BackgroundTasks):
         raise HTTPException(status_code=400, detail="Must provide both products and box_catalog arrays.")
 
     def build_opt_input(product, box_catalog):
+        available_boxes = []
+        for idx, box in enumerate(box_catalog):
+            box_id = box.get("id") or box.get("box_id") or f"box-{idx}"
+            box_name = box.get("name") or box.get("box_name") or "Custom Box"
+            box_sku = box.get("sku") or box.get("box_sku") or f"BX-{idx}"
+            length_cm = float(box.get("length_cm") or box.get("L") or 0)
+            width_cm = float(box.get("width_cm") or box.get("W") or 0)
+            height_cm = float(box.get("height_cm") or box.get("H") or 0)
+            max_weight_kg = float(box.get("max_weight_kg") or box.get("maxWeightKg") or box.get("weight_limit_kg") or 30)
+            cost_usd = float(box.get("cost_usd") or box.get("cost") or box.get("priceEstimateINR") or 0)
+            
+            available_boxes.append(BoxSpec(
+                id=str(box_id),
+                name=str(box_name),
+                sku=str(box_sku),
+                length_cm=length_cm,
+                width_cm=width_cm,
+                height_cm=height_cm,
+                max_weight_kg=max_weight_kg,
+                cost_usd=cost_usd
+            ))
+
         return OptimizationInput(
             product_name=product.get('product_name', ''),
             product_id=product.get('sku', ''),
@@ -35,10 +57,7 @@ async def optimize_batch(request: Request, background_tasks: BackgroundTasks):
             category=product.get('category', 'general'),
             destination_zone=product.get('zone', 2),
             shipping_method=product.get('shipping_method', 'standard'),
-            available_boxes=[
-                # Acceptable fields; extend as needed
-                BoxSpec(**box) for box in box_catalog
-            ],
+            available_boxes=available_boxes,
         )
 
     def run_batch_and_store(task_id, batch: List[Dict[str, Any]], box_catalog):
@@ -47,7 +66,10 @@ async def optimize_batch(request: Request, background_tasks: BackgroundTasks):
             try:
                 opt_input = build_opt_input(product, box_catalog)
                 result = run_xgboost_optimization(opt_input)
-                results.append(result.model_dump())
+                res_dict = result.model_dump()
+                res_dict["sku"] = product.get('sku') or product.get('product_id')
+                res_dict["product_name"] = product.get('product_name')
+                results.append(res_dict)
             except Exception as e:
                 results.append({"sku": product.get('sku'), "error": str(e)})
         TASKS[task_id] = {"status": "complete", "results": results}
@@ -66,7 +88,10 @@ async def optimize_batch(request: Request, background_tasks: BackgroundTasks):
         try:
             opt_input = build_opt_input(product, box_catalog)
             result = run_xgboost_optimization(opt_input)
-            results.append(result.model_dump())
+            res_dict = result.model_dump()
+            res_dict["sku"] = product.get('sku') or product.get('product_id')
+            res_dict["product_name"] = product.get('product_name')
+            results.append(res_dict)
         except Exception as e:
             results.append({"sku": product.get('sku'), "error": str(e)})
     return {"results": results, "status": "complete"}

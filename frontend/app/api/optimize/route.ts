@@ -9,7 +9,11 @@ export async function GET(request: NextRequest) {
   // Example: /api/optimize?task_id=xxxx-xxxx
   const { searchParams } = new URL(request.url)
   const taskId = searchParams.get('task_id')
-  const backendUrl = process.env.NEXT_PUBLIC_FASTAPI_URL || 'http://localhost:8000/optimize';
+  let backendUrl = process.env.NEXT_PUBLIC_FASTAPI_URL || 'http://localhost:8000';
+  backendUrl = backendUrl.replace(/\/$/, '');
+  if (!backendUrl.endsWith('/optimize')) {
+    backendUrl = `${backendUrl}/optimize`;
+  }
   if (!taskId) {
     return NextResponse.json({ error: 'Missing task_id' }, { status: 400 })
   }
@@ -252,7 +256,25 @@ export async function POST(request: NextRequest) {
     const boxCatalog = [...DEFAULT_BOXES, ...customBoxes]
 
     // ── 3. Run optimization on FastAPI backend ──────────────────
-    const backendUrl = process.env.NEXT_PUBLIC_FASTAPI_URL || 'https://shipzi-backend-2k1i.onrender.com/optimize/';
+    let backendUrl = process.env.NEXT_PUBLIC_FASTAPI_URL || 'https://shipzi-backend-2k1i.onrender.com';
+    backendUrl = backendUrl.replace(/\/$/, '');
+    if (!backendUrl.endsWith('/optimize')) {
+      backendUrl = `${backendUrl}/optimize/`;
+    } else {
+      backendUrl = `${backendUrl}/`;
+    }
+
+    const mappedBoxCatalog = boxCatalog.map((b, idx) => ({
+      id: b.id || `box-${idx}-${b.name ? b.name.replace(/\s+/g, '-').toLowerCase() : 'custom'}`,
+      name: b.name || 'Custom Box',
+      sku: b.sku || `BX-${idx}`,
+      length_cm: Number(b.length_cm || b.L || 0),
+      width_cm: Number(b.width_cm || b.W || 0),
+      height_cm: Number(b.height_cm || b.H || 0),
+      max_weight_kg: Number(b.max_weight_kg || b.maxWeightKg || 30),
+      cost_usd: Number(b.cost_usd || b.priceEstimateINR || 0)
+    }))
+
     const backendResponse = await fetch(backendUrl, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -260,7 +282,7 @@ export async function POST(request: NextRequest) {
         user_id: userId,
         file_name: fileName,
         products,
-        box_catalog: boxCatalog
+        box_catalog: mappedBoxCatalog
       })
     })
     if (!backendResponse.ok) {

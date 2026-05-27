@@ -69,6 +69,8 @@ class OptimizationResponse(BaseModel):
     sustainability_score: float
     
     # New Fields
+    sku: Optional[str] = None
+    product_name: Optional[str] = None
     top_alternatives: List[AlternativeBox] = []
     score_breakdown: Optional[ScoreBreakdown] = None
     engine_version: str = "ML-Scorer v1.0"
