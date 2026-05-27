@@ -53,6 +53,7 @@ export default function Navbar() {
             <div className="w-24 h-10 flex items-center justify-center">
               <Loader2 className="w-5 h-5 text-white animate-spin" />
             </div>
+          ) : (
             <>
               {user && (
                 <Link
