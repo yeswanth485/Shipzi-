@@ -6,7 +6,7 @@ from typing import List, Dict, Any
 from optimizer.ml_optimizer import optimize_batch
 
 logger = logging.getLogger(__name__)
-router = APIRouter()
+router = APIRouter(prefix="/optimize", tags=["optimization"])
 
 # In-memory store for async jobs.
 # In a real production environment (like Render with multiple workers), 
