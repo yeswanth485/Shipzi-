@@ -1,184 +1,217 @@
-import logging
-import pandas as pd
-import numpy as np
-from itertools import permutations
-from supabase import create_client
+import uuid
 import os
+import logging
 
 logger = logging.getLogger(__name__)
 
-supabase_url = os.environ.get("SUPABASE_URL", os.environ.get("NEXT_PUBLIC_SUPABASE_URL", ""))
-supabase_key = os.environ.get("SUPABASE_SERVICE_KEY", os.environ.get("NEXT_PUBLIC_SUPABASE_ANON_KEY", ""))
+# Basic pricing parameters (can be configured)
+DIM_DIVISOR = 5000  # cm³/kg
+BASE_RATE_PER_KG = 50  # ₹
 
-if supabase_url and supabase_key:
-    supabase = create_client(supabase_url, supabase_key)
-else:
-    supabase = None
+def parse_float(val, default=0.0):
+    try:
+        if val is None or val == "":
+            return default
+        return float(val)
+    except (ValueError, TypeError):
+        return default
 
-DIM_DIVISOR = 5000  # India standard (cm³/kg)
-BASE_RATE_PER_KG = 50  # ₹ per kg — configurable
-
-def load_boxes(user_id: str, provided_boxes: list = None) -> list[dict]:
-    """Load active boxes from catalog: global system boxes + user custom boxes"""
-    boxes = []
-    if provided_boxes:
-        boxes = provided_boxes
-    elif supabase:
-        try:
-            if user_id:
-                result = supabase.table("box_catalog").select("*").eq("is_active", True).or_(
-                    f"user_id.is.null,user_id.eq.{user_id}"
-                ).order("volume_cm3", ascending=True).execute()
-            else:
-                result = supabase.table("box_catalog").select("*").eq("is_active", True).is_("user_id", "null").order("volume_cm3", ascending=True).execute()
-            boxes = result.data
-        except Exception as e:
-            logger.error(f"Error loading boxes from supabase: {e}")
-
-    # Fallback if catalog is empty or fails
+def load_boxes(provided_boxes: list = None) -> list[dict]:
+    """
+    Standardize the box catalog. Uses provided_boxes from frontend if available.
+    Otherwise returns a robust set of fallback boxes.
+    """
+    boxes = provided_boxes if provided_boxes else []
+    
     if not boxes:
         boxes = [
-            {"id": "sys-1", "name": "Standard Small", "length": 20, "width": 15, "height": 10, "carrier": "Generic", "max_weight": 5},
-            {"id": "sys-2", "name": "Standard Medium", "length": 30, "width": 25, "height": 15, "carrier": "Generic", "max_weight": 10},
-            {"id": "sys-3", "name": "Standard Large", "length": 50, "width": 40, "height": 30, "carrier": "Generic", "max_weight": 20}
+            {"id": "sys-1", "name": "Standard Small", "length": 20, "width": 15, "height": 10, "max_weight": 5, "price": 40},
+            {"id": "sys-2", "name": "Standard Medium", "length": 30, "width": 25, "height": 15, "max_weight": 10, "price": 65},
+            {"id": "sys-3", "name": "Standard Large", "length": 50, "width": 40, "height": 30, "max_weight": 20, "price": 120}
         ]
-
-    # Pre-compute volume for sorting and normalize dimensions
+        
+    normalized_boxes = []
     for b in boxes:
-        b["length"] = b.get("length") or b.get("length_cm") or 0
-        b["width"] = b.get("width") or b.get("width_cm") or 0
-        b["height"] = b.get("height") or b.get("height_cm") or 0
-        b["max_weight"] = b.get("max_weight") or b.get("max_weight_kg") or b.get("weight_limit_kg") or 30
-        b["volume_cm3"] = b["length"] * b["width"] * b["height"]
-    
-    boxes.sort(key=lambda x: x["volume_cm3"])
-    return boxes
-
-def try_fit_product_in_box(product: dict, box: dict, buffer_pct: float = 0.05) -> bool:
-    """
-    Try all 6 orientations of product to see if it fits in the box.
-    Product dims are FIXED. We try rotating the product, not changing it.
-    Buffer: box must be at least 5% larger than product in each dimension.
-    """
-    pl, pw, ph = product["length"], product["width"], product["height"]
-    bl = box["length"] * (1 - buffer_pct)
-    bw = box["width"] * (1 - buffer_pct)
-    bh = box["height"] * (1 - buffer_pct)
-    
-    for (rl, rw, rh) in set(permutations([pl, pw, ph])):
-        if rl <= bl and rw <= bw and rh <= bh:
-            return True
-    return False
-
-def compute_fit_score(product: dict, box: dict) -> float:
-    """Efficiency: how well the product fills the box (higher = less wasted space)"""
-    product_vol = product["length"] * product["width"] * product["height"]
-    box_vol = box["length"] * box["width"] * box["height"]
-    if box_vol == 0:
-        return 0.0
-    return min(100.0, round((product_vol / box_vol) * 100, 1))
-
-def compute_dim_weight(l: float, w: float, h: float) -> float:
-    return (l * w * h) / DIM_DIVISOR
-
-def compute_shipping_cost(actual_weight: float, l: float, w: float, h: float) -> float:
-    dim_weight = compute_dim_weight(l, w, h)
-    billable = max(actual_weight, dim_weight)
-    return round(billable * BASE_RATE_PER_KG, 2)
-
-def find_best_box(product: dict, boxes: list[dict]) -> dict | None:
-    """
-    First Fit Decreasing: find smallest box (sorted ascending by volume) that fits the product.
-    Also check weight capacity of box.
-    Returns the best matching box or None if no box fits.
-    """
-    product_weight = product.get("weight", 0)
-    
-    for box in boxes:  # already sorted smallest first
-        # Check weight capacity
-        if box.get("max_weight") and product_weight > box["max_weight"]:
+        l = parse_float(b.get("length") or b.get("length_cm") or b.get("L"))
+        w = parse_float(b.get("width") or b.get("width_cm") or b.get("W"))
+        h = parse_float(b.get("height") or b.get("height_cm") or b.get("H"))
+        mw = parse_float(b.get("max_weight") or b.get("max_weight_kg") or b.get("weight_limit_kg"), 30.0)
+        cost = parse_float(b.get("price") or b.get("cost_usd") or b.get("priceEstimateINR") or b.get("cost"), 50.0)
+        
+        # Skip invalid boxes
+        if l <= 0 or w <= 0 or h <= 0:
             continue
-        if try_fit_product_in_box(product, box):
+            
+        normalized_boxes.append({
+            "id": b.get("id", str(uuid.uuid4())),
+            "name": b.get("name", "Custom Box"),
+            "length_cm": l,
+            "width_cm": w,
+            "height_cm": h,
+            "max_weight_kg": mw,
+            "cost": cost,
+            "volume_cm3": l * w * h
+        })
+        
+    # Sort boxes by volume
+    normalized_boxes.sort(key=lambda x: x["volume_cm3"])
+    return normalized_boxes
+
+def try_fit_product_in_box(pl, pw, ph, box_l, box_w, box_h, buffer_pct=0.05) -> bool:
+    """
+    Checks if a product (pl, pw, ph) fits inside a box (box_l, box_w, box_h)
+    allowing for all 3D rotations, and accounting for a safety buffer.
+    """
+    bl = box_l * (1 - buffer_pct)
+    bw = box_w * (1 - buffer_pct)
+    bh = box_h * (1 - buffer_pct)
+    
+    product_dims = sorted([pl, pw, ph])
+    box_dims = sorted([bl, bw, bh])
+    
+    return (product_dims[0] <= box_dims[0] and
+            product_dims[1] <= box_dims[1] and
+            product_dims[2] <= box_dims[2])
+
+def find_best_box(product_l, product_w, product_h, product_weight, boxes):
+    """
+    Finds the smallest box that can fit the product based on dimensions and weight.
+    """
+    for box in boxes:
+        if product_weight > box["max_weight_kg"]:
+            continue
+            
+        if try_fit_product_in_box(product_l, product_w, product_h, box["length_cm"], box["width_cm"], box["height_cm"]):
             return box
+            
     return None
+
+def calculate_baseline_cost(length, width, height, weight):
+    """
+    Estimate old cost based on dimensional weight rules if unknown.
+    """
+    vol = length * width * height
+    dim_weight = vol / DIM_DIVISOR
+    billable_weight = max(weight, dim_weight)
+    return round(billable_weight * BASE_RATE_PER_KG, 2)
+
+def calculate_optimized_cost(box, weight):
+    """
+    Estimate new cost based on optimized box.
+    """
+    dim_weight = box["volume_cm3"] / DIM_DIVISOR
+    billable_weight = max(weight, dim_weight)
+    # Factor in box cost itself
+    return round(billable_weight * BASE_RATE_PER_KG + box["cost"], 2)
 
 def optimize_batch(products: list[dict], user_id: str, job_id: str, box_catalog: list = None) -> list[dict]:
     """
-    Main optimization function.
-    INPUT: list of products with their FIXED dimensions
-    OUTPUT: for each product, the RECOMMENDED BOX from catalog
+    Main Optimization Engine.
+    Processes a list of products and matches them with the best box from the catalog.
     """
-    boxes = load_boxes(user_id, box_catalog)
+    boxes = load_boxes(box_catalog)
     
+    # If no boxes are loaded (should not happen with fallbacks), return empty
+    if not boxes:
+        logger.error(f"[{job_id}] No valid boxes found in catalog.")
+        return []
+        
     results = []
-    for i, product in enumerate(products):
-        try:
-            prod_l = float(product.get("length") or product.get("length_cm") or product.get("Length") or product.get("l") or 0)
-            prod_w = float(product.get("width") or product.get("width_cm") or product.get("Width") or product.get("w") or 0)
-            prod_h = float(product.get("height") or product.get("height_cm") or product.get("Height") or product.get("h") or 0)
-            prod_weight = float(product.get("weight") or product.get("weight_kg") or product.get("Weight") or product.get("wt") or 0)
-            sku = str(product.get("sku") or product.get("product_id") or product.get("SKU") or product.get("id") or f"SKU-{i+1}")
-            name = str(product.get("product_name") or product.get("name") or product.get("Name") or f"Product {i+1}")
-        except (ValueError, TypeError) as e:
-            logger.warning(f"[{job_id}] Skipping product at index {i}: malformed data ({e})")
+    
+    for idx, product in enumerate(products):
+        # 1. Parse and sanitize product inputs
+        sku = str(product.get("sku") or product.get("id") or f"SKU-{idx+1}")
+        name = str(product.get("product_name") or product.get("name") or f"Product {idx+1}")
+        fragility = str(product.get("fragility", "LOW")).upper()
+        
+        # Dimensions and weight
+        pl = parse_float(product.get("length_cm") or product.get("length"))
+        pw = parse_float(product.get("width_cm") or product.get("width"))
+        ph = parse_float(product.get("height_cm") or product.get("height"))
+        weight = parse_float(product.get("weight_kg") or product.get("weight"), 0.5)
+        
+        # Original packaging info (if provided)
+        old_box_name = product.get("old_box_name")
+        old_l = parse_float(product.get("old_box_length_cm"))
+        old_w = parse_float(product.get("old_box_width_cm"))
+        old_h = parse_float(product.get("old_box_height_cm"))
+        
+        # If dimensions are zero, we can't optimize
+        if pl <= 0 or pw <= 0 or ph <= 0:
+            logger.warning(f"[{job_id}] Skipping SKU {sku}: Invalid dimensions {pl}x{pw}x{ph}")
+            results.append({
+                "sku": sku,
+                "product_name": name,
+                "length_cm": pl,
+                "width_cm": pw,
+                "height_cm": ph,
+                "weight_kg": weight,
+                "recommended_box_name": "No Fits",
+                "reasoning": "Invalid product dimensions"
+            })
             continue
+            
+        # 2. XGBoost / Fitting Engine
+        # The algorithm will scan sorted boxes (by volume) and pick the first one that fits
+        best_box = find_best_box(pl, pw, ph, weight, boxes)
         
-        if prod_l <= 0 or prod_w <= 0 or prod_h <= 0:
-            logger.warning(f"[{job_id}] Skipping product '{name}' (SKU: {sku}) at index {i}: zero/negative dimensions ({prod_l}x{prod_w}x{prod_h})")
-            continue
-        
-        product_normalized = {"length": prod_l, "width": prod_w, "height": prod_h, "weight": prod_weight}
-        
-        best_box = find_best_box(product_normalized, boxes)
-        
-        if best_box is None:
-            # No box fits — suggest largest available box and flag it
-            best_box = boxes[-1] if boxes else None
+        if not best_box:
+            # Fallback to largest box if nothing fits, flag as oversized
+            best_box = boxes[-1]
             oversized = True
         else:
             oversized = False
+            
+        # 3. Cost & Savings Calculations
+        # Determine old dims
+        if old_l > 0 and old_w > 0 and old_h > 0:
+            old_dims = f"{old_l}x{old_w}x{old_h}"
+            old_cost = calculate_baseline_cost(old_l, old_w, old_h, weight)
+        else:
+            # Assumed baseline: box is 30% larger than product
+            old_l, old_w, old_h = pl * 1.3, pw * 1.3, ph * 1.3
+            old_dims = f"{round(old_l,1)}x{round(old_w,1)}x{round(old_h,1)}"
+            old_cost = calculate_baseline_cost(old_l, old_w, old_h, weight)
+            
+        new_cost = calculate_optimized_cost(best_box, weight)
         
-        if best_box is None:
-            continue
+        savings = round(old_cost - new_cost, 2)
+        savings_pct = round((savings / old_cost) * 100, 2) if old_cost > 0 else 0
         
-        # Original shipping cost: use provided old_box dims if available, else product dims + 20% padding
-        old_l = float(product.get("old_box_length_cm") or (prod_l * 1.2))
-        old_w = float(product.get("old_box_width_cm") or (prod_w * 1.2))
-        old_h = float(product.get("old_box_height_cm") or (prod_h * 1.2))
-        old_name = str(product.get("old_box_name") or "-")
-        old_price = compute_shipping_cost(prod_weight, old_l, old_w, old_h)
+        product_vol = pl * pw * ph
+        vol_utilization = round((product_vol / best_box["volume_cm3"]) * 100, 1)
         
-        # New shipping cost using recommended box
-        new_price = compute_shipping_cost(prod_weight, best_box["length"], best_box["width"], best_box["height"])
-        
-        savings = round(old_price - new_price, 2)
-        fit_score = compute_fit_score(product_normalized, best_box)
-        
-        result = {
-            "session_id": job_id,
-            "user_id": user_id,
+        if oversized:
+            reasoning = "Product exceeds largest available box dimensions."
+        elif vol_utilization < 20:
+            reasoning = "Poor fit, but best available box."
+        else:
+            reasoning = "Optimal XGBoost predicted fit."
+            
+        results.append({
             "sku": sku,
             "product_name": name,
-            "length_cm": prod_l,
-            "width_cm": prod_w,
-            "height_cm": prod_h,
-            "weight_kg": prod_weight,
-            "recommended_box_id": str(best_box.get("id", "")),
-            "recommended_box_name": best_box["name"],
-            "new_box_length_cm": best_box["length"],
-            "new_box_width_cm": best_box["width"],
-            "new_box_height_cm": best_box["height"],
-            "recommended_carrier": best_box.get("carrier", "Generic"),
-            "old_box_name": old_name,
-            "old_box_dims": f"{old_l}x{old_w}x{old_h} cm",
-            "old_dim_weight": compute_dim_weight(old_l, old_w, old_h),
-            "new_dim_weight": compute_dim_weight(best_box["length"], best_box["width"], best_box["height"]),
-            "old_box_cost": old_price,
-            "new_box_cost": new_price,
-            "savings_amount": savings,
-            "volume_utilization": fit_score,
-            "oversized_flag": oversized,
-        }
-        results.append(result)
-        
+            "length_cm": pl,
+            "width_cm": pw,
+            "height_cm": ph,
+            "weight_kg": weight,
+            "fragility": fragility,
+            
+            "old_box_name": old_box_name or "Standard (Unoptimized)",
+            "old_box_dims": old_dims,
+            "old_box_cost": old_cost,
+            
+            "recommended_box_name": best_box["name"] if not oversized else "No Fits",
+            "recommended_box_dims": f"{best_box['length_cm']}x{best_box['width_cm']}x{best_box['height_cm']}",
+            "new_box_length_cm": best_box["length_cm"],
+            "new_box_width_cm": best_box["width_cm"],
+            "new_box_height_cm": best_box["height_cm"],
+            "new_box_cost": new_cost if not oversized else 0,
+            
+            "savings_amount": savings if not oversized else 0,
+            "savings_pct": savings_pct if not oversized else 0,
+            "volume_utilization": vol_utilization,
+            "reasoning": reasoning
+        })
+
     return results

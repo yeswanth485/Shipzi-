@@ -2,94 +2,25 @@ import uuid
 import logging
 from fastapi import APIRouter, HTTPException, BackgroundTasks, Request
 from typing import List, Dict, Any
+
 from optimizer.ml_optimizer import optimize_batch
-from supabase import create_client
-import os
-import datetime
 
 logger = logging.getLogger(__name__)
+router = APIRouter()
 
-router = APIRouter(prefix="/optimize", tags=["optimization"])
-
-# In-memory store for background jobs (Use Redis/DB in production)
-TASKS: Dict[str, Dict[str, Any]] = {}
-
-supabase_url = os.environ.get("SUPABASE_URL", os.environ.get("NEXT_PUBLIC_SUPABASE_URL", ""))
-supabase_key = os.environ.get("SUPABASE_SERVICE_KEY", os.environ.get("NEXT_PUBLIC_SUPABASE_ANON_KEY", ""))
-
-supabase = None
-if supabase_url and supabase_key:
-    supabase = create_client(supabase_url, supabase_key)
-
-def process_optimization_background(job_id: str, products: list, user_id: str, box_catalog: list = None):
-    """Background task to run optimization and bulk insert results"""
-    inserted_count = 0
-    failed_chunks = 0
-    try:
-        # Run optimization
-        results = optimize_batch(products, user_id, job_id, box_catalog)
-
-        # Validate results before proceeding
-        if not results:
-            logger.warning(f"[{job_id}] optimize_batch returned empty results for {len(products)} products")
-            TASKS[job_id]["status"] = "complete"
-            TASKS[job_id]["processed_rows"] = 0
-            TASKS[job_id]["completed_at"] = datetime.datetime.now().isoformat()
-            TASKS[job_id]["warning"] = "Optimization produced 0 results — check product dimensions."
-            return
-
-        logger.info(f"[{job_id}] optimize_batch returned {len(results)} results for {len(products)} products")
-
-        # Insert to optimization_results in chunks of 100
-        if supabase:
-            total_chunks = (len(results) + 99) // 100
-            for i in range(0, len(results), 100):
-                chunk = results[i:i+100]
-                chunk_num = i // 100 + 1
-
-                # --- Insert optimization_results ---
-                try:
-                    supabase.table("optimization_results").insert(chunk).execute()
-                    inserted_count += len(chunk)
-                    logger.info(f"[{job_id}] Inserted optimization_results chunk {chunk_num}/{total_chunks} ({len(chunk)} rows)")
-                except Exception as e:
-                    failed_chunks += 1
-                    logger.error(f"[{job_id}] Failed optimization_results chunk {chunk_num}/{total_chunks}: {e}")
-
-                # --- Insert orders ---
-                orders_chunk = []
-                for r in chunk:
-                    orders_chunk.append({
-                        "user_id": user_id,
-                        "session_id": job_id,
-                        "product_name": r["product_name"],
-                        "sku": r["sku"],
-                        "status": "optimized"
-                    })
-                if orders_chunk:
-                    try:
-                        supabase.table("orders").insert(orders_chunk).execute()
-                        logger.info(f"[{job_id}] Inserted orders chunk {chunk_num}/{total_chunks} ({len(orders_chunk)} rows)")
-                    except Exception as e:
-                        logger.error(f"[{job_id}] Failed orders chunk {chunk_num}/{total_chunks}: {e}")
-        else:
-            logger.warning(f"[{job_id}] Supabase client not configured — skipping DB inserts")
-
-        TASKS[job_id]["status"] = "complete"
-        TASKS[job_id]["processed_rows"] = inserted_count
-        TASKS[job_id]["completed_at"] = datetime.datetime.now().isoformat()
-        if failed_chunks:
-            TASKS[job_id]["warning"] = f"{failed_chunks} chunk(s) failed to insert"
-        logger.info(f"[{job_id}] Job complete: {inserted_count}/{len(results)} rows inserted, {failed_chunks} chunk(s) failed")
-    except Exception as e:
-        logger.exception(f"[{job_id}] Fatal error in background task: {e}")
-        TASKS[job_id]["status"] = "error"
-        TASKS[job_id]["error_msg"] = str(e)
-
+# In-memory store for async jobs.
+# In a real production environment (like Render with multiple workers), 
+# this would be in Redis or Postgres so it can be shared across processes.
+# For simplicity and synchronous overrides, we will allow returning results directly.
+TASKS = {}
 
 @router.post("/")
-@router.post("/upload")
-async def optimize_upload(request: Request, background_tasks: BackgroundTasks):
+async def optimize_sync(request: Request):
+    """
+    Synchronous optimization route.
+    Best for deployments where polling fails across different Gunicorn workers.
+    Returns results directly instead of a task_id.
+    """
     body = await request.json()
     products = body.get('products', [])
     user_id = body.get('user_id', None)
@@ -97,62 +28,97 @@ async def optimize_upload(request: Request, background_tasks: BackgroundTasks):
     
     if not products:
         raise HTTPException(status_code=400, detail="Must provide products array.")
-    
+        
     job_id = str(uuid.uuid4())
-    logger.info(f"Received {len(products)} rows for optimization, job_id={job_id}")
+    logger.info(f"[{job_id}] Starting SYNC optimization for {len(products)} products (User: {user_id})")
+    
+    try:
+        results = optimize_batch(products, user_id, job_id, box_catalog)
+        
+        total_optimized = len([r for r in results if r.get("recommended_box_name") != "No Fits"])
+        total_savings = sum([r.get("savings_amount", 0) for r in results])
+        
+        return {
+            "status": "complete",
+            "job_id": job_id,
+            "total_processed": len(results),
+            "total_optimized": total_optimized,
+            "total_savings": total_savings,
+            "results": results
+        }
+    except Exception as e:
+        logger.exception(f"[{job_id}] SYNC optimization failed: {e}")
+        raise HTTPException(status_code=500, detail=str(e))
+
+@router.post("/upload")
+async def optimize_upload(request: Request, background_tasks: BackgroundTasks):
+    """
+    Asynchronous optimization route.
+    Returns a job_id for polling.
+    """
+    body = await request.json()
+    products = body.get('products', [])
+    user_id = body.get('user_id', None)
+    box_catalog = body.get('box_catalog', None)
+    
+    if not products:
+        raise HTTPException(status_code=400, detail="Must provide products array.")
+        
+    job_id = str(uuid.uuid4())
     
     TASKS[job_id] = {
-        "job_id": job_id,
         "status": "processing",
-        "total_rows": len(products),
-        "processed_rows": 0,
-        "created_at": datetime.datetime.now().isoformat()
+        "total": len(products),
+        "results": []
     }
     
+    # Run in background
     background_tasks.add_task(process_optimization_background, job_id, products, user_id, box_catalog)
     
     return {"job_id": job_id, "total_rows": len(products), "status": "processing"}
 
+def process_optimization_background(job_id: str, products: list, user_id: str, box_catalog: list = None):
+    """Background task wrapper."""
+    logger.info(f"[{job_id}] Starting ASYNC optimization for {len(products)} products")
+    try:
+        results = optimize_batch(products, user_id, job_id, box_catalog)
+        
+        if job_id in TASKS:
+            TASKS[job_id]["status"] = "complete"
+            TASKS[job_id]["results"] = results
+            
+        logger.info(f"[{job_id}] Optimization complete. {len(results)} items processed.")
+    except Exception as e:
+        logger.exception(f"[{job_id}] ASYNC optimization failed: {e}")
+        if job_id in TASKS:
+            TASKS[job_id]["status"] = "error"
 
 @router.get("/status/{job_id}")
 def status(job_id: str):
+    """Poll for async task status."""
+    task = TASKS.get(job_id)
+    if not task:
+        raise HTTPException(status_code=404, detail="Task ID not found. Note: In-memory tasks do not persist across multiple workers.")
+    return {"status": task["status"], "results": task.get("results", [])}
+
+@router.get("/results/{job_id}")
+def get_results(job_id: str, page: int = 1, per_page: int = 1000):
+    """Get async task results."""
     task = TASKS.get(job_id)
     if not task:
         raise HTTPException(status_code=404, detail="Task ID not found")
-    
-    progress_pct = 0
-    if task["total_rows"] > 0:
-        progress_pct = round((task["processed_rows"] / task["total_rows"]) * 100)
-    
-    return {
-        "job_id": task["job_id"],
-        "status": task["status"],
-        "total_rows": task["total_rows"],
-        "processed_rows": task["processed_rows"],
-        "progress_pct": progress_pct if task["status"] != "complete" else 100,
-        "error_msg": task.get("error_msg", ""),
-        "warning": task.get("warning", "")
-    }
-
-@router.get("/results/{job_id}")
-def get_results(job_id: str, page: int = 1, per_page: int = 50):
-    if not supabase:
-        raise HTTPException(status_code=500, detail="Supabase not configured")
-    
-    # Query optimization_results
+        
+    if task["status"] != "complete":
+        return {"status": task["status"], "results": []}
+        
     start_idx = (page - 1) * per_page
-    end_idx = start_idx + per_page - 1
+    end_idx = start_idx + per_page
     
-    # Get total count
-    count_res = supabase.table("optimization_results").select("id", count="exact").eq("session_id", job_id).execute()
-    total_count = count_res.count if count_res.count else 0
-    
-    res = supabase.table("optimization_results").select("*").eq("session_id", job_id).order("sku").range(start_idx, end_idx).execute()
+    paginated = task["results"][start_idx:end_idx]
     
     return {
-        "results": res.data,
-        "total_count": total_count,
+        "results": paginated,
         "page": page,
         "per_page": per_page,
-        "total_pages": (total_count + per_page - 1) // per_page
+        "total_count": len(task["results"])
     }

@@ -11,23 +11,7 @@ import { toast } from 'sonner'
 import { useOptimizationStore } from '@/lib/store/optimizationStore'
 import { Badge } from '@/components/ui/Badge'
 
-// Utility: Poll backend for async optimization completion
-async function pollForOptimizationResult(task_id: string, onProgress?: (pct: number, text?: string) => void): Promise<any> {
-  let attempts = 0
-  let lastStatus = ''
-  while (attempts < 100) {
-    const res = await fetch(`/api/optimize?task_id=${task_id}`)
-    const data = await res.json()
-    if (data.status === 'complete') return data
-    if (data.status !== lastStatus && onProgress) {
-      onProgress(50 + Math.min(attempts * 2, 40), `Still processing on server${data.status ? ': ' + data.status : ''}`)
-      lastStatus = data.status
-    }
-    await new Promise(r => setTimeout(r, 2500 + (attempts * 30)))
-    attempts++
-  }
-  throw new Error('Optimization job timed out')
-}
+// No polling needed - using synchronous Fast API endpoint.
 
 export default function OptimizePage() {
   const router = useRouter()
@@ -165,39 +149,12 @@ export default function OptimizePage() {
         return savedData.session_id
       }
 
-      if (responseData.task_id) {
-        // Handle async job: poll until results are ready
-        setProgress(70)
-        setProgressText('Processing batch on server...')
-        try {
-          const finalData = await pollForOptimizationResult(responseData.task_id, (pct, txt) => {
-            setProgress(pct); if (txt) setProgressText(txt)
-          })
-          
-          const sessionId = await saveOptimizationResults(finalData)
-          
-          setProgress(100)
-          setProgressText('Optimization Complete!')
-          setCurrentRun({ id: sessionId } as any)
-          setResults(finalData.results)
-          toast.success('Successfully optimized ' + (finalData.total_optimized ?? finalData.results?.length) + ' products')
-          setTimeout(() => {
-            setIsOptimizing(false)
-            router.push('/dashboard/orders')
-          }, 1500)
-          return
-        } catch (e: any) {
-          toast.error('Server failed: ' + (e.message || e.toString()))
-          setStep(2)
-          setIsOptimizing(false)
-          return
-        }
-      }
-
       if (!response.ok) {
         throw new Error(responseData.error || 'Optimization failed')
       }
 
+      setProgress(80)
+      setProgressText('Saving results to database...')
       const sessionId = await saveOptimizationResults(responseData)
 
       setProgress(100)
