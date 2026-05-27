@@ -135,7 +135,12 @@ export default function OrdersTable({ data }: OrdersTableProps = {}) {
                   <td className="px-6 py-4 text-zinc-400 text-sm">{dimsStr}</td>
                   <td className="px-6 py-4 text-zinc-400 text-sm">{row.weight || row.weightKg || row.weight_kg || 0} kg</td>
                   <td className="px-6 py-4 text-zinc-400 text-sm">{row.fragility || row.Fragility || 'Medium'}</td>
-                  <td className="px-6 py-4 text-zinc-400 text-sm">{row.baseline_box || row.originalBox || row.old_box_name || '-'}</td>
+                  <td className="px-6 py-4 text-zinc-400 text-sm">
+                    <div className="flex flex-col">
+                      <span>{row.baseline_box || row.originalBox || row.old_box_name || '-'}</span>
+                      {row.old_box_dims && <span className="text-[10px] text-zinc-600 mt-1 font-mono">{row.old_box_dims}</span>}
+                    </div>
+                  </td>
                   <td className="px-6 py-4 text-zinc-400 text-sm font-bold">₹{(row.baseline_cost || row.old_box_price || row.old_box_cost || 0).toFixed(2)}</td>
                   <td className="px-6 py-4 text-blue-400 text-sm font-bold">{row.optimized_box || row.optimizedBox || row.recommended_box_name || row.new_box_name || '-'}</td>
                   <td className="px-6 py-4 text-zinc-400 text-sm">{row.carrier || row.recommended_carrier || '-'}</td>

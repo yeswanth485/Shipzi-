@@ -131,9 +131,11 @@ def optimize_batch(products: list[dict], user_id: str, job_id: str) -> list[dict
         if best_box is None:
             continue
         
-        # Original shipping cost (using product dims as if shipped in a default generic box)
-        # Use product dims + 20% padding as the "old" box estimate
-        old_l, old_w, old_h = prod_l * 1.2, prod_w * 1.2, prod_h * 1.2
+        # Original shipping cost: use provided old_box dims if available, else product dims + 20% padding
+        old_l = float(product.get("old_box_length_cm") or (prod_l * 1.2))
+        old_w = float(product.get("old_box_width_cm") or (prod_w * 1.2))
+        old_h = float(product.get("old_box_height_cm") or (prod_h * 1.2))
+        old_name = str(product.get("old_box_name") or "-")
         old_price = compute_shipping_cost(prod_weight, old_l, old_w, old_h)
         
         # New shipping cost using recommended box
@@ -157,6 +159,8 @@ def optimize_batch(products: list[dict], user_id: str, job_id: str) -> list[dict
             "new_box_width_cm": best_box["width"],
             "new_box_height_cm": best_box["height"],
             "recommended_carrier": best_box.get("carrier", "Generic"),
+            "old_box_name": old_name,
+            "old_box_dims": f"{old_l}x{old_w}x{old_h} cm",
             "old_dim_weight": compute_dim_weight(old_l, old_w, old_h),
             "new_dim_weight": compute_dim_weight(best_box["length"], best_box["width"], best_box["height"]),
             "old_box_cost": old_price,

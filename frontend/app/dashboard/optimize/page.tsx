@@ -76,6 +76,11 @@ export default function OptimizePage() {
       const fragility = String(row.fragility || 'Medium')
       const quantity = parseInt(row.quantity || 1)
 
+      const old_box_length_cm = row.old_box_length_cm ? parseFloat(row.old_box_length_cm) : undefined
+      const old_box_width_cm = row.old_box_width_cm ? parseFloat(row.old_box_width_cm) : undefined
+      const old_box_height_cm = row.old_box_height_cm ? parseFloat(row.old_box_height_cm) : undefined
+      const old_box_name = row.old_box_name ? String(row.old_box_name) : undefined
+
       if (isNaN(length) || length <= 0) newErrors.push(`Row ${index + 1}: Invalid length_cm`)
       if (isNaN(width) || width <= 0) newErrors.push(`Row ${index + 1}: Invalid width_cm`)
       if (isNaN(height) || height <= 0) newErrors.push(`Row ${index + 1}: Invalid height_cm`)
@@ -90,7 +95,11 @@ export default function OptimizePage() {
         height_cm: height,
         weight_kg: weight,
         fragility,
-        quantity
+        quantity,
+        old_box_length_cm,
+        old_box_width_cm,
+        old_box_height_cm,
+        old_box_name
       }
     })
 
@@ -214,11 +223,11 @@ export default function OptimizePage() {
 
   const downloadTemplate = () => {
     const csv = Papa.unparse([
-      { sku: 'SKU-001', product_name: 'Wireless Mouse', length_cm: 12.5, width_cm: 8.2, height_cm: 4.5, weight_kg: 0.15, fragility: 'Low', quantity: 1 },
-      { sku: 'SKU-002', product_name: 'Ceramic Vase', length_cm: 20, width_cm: 20, height_cm: 35, weight_kg: 1.8, fragility: 'High', quantity: 1 },
-      { sku: 'SKU-003', product_name: 'Running Shoes', length_cm: 35, width_cm: 22, height_cm: 14, weight_kg: 0.8, fragility: 'Low', quantity: 1 },
-      { sku: 'SKU-004', product_name: 'Laptop Stand', length_cm: 40, width_cm: 30, height_cm: 8, weight_kg: 2.5, fragility: 'Medium', quantity: 1 },
-      { sku: 'SKU-005', product_name: 'Glass Photo Frame', length_cm: 28, width_cm: 22, height_cm: 3, weight_kg: 0.6, fragility: 'High', quantity: 2 },
+      { sku: 'SKU-001', product_name: 'Wireless Mouse', length_cm: 12.5, width_cm: 8.2, height_cm: 4.5, weight_kg: 0.15, fragility: 'Low', quantity: 1, old_box_name: 'Small Generic', old_box_length_cm: 15, old_box_width_cm: 10, old_box_height_cm: 6 },
+      { sku: 'SKU-002', product_name: 'Ceramic Vase', length_cm: 20, width_cm: 20, height_cm: 35, weight_kg: 1.8, fragility: 'High', quantity: 1, old_box_name: 'Medium Generic', old_box_length_cm: 25, old_box_width_cm: 25, old_box_height_cm: 40 },
+      { sku: 'SKU-003', product_name: 'Running Shoes', length_cm: 35, width_cm: 22, height_cm: 14, weight_kg: 0.8, fragility: 'Low', quantity: 1, old_box_name: 'Shoe Box', old_box_length_cm: 38, old_box_width_cm: 25, old_box_height_cm: 16 },
+      { sku: 'SKU-004', product_name: 'Laptop Stand', length_cm: 40, width_cm: 30, height_cm: 8, weight_kg: 2.5, fragility: 'Medium', quantity: 1, old_box_name: 'Large Mailer', old_box_length_cm: 45, old_box_width_cm: 35, old_box_height_cm: 10 },
+      { sku: 'SKU-005', product_name: 'Glass Photo Frame', length_cm: 28, width_cm: 22, height_cm: 3, weight_kg: 0.6, fragility: 'High', quantity: 2, old_box_name: 'Flat Box', old_box_length_cm: 32, old_box_width_cm: 26, old_box_height_cm: 5 },
     ])
     const blob = new Blob([csv], { type: 'text/csv' })
     const url = URL.createObjectURL(blob)
@@ -260,9 +269,15 @@ export default function OptimizePage() {
               <div className="text-center space-y-2">
                 <p className="text-xl font-bold text-white">Drop your CSV here or click to browse</p>
                 <p className="text-zinc-500">Support for large catalogs (up to 10,000 SKUs)</p>
-                <div className="mt-4 pt-4 border-t border-white/5">
-                  <p className="text-xs text-zinc-400 font-mono mb-1">Required Columns:</p>
-                  <p className="text-[10px] text-zinc-500 font-mono bg-black/20 p-2 rounded-lg border border-white/5 inline-block">sku, product_name, length_cm, width_cm, height_cm, weight_kg, fragility, quantity</p>
+                <div className="mt-4 pt-4 border-t border-white/5 space-y-2 text-left w-full">
+                  <div>
+                    <p className="text-xs text-zinc-400 font-mono mb-1">Required Columns:</p>
+                    <p className="text-[10px] text-zinc-500 font-mono bg-black/20 p-2 rounded-lg border border-white/5 inline-block w-full">sku, product_name, length_cm, width_cm, height_cm, weight_kg, fragility, quantity</p>
+                  </div>
+                  <div>
+                    <p className="text-xs text-zinc-400 font-mono mb-1">Optional Columns (for Box Comparison):</p>
+                    <p className="text-[10px] text-zinc-500 font-mono bg-black/20 p-2 rounded-lg border border-white/5 inline-block w-full">old_box_name, old_box_length_cm, old_box_width_cm, old_box_height_cm</p>
+                  </div>
                 </div>
               </div>
             </div>
