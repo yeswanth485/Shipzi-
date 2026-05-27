@@ -1,8 +1,11 @@
+import logging
 import pandas as pd
 import numpy as np
 from itertools import permutations
 from supabase import create_client
 import os
+
+logger = logging.getLogger(__name__)
 
 supabase_url = os.environ.get("SUPABASE_URL", os.environ.get("NEXT_PUBLIC_SUPABASE_URL", ""))
 supabase_key = os.environ.get("SUPABASE_SERVICE_KEY", os.environ.get("NEXT_PUBLIC_SUPABASE_ANON_KEY", ""))
@@ -34,7 +37,7 @@ def load_boxes(user_id: str) -> list[dict]:
         boxes.sort(key=lambda x: x["volume_cm3"])
         return boxes
     except Exception as e:
-        print("Error loading boxes from supabase:", e)
+        logger.error(f"Error loading boxes from supabase: {e}")
         return []
 
 def try_fit_product_in_box(product: dict, box: dict, buffer_pct: float = 0.05) -> bool:
@@ -111,11 +114,13 @@ def optimize_batch(products: list[dict], user_id: str, job_id: str) -> list[dict
             prod_weight = float(product.get("weight") or product.get("weight_kg") or product.get("Weight") or product.get("wt") or 0)
             sku = str(product.get("sku") or product.get("product_id") or product.get("SKU") or product.get("id") or f"SKU-{i+1}")
             name = str(product.get("product_name") or product.get("name") or product.get("Name") or f"Product {i+1}")
-        except (ValueError, TypeError):
-            continue  # skip malformed rows
+        except (ValueError, TypeError) as e:
+            logger.warning(f"[{job_id}] Skipping product at index {i}: malformed data ({e})")
+            continue
         
         if prod_l <= 0 or prod_w <= 0 or prod_h <= 0:
-            continue  # skip zero-dimension products
+            logger.warning(f"[{job_id}] Skipping product '{name}' (SKU: {sku}) at index {i}: zero/negative dimensions ({prod_l}x{prod_w}x{prod_h})")
+            continue
         
         product_normalized = {"length": prod_l, "width": prod_w, "height": prod_h, "weight": prod_weight}
         

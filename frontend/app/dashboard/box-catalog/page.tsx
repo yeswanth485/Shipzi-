@@ -189,7 +189,7 @@ export default function BoxCatalogPage() {
                 {/* 3D Viewer */}
                 <div className="relative h-48 bg-[#0A0F1E]/50 flex items-center justify-center overflow-hidden">
                   <div className="absolute inset-0 cursor-grab active:cursor-grabbing">
-                    <BoxViewer3D length={box.length_cm} width={box.width_cm} height={box.height_cm} />
+                    <BoxViewer3D key={`${box.id}-${activeTab}`} length={box.length_cm} width={box.width_cm} height={box.height_cm} />
                   </div>
                   <div className="absolute bottom-2 left-2 right-2 flex justify-between pointer-events-none">
                     <div className="bg-black/50 backdrop-blur-md rounded-lg px-2 py-1 flex flex-col items-center">

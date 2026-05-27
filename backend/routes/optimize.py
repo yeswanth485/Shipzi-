@@ -1,10 +1,13 @@
 import uuid
+import logging
 from fastapi import APIRouter, HTTPException, BackgroundTasks, Request
 from typing import List, Dict, Any
 from optimizer.ml_optimizer import optimize_batch
 from supabase import create_client
 import os
 import datetime
+
+logger = logging.getLogger(__name__)
 
 router = APIRouter(prefix="/optimize", tags=["optimization"])
 
@@ -20,17 +23,40 @@ if supabase_url and supabase_key:
 
 def process_optimization_background(job_id: str, products: list, user_id: str):
     """Background task to run optimization and bulk insert results"""
+    inserted_count = 0
+    failed_chunks = 0
     try:
         # Run optimization
         results = optimize_batch(products, user_id, job_id)
-        
+
+        # Validate results before proceeding
+        if not results:
+            logger.warning(f"[{job_id}] optimize_batch returned empty results for {len(products)} products")
+            TASKS[job_id]["status"] = "complete"
+            TASKS[job_id]["processed_rows"] = 0
+            TASKS[job_id]["completed_at"] = datetime.datetime.now().isoformat()
+            TASKS[job_id]["warning"] = "Optimization produced 0 results — check product dimensions."
+            return
+
+        logger.info(f"[{job_id}] optimize_batch returned {len(results)} results for {len(products)} products")
+
         # Insert to optimization_results in chunks of 100
         if supabase:
+            total_chunks = (len(results) + 99) // 100
             for i in range(0, len(results), 100):
                 chunk = results[i:i+100]
-                supabase.table("optimization_results").insert(chunk).execute()
-                
-                # Option to map and insert to orders table if needed
+                chunk_num = i // 100 + 1
+
+                # --- Insert optimization_results ---
+                try:
+                    supabase.table("optimization_results").insert(chunk).execute()
+                    inserted_count += len(chunk)
+                    logger.info(f"[{job_id}] Inserted optimization_results chunk {chunk_num}/{total_chunks} ({len(chunk)} rows)")
+                except Exception as e:
+                    failed_chunks += 1
+                    logger.error(f"[{job_id}] Failed optimization_results chunk {chunk_num}/{total_chunks}: {e}")
+
+                # --- Insert orders ---
                 orders_chunk = []
                 for r in chunk:
                     orders_chunk.append({
@@ -40,17 +66,23 @@ def process_optimization_background(job_id: str, products: list, user_id: str):
                         "sku": r["sku"],
                         "status": "optimized"
                     })
-                # We won't insert to orders directly here to avoid duplicate logic unless instructed 
-                # (The user prompt mentioned: B) Bulk insert ALL results to orders table).
-                # Wait, let's insert to orders.
                 if orders_chunk:
-                    supabase.table("orders").insert(orders_chunk).execute()
-        
+                    try:
+                        supabase.table("orders").insert(orders_chunk).execute()
+                        logger.info(f"[{job_id}] Inserted orders chunk {chunk_num}/{total_chunks} ({len(orders_chunk)} rows)")
+                    except Exception as e:
+                        logger.error(f"[{job_id}] Failed orders chunk {chunk_num}/{total_chunks}: {e}")
+        else:
+            logger.warning(f"[{job_id}] Supabase client not configured — skipping DB inserts")
+
         TASKS[job_id]["status"] = "complete"
-        TASKS[job_id]["processed_rows"] = len(results)
+        TASKS[job_id]["processed_rows"] = inserted_count
         TASKS[job_id]["completed_at"] = datetime.datetime.now().isoformat()
+        if failed_chunks:
+            TASKS[job_id]["warning"] = f"{failed_chunks} chunk(s) failed to insert"
+        logger.info(f"[{job_id}] Job complete: {inserted_count}/{len(results)} rows inserted, {failed_chunks} chunk(s) failed")
     except Exception as e:
-        print(f"Error in background task {job_id}: {e}")
+        logger.exception(f"[{job_id}] Fatal error in background task: {e}")
         TASKS[job_id]["status"] = "error"
         TASKS[job_id]["error_msg"] = str(e)
 
@@ -66,7 +98,7 @@ async def optimize_upload(request: Request, background_tasks: BackgroundTasks):
         raise HTTPException(status_code=400, detail="Must provide products array.")
     
     job_id = str(uuid.uuid4())
-    print(f"Received {len(products)} rows for optimization, job_id={job_id}")
+    logger.info(f"Received {len(products)} rows for optimization, job_id={job_id}")
     
     TASKS[job_id] = {
         "job_id": job_id,
@@ -97,7 +129,8 @@ def status(job_id: str):
         "total_rows": task["total_rows"],
         "processed_rows": task["processed_rows"],
         "progress_pct": progress_pct if task["status"] != "complete" else 100,
-        "error_msg": task.get("error_msg", "")
+        "error_msg": task.get("error_msg", ""),
+        "warning": task.get("warning", "")
     }
 
 @router.get("/results/{job_id}")

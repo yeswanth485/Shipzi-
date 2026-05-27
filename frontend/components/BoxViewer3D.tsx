@@ -51,7 +51,7 @@ function Loader() {
   )
 }
 
-export default function BoxViewer3D({ length, width, height }: BoxViewer3DProps) {
+export default React.memo(function BoxViewer3D({ length, width, height }: BoxViewer3DProps) {
   return (
     <div className="w-full h-full relative cursor-grab active:cursor-grabbing">
       <Suspense fallback={<Loader />}>
@@ -82,4 +82,4 @@ export default function BoxViewer3D({ length, width, height }: BoxViewer3DProps)
       </Suspense>
     </div>
   )
-}
+})
