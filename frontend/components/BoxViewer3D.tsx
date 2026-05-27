@@ -58,7 +58,7 @@ export default function BoxViewer3D({ length, width, height }: BoxViewer3DProps)
         <Canvas shadows camera={{ position: [5, 4, 5], fov: 45 }}>
           <ambientLight intensity={0.5} />
           <directionalLight position={[10, 10, 5]} intensity={1.5} castShadow />
-          <Environment preset="city" opacity={0.2} />
+          <Environment preset="city" />
           
           <BoxMesh length={length} width={width} height={height} />
           
