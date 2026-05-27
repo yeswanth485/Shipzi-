@@ -37,12 +37,11 @@ export async function POST(request: NextRequest) {
 
   try {
     let userId: string | undefined
-    let products: any[]
     let fileName = 'upload.csv'
 
     const body = await request.json()
     userId = body.userId
-    products = body.products ?? []
+    const products: any[] = body.products ?? []
     fileName = body.fileName || 'api_upload.json'
 
     if (!userId) {
