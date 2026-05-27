@@ -68,15 +68,14 @@ export default function OptimizePage() {
     const newErrors: string[] = []
     const validatedData = data.map((row, index) => {
       const sku = row.sku
-      const productName = row.product_name
-      const length = parseFloat(row.length_cm)
-      const width = parseFloat(row.width_cm)
-      const height = parseFloat(row.height_cm)
-      const weight = parseFloat(row.weight_kg)
-      const quantity = parseInt(row.quantity) || 1
+      const productName = String(row.product_name || row.Product_Name || row.name || `Product ${index + 1}`)
+      const length = parseFloat(row.length_cm || row.length)
+      const width = parseFloat(row.width_cm || row.width)
+      const height = parseFloat(row.height_cm || row.height)
+      const weight = parseFloat(row.weight_kg || row.weight)
+      const fragility = String(row.fragility || 'Medium')
+      const quantity = parseInt(row.quantity || 1)
 
-      if (!sku) newErrors.push(`Row ${index + 1}: Missing sku`)
-      if (!productName) newErrors.push(`Row ${index + 1}: Missing product_name`)
       if (isNaN(length) || length <= 0) newErrors.push(`Row ${index + 1}: Invalid length_cm`)
       if (isNaN(width) || width <= 0) newErrors.push(`Row ${index + 1}: Invalid width_cm`)
       if (isNaN(height) || height <= 0) newErrors.push(`Row ${index + 1}: Invalid height_cm`)
@@ -90,6 +89,7 @@ export default function OptimizePage() {
         width_cm: width,
         height_cm: height,
         weight_kg: weight,
+        fragility,
         quantity
       }
     })
@@ -214,11 +214,11 @@ export default function OptimizePage() {
 
   const downloadTemplate = () => {
     const csv = Papa.unparse([
-      { sku: 'SKU-001', product_name: 'Wireless Mouse', length_cm: 12.5, width_cm: 8.2, height_cm: 4.5, weight_kg: 0.15, quantity: 1 },
-      { sku: 'SKU-002', product_name: 'Ceramic Vase', length_cm: 20, width_cm: 20, height_cm: 35, weight_kg: 1.8, quantity: 1 },
-      { sku: 'SKU-003', product_name: 'Running Shoes', length_cm: 35, width_cm: 22, height_cm: 14, weight_kg: 0.8, quantity: 1 },
-      { sku: 'SKU-004', product_name: 'Laptop Stand', length_cm: 40, width_cm: 30, height_cm: 8, weight_kg: 2.5, quantity: 1 },
-      { sku: 'SKU-005', product_name: 'Glass Photo Frame', length_cm: 28, width_cm: 22, height_cm: 3, weight_kg: 0.6, quantity: 2 },
+      { sku: 'SKU-001', product_name: 'Wireless Mouse', length_cm: 12.5, width_cm: 8.2, height_cm: 4.5, weight_kg: 0.15, fragility: 'Low', quantity: 1 },
+      { sku: 'SKU-002', product_name: 'Ceramic Vase', length_cm: 20, width_cm: 20, height_cm: 35, weight_kg: 1.8, fragility: 'High', quantity: 1 },
+      { sku: 'SKU-003', product_name: 'Running Shoes', length_cm: 35, width_cm: 22, height_cm: 14, weight_kg: 0.8, fragility: 'Low', quantity: 1 },
+      { sku: 'SKU-004', product_name: 'Laptop Stand', length_cm: 40, width_cm: 30, height_cm: 8, weight_kg: 2.5, fragility: 'Medium', quantity: 1 },
+      { sku: 'SKU-005', product_name: 'Glass Photo Frame', length_cm: 28, width_cm: 22, height_cm: 3, weight_kg: 0.6, fragility: 'High', quantity: 2 },
     ])
     const blob = new Blob([csv], { type: 'text/csv' })
     const url = URL.createObjectURL(blob)
@@ -262,7 +262,7 @@ export default function OptimizePage() {
                 <p className="text-zinc-500">Support for large catalogs (up to 10,000 SKUs)</p>
                 <div className="mt-4 pt-4 border-t border-white/5">
                   <p className="text-xs text-zinc-400 font-mono mb-1">Required Columns:</p>
-                  <p className="text-[10px] text-zinc-500 font-mono bg-black/20 p-2 rounded-lg border border-white/5 inline-block">sku, product_name, length_cm, width_cm, height_cm, weight_kg, quantity</p>
+                  <p className="text-[10px] text-zinc-500 font-mono bg-black/20 p-2 rounded-lg border border-white/5 inline-block">sku, product_name, length_cm, width_cm, height_cm, weight_kg, fragility, quantity</p>
                 </div>
               </div>
             </div>
@@ -348,20 +348,37 @@ export default function OptimizePage() {
                       <th className="px-6 py-4 text-[10px] font-black uppercase tracking-widest text-zinc-500">Fragility</th>
                     </tr>
                   </thead>
-                   <tbody className="divide-y divide-white/5">
-                     {parsedData.slice(0, 10).map((row, i) => (
-                       <tr key={i} className="hover:bg-white/[0.02] transition-colors">
-                         <td className="px-6 py-4 text-white font-medium">{row.product_name}</td>
-                         <td className="px-6 py-4 text-zinc-400">{row.length_cm}x{row.width_cm}x{row.height_cm} cm</td>
-                         <td className="px-6 py-4 text-zinc-400">{row.weight_kg} kg</td>
-                         <td className="px-6 py-4">
-                           <Badge variant="green">
-                             Standard
-                           </Badge>
-                         </td>
-                       </tr>
-                     ))}
-                   </tbody>
+                  <tbody>
+                    {parsedData.slice(0, 5).map((row, i) => (
+                      <tr key={i} className="border-t border-white/5 group hover:bg-white/[0.02]">
+                        <td className="px-6 py-4">
+                          <div className="flex flex-col">
+                            <span className="font-bold text-white group-hover:text-blue-400 transition-colors">{row.product_name}</span>
+                            <span className="text-[10px] text-zinc-500 font-mono mt-1">{row.sku}</span>
+                          </div>
+                        </td>
+                        <td className="px-6 py-4">
+                          <div className="flex items-center gap-2">
+                            <span className="px-2 py-1 bg-white/5 rounded-md text-xs font-mono text-zinc-300">
+                              {row.length_cm} × {row.width_cm} × {row.height_cm} cm
+                            </span>
+                          </div>
+                        </td>
+                        <td className="px-6 py-4">
+                          <span className="text-sm text-zinc-300">{row.weight_kg} kg</span>
+                        </td>
+                        <td className="px-6 py-4">
+                          <span className={`text-xs px-2 py-1 rounded-md ${
+                            row.fragility === 'High' ? 'bg-red-500/10 text-red-400' :
+                            row.fragility === 'Low' ? 'bg-emerald-500/10 text-emerald-400' :
+                            'bg-yellow-500/10 text-yellow-400'
+                          }`}>
+                            {row.fragility || 'Medium'}
+                          </span>
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
                 </table>
               </div>
               {parsedData.length > 10 && (

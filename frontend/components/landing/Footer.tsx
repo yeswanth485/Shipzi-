@@ -2,8 +2,11 @@
 
 import Link from 'next/link'
 import Image from 'next/image'
+import { useAuth } from '@/hooks/useAuth'
 
 export default function Footer() {
+  const { user, profile } = useAuth()
+  
   return (
     <footer className="px-6 py-20 bg-[#0A0F1E] border-t border-white/5">
       <div className="max-w-7xl mx-auto space-y-20">
@@ -27,7 +30,14 @@ export default function Footer() {
               <li><Link href="#features" className="hover:text-blue-400 transition-colors">Features</Link></li>
               <li><Link href="#how-it-works" className="hover:text-blue-400 transition-colors">How It Works</Link></li>
               <li><Link href="#pricing" className="hover:text-blue-400 transition-colors">Pricing</Link></li>
-              <li><Link href="/dashboard" className="hover:text-blue-400 transition-colors">Dashboard</Link></li>
+              {user ? (
+                <li><Link href={profile?.onboarding_complete ? "/dashboard" : "/onboarding"} className="hover:text-blue-400 transition-colors">Dashboard</Link></li>
+              ) : (
+                <>
+                  <li><Link href="/auth/login" className="hover:text-blue-400 transition-colors">Login</Link></li>
+                  <li><Link href="/auth/signup" className="hover:text-blue-400 transition-colors">Sign Up</Link></li>
+                </>
+              )}
             </ul>
           </div>
 

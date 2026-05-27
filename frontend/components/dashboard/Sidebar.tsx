@@ -65,7 +65,7 @@ export default function Sidebar({ isCollapsed, setIsCollapsed, profile }: any) {
     <motion.aside 
       animate={{ width: isCollapsed ? 60 : 240 }}
       transition={{ duration: 0.3, ease: 'easeInOut' }}
-      className="fixed left-0 top-0 h-full bg-[#0A0A0F] border-r border-white/5 flex flex-col z-40"
+      className="fixed left-0 top-0 h-full bg-[#0A0A0F] border-r border-white/5 hidden md:flex flex-col z-40"
     >
       {/* Logo & Toggle */}
       <div className="flex items-center justify-between p-4 border-b border-white/5 h-[72px]">

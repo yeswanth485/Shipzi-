@@ -2,6 +2,7 @@ import { redirect } from 'next/navigation'
 import { createClient } from '@/lib/supabase/server'
 import { DashboardProvider } from '@/lib/context/DashboardContext'
 import DashboardLayoutClient from '@/components/dashboard/DashboardLayoutClient'
+import QueryProvider from '@/components/providers/QueryProvider'
 
 export default async function DashboardLayout({ children }: { children: React.ReactNode }) {
   const supabase = await createClient()
@@ -44,10 +45,12 @@ export default async function DashboardLayout({ children }: { children: React.Re
   }
 
   return (
-    <DashboardProvider>
-      <DashboardLayoutClient profile={profile}>
-        {children}
-      </DashboardLayoutClient>
-    </DashboardProvider>
+    <QueryProvider>
+      <DashboardProvider>
+        <DashboardLayoutClient profile={profile}>
+          {children}
+        </DashboardLayoutClient>
+      </DashboardProvider>
+    </QueryProvider>
   )
 }

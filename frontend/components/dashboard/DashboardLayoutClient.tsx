@@ -19,7 +19,7 @@ export default function DashboardLayoutClient({ children, profile }: DashboardLa
       <Sidebar isCollapsed={isCollapsed} setIsCollapsed={setIsCollapsed} profile={profile} />
       
       <main 
-        className={`flex-1 relative transition-all duration-300 w-full overflow-hidden ${isCollapsed ? 'pl-[60px]' : 'pl-[240px]'}`}
+        className={`flex-1 relative transition-all duration-300 w-full overflow-hidden ${isCollapsed ? 'md:pl-[60px]' : 'md:pl-[240px]'} pl-0`}
       >
         {/* Background Ambient Glows */}
         <div className="fixed top-0 right-0 w-[600px] h-[600px] bg-[#00FFD1]/5 blur-[150px] rounded-full pointer-events-none" />

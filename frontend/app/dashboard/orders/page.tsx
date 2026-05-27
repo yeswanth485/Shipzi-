@@ -58,8 +58,10 @@ export default function OrdersPage() {
       </div>
 
       {isLoading ? (
-        <div className="flex items-center justify-center py-32">
-          <Loader2 className="w-8 h-8 text-blue-500 animate-spin" />
+        <div className="space-y-4">
+          <div className="h-24 bg-white/[0.02] border border-white/5 rounded-3xl animate-pulse" />
+          <div className="h-24 bg-white/[0.02] border border-white/5 rounded-3xl animate-pulse" />
+          <div className="h-24 bg-white/[0.02] border border-white/5 rounded-3xl animate-pulse" />
         </div>
       ) : !runs || runs.length === 0 ? (
         <div className="flex flex-col items-center justify-center py-32 space-y-8 bg-white/[0.02] border border-white/5 rounded-[40px] border-dashed">

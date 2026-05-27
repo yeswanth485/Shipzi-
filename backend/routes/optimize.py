@@ -1,104 +1,124 @@
 import uuid
 from fastapi import APIRouter, HTTPException, BackgroundTasks, Request
-from models.schemas import OptimizationInput, OptimizationResponse, BoxSpec
-from engine.xgboost_engine import run_xgboost_optimization
 from typing import List, Dict, Any
-from fastapi.responses import JSONResponse
-import threading
+from optimizer.ml_optimizer import optimize_batch
+from supabase import create_client
+import os
+import datetime
 
 router = APIRouter(prefix="/optimize", tags=["optimization"])
 
-# In-memory store for demo background jobs (should use Redis/DB in prod)
+# In-memory store for background jobs (Use Redis/DB in production)
 TASKS: Dict[str, Dict[str, Any]] = {}
 
+supabase_url = os.environ.get("SUPABASE_URL", os.environ.get("NEXT_PUBLIC_SUPABASE_URL", ""))
+supabase_key = os.environ.get("SUPABASE_SERVICE_KEY", os.environ.get("NEXT_PUBLIC_SUPABASE_ANON_KEY", ""))
+
+supabase = None
+if supabase_url and supabase_key:
+    supabase = create_client(supabase_url, supabase_key)
+
+def process_optimization_background(job_id: str, products: list, user_id: str):
+    """Background task to run optimization and bulk insert results"""
+    try:
+        # Run optimization
+        results = optimize_batch(products, user_id, job_id)
+        
+        # Insert to optimization_results in chunks of 100
+        if supabase:
+            for i in range(0, len(results), 100):
+                chunk = results[i:i+100]
+                supabase.table("optimization_results").insert(chunk).execute()
+                
+                # Option to map and insert to orders table if needed
+                orders_chunk = []
+                for r in chunk:
+                    orders_chunk.append({
+                        "user_id": user_id,
+                        "session_id": job_id,
+                        "product_name": r["product_name"],
+                        "sku": r["sku"],
+                        "status": "optimized"
+                    })
+                # We won't insert to orders directly here to avoid duplicate logic unless instructed 
+                # (The user prompt mentioned: B) Bulk insert ALL results to orders table).
+                # Wait, let's insert to orders.
+                if orders_chunk:
+                    supabase.table("orders").insert(orders_chunk).execute()
+        
+        TASKS[job_id]["status"] = "complete"
+        TASKS[job_id]["processed_rows"] = len(results)
+        TASKS[job_id]["completed_at"] = datetime.datetime.now().isoformat()
+    except Exception as e:
+        print(f"Error in background task {job_id}: {e}")
+        TASKS[job_id]["status"] = "error"
+        TASKS[job_id]["error_msg"] = str(e)
+
+
 @router.post("/")
-async def optimize_batch(request: Request, background_tasks: BackgroundTasks):
+@router.post("/upload")
+async def optimize_upload(request: Request, background_tasks: BackgroundTasks):
     body = await request.json()
     products = body.get('products', [])
-    box_catalog = body.get('box_catalog', [])
     user_id = body.get('user_id', None)
-    file_name = body.get('file_name', '')
-    N = len(products)
-    if not products or not box_catalog:
-        raise HTTPException(status_code=400, detail="Must provide both products and box_catalog arrays.")
+    
+    if not products:
+        raise HTTPException(status_code=400, detail="Must provide products array.")
+    
+    job_id = str(uuid.uuid4())
+    print(f"Received {len(products)} rows for optimization, job_id={job_id}")
+    
+    TASKS[job_id] = {
+        "job_id": job_id,
+        "status": "processing",
+        "total_rows": len(products),
+        "processed_rows": 0,
+        "created_at": datetime.datetime.now().isoformat()
+    }
+    
+    background_tasks.add_task(process_optimization_background, job_id, products, user_id)
+    
+    return {"job_id": job_id, "total_rows": len(products), "status": "processing"}
 
-    def build_opt_input(product, box_catalog):
-        available_boxes = []
-        for idx, box in enumerate(box_catalog):
-            box_id = box.get("id") or box.get("box_id") or f"box-{idx}"
-            box_name = box.get("name") or box.get("box_name") or "Custom Box"
-            box_sku = box.get("sku") or box.get("box_sku") or f"BX-{idx}"
-            length_cm = float(box.get("length_cm") or box.get("L") or 0)
-            width_cm = float(box.get("width_cm") or box.get("W") or 0)
-            height_cm = float(box.get("height_cm") or box.get("H") or 0)
-            max_weight_kg = float(box.get("max_weight_kg") or box.get("maxWeightKg") or box.get("weight_limit_kg") or 30)
-            cost_usd = float(box.get("cost_usd") or box.get("cost") or box.get("priceEstimateINR") or 0)
-            
-            available_boxes.append(BoxSpec(
-                id=str(box_id),
-                name=str(box_name),
-                sku=str(box_sku),
-                length_cm=length_cm,
-                width_cm=width_cm,
-                height_cm=height_cm,
-                max_weight_kg=max_weight_kg,
-                cost_usd=cost_usd
-            ))
 
-        return OptimizationInput(
-            product_name=product.get('product_name', ''),
-            product_id=product.get('sku', ''),
-            length_cm=product.get('length_cm', 0),
-            width_cm=product.get('width_cm', 0),
-            height_cm=product.get('height_cm', 0),
-            weight_kg=product.get('weight_kg', 0),
-            fragility=product.get('fragility', 'low').lower(),
-            quantity=product.get('quantity', 1),
-            category=product.get('category', 'general'),
-            destination_zone=product.get('zone', 2),
-            shipping_method=product.get('shipping_method', 'standard'),
-            available_boxes=available_boxes,
-        )
-
-    def run_batch_and_store(task_id, batch: List[Dict[str, Any]], box_catalog):
-        results = []
-        for product in batch:
-            try:
-                opt_input = build_opt_input(product, box_catalog)
-                result = run_xgboost_optimization(opt_input)
-                res_dict = result.model_dump()
-                res_dict["sku"] = product.get('sku') or product.get('product_id')
-                res_dict["product_name"] = product.get('product_name')
-                results.append(res_dict)
-            except Exception as e:
-                results.append({"sku": product.get('sku'), "error": str(e)})
-        TASKS[task_id] = {"status": "complete", "results": results}
-
-    # For large workloads, run background
-    if N > 200:
-        tid = str(uuid.uuid4())
-        TASKS[tid] = {"status": "processing", "results": None}
-        thread = threading.Thread(target=run_batch_and_store, args=(tid, products, box_catalog), daemon=True)
-        thread.start()
-        return {"task_id": tid, "status": "pending"}
-
-    # Otherwise, process synchronously
-    results = []
-    for product in products:
-        try:
-            opt_input = build_opt_input(product, box_catalog)
-            result = run_xgboost_optimization(opt_input)
-            res_dict = result.model_dump()
-            res_dict["sku"] = product.get('sku') or product.get('product_id')
-            res_dict["product_name"] = product.get('product_name')
-            results.append(res_dict)
-        except Exception as e:
-            results.append({"sku": product.get('sku'), "error": str(e)})
-    return {"results": results, "status": "complete"}
-
-@router.get("/status/{task_id}")
-def status(task_id: str):
-    task = TASKS.get(task_id)
+@router.get("/status/{job_id}")
+def status(job_id: str):
+    task = TASKS.get(job_id)
     if not task:
         raise HTTPException(status_code=404, detail="Task ID not found")
-    return task
+    
+    progress_pct = 0
+    if task["total_rows"] > 0:
+        progress_pct = round((task["processed_rows"] / task["total_rows"]) * 100)
+    
+    return {
+        "job_id": task["job_id"],
+        "status": task["status"],
+        "total_rows": task["total_rows"],
+        "processed_rows": task["processed_rows"],
+        "progress_pct": progress_pct if task["status"] != "complete" else 100,
+        "error_msg": task.get("error_msg", "")
+    }
+
+@router.get("/results/{job_id}")
+def get_results(job_id: str, page: int = 1, per_page: int = 50):
+    if not supabase:
+        raise HTTPException(status_code=500, detail="Supabase not configured")
+    
+    # Query optimization_results
+    start_idx = (page - 1) * per_page
+    end_idx = start_idx + per_page - 1
+    
+    # Get total count
+    count_res = supabase.table("optimization_results").select("id", count="exact").eq("session_id", job_id).execute()
+    total_count = count_res.count if count_res.count else 0
+    
+    res = supabase.table("optimization_results").select("*").eq("session_id", job_id).order("sku").range(start_idx, end_idx).execute()
+    
+    return {
+        "results": res.data,
+        "total_count": total_count,
+        "page": page,
+        "per_page": per_page,
+        "total_pages": (total_count + per_page - 1) // per_page
+    }

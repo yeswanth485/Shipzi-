@@ -95,6 +95,7 @@ export default function OrdersTable({ data }: OrdersTableProps = {}) {
                 <th className="px-6 py-5 text-[10px] font-black uppercase tracking-widest text-zinc-500 cursor-pointer" onClick={() => handleSort('weight')}>
                   Weight <ArrowUpDown className="w-3 h-3 inline ml-1" />
                 </th>
+                <th className="px-6 py-5 text-[10px] font-black uppercase tracking-widest text-zinc-500">Fragility</th>
                 <th className="px-6 py-5 text-[10px] font-black uppercase tracking-widest text-zinc-500">Old Box</th>
                 <th className="px-6 py-5 text-[10px] font-black uppercase tracking-widest text-zinc-500 cursor-pointer" onClick={() => handleSort('baseline_cost')}>
                   Old Price <ArrowUpDown className="w-3 h-3 inline ml-1" />
@@ -133,6 +134,7 @@ export default function OrdersTable({ data }: OrdersTableProps = {}) {
                   </td>
                   <td className="px-6 py-4 text-zinc-400 text-sm">{dimsStr}</td>
                   <td className="px-6 py-4 text-zinc-400 text-sm">{row.weight || row.weightKg || row.weight_kg || 0} kg</td>
+                  <td className="px-6 py-4 text-zinc-400 text-sm">{row.fragility || row.Fragility || 'Medium'}</td>
                   <td className="px-6 py-4 text-zinc-400 text-sm">{row.baseline_box || row.originalBox || row.old_box_name || '-'}</td>
                   <td className="px-6 py-4 text-zinc-400 text-sm font-bold">₹{(row.baseline_cost || row.old_box_price || row.old_box_cost || 0).toFixed(2)}</td>
                   <td className="px-6 py-4 text-blue-400 text-sm font-bold">{row.optimized_box || row.optimizedBox || row.recommended_box_name || row.new_box_name || '-'}</td>
