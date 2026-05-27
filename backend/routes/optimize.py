@@ -21,13 +21,13 @@ supabase = None
 if supabase_url and supabase_key:
     supabase = create_client(supabase_url, supabase_key)
 
-def process_optimization_background(job_id: str, products: list, user_id: str):
+def process_optimization_background(job_id: str, products: list, user_id: str, box_catalog: list = None):
     """Background task to run optimization and bulk insert results"""
     inserted_count = 0
     failed_chunks = 0
     try:
         # Run optimization
-        results = optimize_batch(products, user_id, job_id)
+        results = optimize_batch(products, user_id, job_id, box_catalog)
 
         # Validate results before proceeding
         if not results:
@@ -93,6 +93,7 @@ async def optimize_upload(request: Request, background_tasks: BackgroundTasks):
     body = await request.json()
     products = body.get('products', [])
     user_id = body.get('user_id', None)
+    box_catalog = body.get('box_catalog', None)
     
     if not products:
         raise HTTPException(status_code=400, detail="Must provide products array.")
@@ -108,7 +109,7 @@ async def optimize_upload(request: Request, background_tasks: BackgroundTasks):
         "created_at": datetime.datetime.now().isoformat()
     }
     
-    background_tasks.add_task(process_optimization_background, job_id, products, user_id)
+    background_tasks.add_task(process_optimization_background, job_id, products, user_id, box_catalog)
     
     return {"job_id": job_id, "total_rows": len(products), "status": "processing"}
 

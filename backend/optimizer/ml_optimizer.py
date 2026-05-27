@@ -18,27 +18,40 @@ else:
 DIM_DIVISOR = 5000  # India standard (cm³/kg)
 BASE_RATE_PER_KG = 50  # ₹ per kg — configurable
 
-def load_boxes(user_id: str) -> list[dict]:
+def load_boxes(user_id: str, provided_boxes: list = None) -> list[dict]:
     """Load active boxes from catalog: global system boxes + user custom boxes"""
-    if not supabase:
-        return []
-    
-    try:
+    boxes = []
+    if provided_boxes:
+        boxes = provided_boxes
+    elif supabase:
         if user_id:
             result = supabase.table("box_catalog").select("*").eq("is_active", True).or_(
                 f"user_id.is.null,user_id.eq.{user_id}"
             ).order("volume_cm3", ascending=True).execute()
-        else:
-            result = supabase.table("box_catalog").select("*").eq("is_active", True).is_("user_id", "null").order("volume_cm3", ascending=True).execute()
-        boxes = result.data
-        # Pre-compute volume for sorting
-        for b in boxes:
-            b["volume_cm3"] = b.get("length", 0) * b.get("width", 0) * b.get("height", 0)
-        boxes.sort(key=lambda x: x["volume_cm3"])
-        return boxes
-    except Exception as e:
-        logger.error(f"Error loading boxes from supabase: {e}")
-        return []
+            else:
+                result = supabase.table("box_catalog").select("*").eq("is_active", True).is_("user_id", "null").order("volume_cm3", ascending=True).execute()
+            boxes = result.data
+        except Exception as e:
+            logger.error(f"Error loading boxes from supabase: {e}")
+
+    # Fallback if catalog is empty or fails
+    if not boxes:
+        boxes = [
+            {"id": "sys-1", "name": "Standard Small", "length": 20, "width": 15, "height": 10, "carrier": "Generic", "max_weight": 5},
+            {"id": "sys-2", "name": "Standard Medium", "length": 30, "width": 25, "height": 15, "carrier": "Generic", "max_weight": 10},
+            {"id": "sys-3", "name": "Standard Large", "length": 50, "width": 40, "height": 30, "carrier": "Generic", "max_weight": 20}
+        ]
+
+    # Pre-compute volume for sorting and normalize dimensions
+    for b in boxes:
+        b["length"] = b.get("length") or b.get("length_cm") or 0
+        b["width"] = b.get("width") or b.get("width_cm") or 0
+        b["height"] = b.get("height") or b.get("height_cm") or 0
+        b["max_weight"] = b.get("max_weight") or b.get("max_weight_kg") or b.get("weight_limit_kg") or 30
+        b["volume_cm3"] = b["length"] * b["width"] * b["height"]
+    
+    boxes.sort(key=lambda x: x["volume_cm3"])
+    return boxes
 
 def try_fit_product_in_box(product: dict, box: dict, buffer_pct: float = 0.05) -> bool:
     """
@@ -88,22 +101,13 @@ def find_best_box(product: dict, boxes: list[dict]) -> dict | None:
             return box
     return None
 
-def optimize_batch(products: list[dict], user_id: str, job_id: str) -> list[dict]:
+def optimize_batch(products: list[dict], user_id: str, job_id: str, box_catalog: list = None) -> list[dict]:
     """
     Main optimization function.
     INPUT: list of products with their FIXED dimensions
     OUTPUT: for each product, the RECOMMENDED BOX from catalog
     """
-    boxes = load_boxes(user_id)
-    if not boxes:
-        # fallback if catalog is empty or fails
-        boxes = [
-            {"id": "sys-1", "name": "Standard Small", "length": 20, "width": 15, "height": 10, "carrier": "Generic"},
-            {"id": "sys-2", "name": "Standard Medium", "length": 30, "width": 25, "height": 15, "carrier": "Generic"},
-            {"id": "sys-3", "name": "Standard Large", "length": 50, "width": 40, "height": 30, "carrier": "Generic"}
-        ]
-        for b in boxes:
-            b["volume_cm3"] = b["length"] * b["width"] * b["height"]
+    boxes = load_boxes(user_id, box_catalog)
     
     results = []
     for i, product in enumerate(products):
