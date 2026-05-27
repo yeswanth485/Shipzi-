@@ -80,7 +80,7 @@ export async function middleware(request: NextRequest) {
     }
 
     // Redirect authenticated users away from auth pages and the landing page, EXCEPT for callback
-    if (pathname === '/' || (pathname.startsWith('/auth') && !pathname.startsWith('/auth/callback'))) {
+    if (pathname.startsWith('/auth') && !pathname.startsWith('/auth/callback')) {
       const url = request.nextUrl.clone()
       url.pathname = onboardingDone ? '/dashboard' : '/onboarding'
       return NextResponse.redirect(url)
