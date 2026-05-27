@@ -1,0 +1,1180 @@
+{
+  "communities": {
+    "0": [
+      "any",
+      "backend_engine_advanced_scorer_py",
+      "backend_engine_advanced_scorer_py_bool",
+      "backend_engine_advanced_scorer_py_boxspec",
+      "backend_engine_advanced_scorer_py_float",
+      "backend_engine_advanced_scorer_py_int",
+      "backend_engine_advanced_scorer_py_optimizationinput",
+      "backend_engine_advanced_scorer_py_optimizationresponse",
+      "backend_engine_advanced_scorer_py_str",
+      "backend_engine_heuristic_py",
+      "backend_engine_heuristic_py_bool",
+      "backend_engine_heuristic_py_boxspec",
+      "backend_engine_heuristic_py_float",
+      "backend_engine_heuristic_py_int",
+      "backend_engine_heuristic_py_optimizationinput",
+      "backend_engine_heuristic_py_optimizationresponse",
+      "backend_engine_heuristic_py_str",
+      "backend_engine_xgboost_engine_py",
+      "backend_engine_xgboost_engine_py_float",
+      "backend_engine_xgboost_engine_py_optimizationinput",
+      "backend_engine_xgboost_engine_py_optimizationresponse",
+      "backend_engine_xgboost_engine_py_str",
+      "backend_models_schemas_py",
+      "backend_routes_optimize_py",
+      "backend_routes_optimize_py_request",
+      "backend_routes_optimize_py_str",
+      "backgroundtasks",
+      "basemodel",
+      "engine_advanced_scorer_calculate_billable_weight",
+      "engine_advanced_scorer_calculate_damage_risk_penalty",
+      "engine_advanced_scorer_calculate_dimensional_weight",
+      "engine_advanced_scorer_calculate_empty_space_ratio",
+      "engine_advanced_scorer_calculate_material_cost_penalty",
+      "engine_advanced_scorer_calculate_shipping_cost_estimate",
+      "engine_advanced_scorer_calculate_sustainability_score",
+      "engine_advanced_scorer_check_all_orientations",
+      "engine_advanced_scorer_get_base_rate",
+      "engine_advanced_scorer_run_advanced_optimization",
+      "engine_heuristic_calculate_dim_weight",
+      "engine_heuristic_calculate_shipping_cost",
+      "engine_heuristic_calculate_sustainability_score",
+      "engine_heuristic_get_base_rate",
+      "engine_heuristic_product_fits",
+      "engine_heuristic_run_heuristic_optimization",
+      "engine_xgboost_engine_rationale_22",
+      "engine_xgboost_engine_run_xgboost_optimization",
+      "engine_xgboost_engine_xgboostoptimizer",
+      "engine_xgboost_engine_xgboostoptimizer_init",
+      "engine_xgboost_engine_xgboostoptimizer_predict_score",
+      "models_schemas_alternativebox",
+      "models_schemas_boxspec",
+      "models_schemas_optimizationinput",
+      "models_schemas_optimizationresponse",
+      "models_schemas_scorebreakdown",
+      "routes_optimize_optimize_batch",
+      "routes_optimize_status"
+    ],
+    "1": [
+      "3d_page_threedpage",
+      "analytics_page_analyticspage",
+      "analytics_page_savingsdistributionchart",
+      "analytics_page_savingslinechart",
+      "analytics_page_skucomparisonchart",
+      "analytics_page_spaceutilizationscatter",
+      "charts_co2areachart_co2areachart",
+      "charts_savingsdistributionchart_savingsdistributionchart",
+      "charts_savingslinechart_savingslinechart",
+      "charts_skucomparisonchart_skucomparisonchart",
+      "charts_spaceutilizationscatter_spaceutilizationscatter",
+      "dashboard_companyheader_companyheader",
+      "dashboard_dashboardclient_carrierdistributiondonut",
+      "dashboard_dashboardclient_dashboardclient",
+      "dashboard_dashboardclient_successrateareachart",
+      "dashboard_dashboardclient_totalsavedbarchart",
+      "dashboard_dashboardclient_voidpercentagelinechart",
+      "dashboard_kpicard_kpicard",
+      "dashboard_kpicard_kpicardprops",
+      "dashboard_loading_dashboardloading",
+      "dashboard_page_dashboardclient",
+      "dashboard_page_dashboardpage",
+      "database_sql",
+      "frontend_app_dashboard_3d_page_tsx",
+      "frontend_app_dashboard_analytics_page_tsx",
+      "frontend_app_dashboard_loading_tsx",
+      "frontend_app_dashboard_optimize_page_tsx",
+      "frontend_app_dashboard_orders_page_tsx",
+      "frontend_app_dashboard_page_tsx",
+      "frontend_app_dashboard_settings_page_tsx",
+      "frontend_app_dashboard_sustainability_page_tsx",
+      "frontend_components_dashboard_kpicard_tsx",
+      "frontend_components_ui_badge_tsx",
+      "frontend_lib_store_optimizationstore_ts",
+      "frontend_lib_utils_ts",
+      "frontend_supabase_schema_sql",
+      "lib_utils_cn",
+      "migration_fix_orders_products_relationship",
+      "optimize_page_optimizepage",
+      "optimize_page_pollforoptimizationresult",
+      "orders_orderdetailsmodal_box3dviewer",
+      "orders_orderdetailsmodal_orderdetailsmodal",
+      "orders_orderstable_orderstable",
+      "orders_orderstable_orderstableprops",
+      "orders_page_orderspage",
+      "settings_page_settingspage",
+      "store_optimizationstore_company",
+      "store_optimizationstore_optimizationresult",
+      "store_optimizationstore_optimizationrun",
+      "supabase_migrations_fix_orders_shipments_schema_sql",
+      "sustainability_page_co2areachart",
+      "sustainability_page_sustainabilitypage",
+      "ui_badge_badge",
+      "ui_badge_badgeprops",
+      "ui_skeleton_skeleton"
+    ],
+    "2": [
+      "frontend_package_dependencies",
+      "frontend_package_dependencies_canvas_confetti",
+      "frontend_package_dependencies_chart_js",
+      "frontend_package_dependencies_clsx",
+      "frontend_package_dependencies_fontsource_inter",
+      "frontend_package_dependencies_fontsource_space_grotesk",
+      "frontend_package_dependencies_framer_motion",
+      "frontend_package_dependencies_hookform_resolvers",
+      "frontend_package_dependencies_html2canvas",
+      "frontend_package_dependencies_jsbarcode",
+      "frontend_package_dependencies_jspdf",
+      "frontend_package_dependencies_lucide_react",
+      "frontend_package_dependencies_next",
+      "frontend_package_dependencies_openai",
+      "frontend_package_dependencies_papaparse",
+      "frontend_package_dependencies_qrcode_react",
+      "frontend_package_dependencies_radix_ui_react_tabs",
+      "frontend_package_dependencies_react",
+      "frontend_package_dependencies_react_chartjs_2",
+      "frontend_package_dependencies_react_countup",
+      "frontend_package_dependencies_react_dom",
+      "frontend_package_dependencies_react_hook_form",
+      "frontend_package_dependencies_react_spring_three",
+      "frontend_package_dependencies_react_three_drei",
+      "frontend_package_dependencies_react_three_fiber",
+      "frontend_package_dependencies_recharts",
+      "frontend_package_dependencies_sonner",
+      "frontend_package_dependencies_stripe",
+      "frontend_package_dependencies_stripe_stripe_js",
+      "frontend_package_dependencies_supabase_ssr",
+      "frontend_package_dependencies_supabase_supabase_js",
+      "frontend_package_dependencies_swr",
+      "frontend_package_dependencies_tailwind_merge",
+      "frontend_package_dependencies_three",
+      "frontend_package_dependencies_twilio",
+      "frontend_package_dependencies_types_canvas_confetti",
+      "frontend_package_dependencies_types_qrcode_react",
+      "frontend_package_dependencies_types_three",
+      "frontend_package_dependencies_xlsx",
+      "frontend_package_dependencies_zod",
+      "frontend_package_dependencies_zustand"
+    ],
+    "3": [
+      "frontend_tsconfig_compileroptions",
+      "frontend_tsconfig_compileroptions_allowjs",
+      "frontend_tsconfig_compileroptions_esmoduleinterop",
+      "frontend_tsconfig_compileroptions_incremental",
+      "frontend_tsconfig_compileroptions_isolatedmodules",
+      "frontend_tsconfig_compileroptions_jsx",
+      "frontend_tsconfig_compileroptions_lib",
+      "frontend_tsconfig_compileroptions_module",
+      "frontend_tsconfig_compileroptions_moduleresolution",
+      "frontend_tsconfig_compileroptions_noemit",
+      "frontend_tsconfig_compileroptions_paths",
+      "frontend_tsconfig_compileroptions_plugins",
+      "frontend_tsconfig_compileroptions_resolvejsonmodule",
+      "frontend_tsconfig_compileroptions_skiplibcheck",
+      "frontend_tsconfig_compileroptions_strict",
+      "frontend_tsconfig_compileroptions_target",
+      "frontend_tsconfig_exclude",
+      "frontend_tsconfig_include",
+      "frontend_tsconfig_json",
+      "frontend_tsconfig_paths"
+    ],
+    "4": [
+      "app_page_landingpage",
+      "frontend_app_page_tsx",
+      "frontend_components_landing_features_tsx",
+      "frontend_components_landing_footer_tsx",
+      "frontend_components_landing_hero_tsx",
+      "frontend_components_landing_pricing_tsx",
+      "frontend_components_landing_statsbar_tsx",
+      "landing_features_features",
+      "landing_footer_footer",
+      "landing_hero_hero",
+      "landing_howitworks_howitworks",
+      "landing_howitworks_steps",
+      "landing_pricing_plans",
+      "landing_pricing_pricing",
+      "landing_statsbar_stats",
+      "landing_statsbar_statsbar",
+      "landing_suppliers_partners",
+      "landing_suppliers_suppliers"
+    ],
+    "5": [
+      "box_catalog_route_get",
+      "callback_route_get",
+      "context_dashboardcontext_dashboardprovider",
+      "dashboard_layout_dashboardlayout",
+      "frontend_app_api_box_catalog_route_ts",
+      "frontend_app_api_box_catalog_seed_route_ts",
+      "frontend_app_api_shipments_route_ts",
+      "frontend_app_auth_callback_route_ts",
+      "frontend_app_dashboard_layout_tsx",
+      "frontend_app_onboarding_layout_tsx",
+      "frontend_lib_supabase_server_ts",
+      "onboarding_layout_onboardinglayout",
+      "seed_route_post",
+      "seed_route_standard_boxes",
+      "shipments_route_post",
+      "supabase_server_createclient",
+      "types_index_database"
+    ],
+    "6": [
+      "animations_countupnumber_countupnumber",
+      "animations_dataflowline_dataflowline",
+      "animations_numberticker_numberticker",
+      "animations_pulsingborder_pulsingborder",
+      "animations_pulsingborder_pulsingborderprops",
+      "animations_scanlineeffect_scanlineeffect",
+      "animations_staggercontainer_staggercontainerprops",
+      "animations_staggercontainer_staggeritem",
+      "frontend_components_animations_index_ts",
+      "frontend_components_animations_pulsingborder_tsx",
+      "frontend_lib_animations_ts",
+      "lib_animations_fadein",
+      "lib_animations_popin",
+      "lib_animations_slideinright",
+      "lib_animations_slideup",
+      "lib_animations_staggercontainer"
+    ],
+    "7": [
+      "frontend_eslint_config_compat",
+      "frontend_eslint_config_dirname",
+      "frontend_eslint_config_filename",
+      "frontend_eslint_config_mjs",
+      "frontend_package_devdependencies",
+      "frontend_package_devdependencies_autoprefixer",
+      "frontend_package_devdependencies_eslint",
+      "frontend_package_devdependencies_eslint_eslintrc",
+      "frontend_package_devdependencies_tailwindcss",
+      "frontend_package_devdependencies_tailwindcss_postcss",
+      "frontend_package_devdependencies_types_node",
+      "frontend_package_devdependencies_types_papaparse",
+      "frontend_package_devdependencies_types_react",
+      "frontend_package_devdependencies_types_xlsx",
+      "frontend_package_devdependencies_typescript"
+    ],
+    "8": [
+      "frontend_testsprite_tests_standard_prd_json",
+      "testsprite_tests_standard_prd_code_summary",
+      "testsprite_tests_standard_prd_code_summary_known_limitations",
+      "testsprite_tests_standard_prd_code_summary_routes",
+      "testsprite_tests_standard_prd_code_summary_tech_stack",
+      "testsprite_tests_standard_prd_code_summary_type",
+      "testsprite_tests_standard_prd_code_summary_version",
+      "testsprite_tests_standard_prd_core_goals",
+      "testsprite_tests_standard_prd_features",
+      "testsprite_tests_standard_prd_meta",
+      "testsprite_tests_standard_prd_meta_date",
+      "testsprite_tests_standard_prd_meta_prepared_by",
+      "testsprite_tests_standard_prd_meta_project",
+      "testsprite_tests_standard_prd_product_overview"
+    ],
+    "9": [
+      "frontend_app_api_optimize_route_ts",
+      "frontend_lib_utils_ratelimit_ts",
+      "optimize_route_config",
+      "optimize_route_default_boxes",
+      "optimize_route_get",
+      "optimize_route_getsupabase",
+      "optimize_route_parsecsv",
+      "optimize_route_post",
+      "utils_ratelimit_checkratelimit",
+      "utils_ratelimit_cleanupratelimitstore",
+      "utils_ratelimit_getratelimitstatus",
+      "utils_ratelimit_ratelimitentry",
+      "utils_ratelimit_ratelimitstore",
+      "utils_ratelimit_resetratelimit"
+    ],
+    "10": [
+      "frontend_app_api_upload_route_ts",
+      "frontend_types_index_ts",
+      "types_index_boxcatalog",
+      "types_index_dashboardstats",
+      "types_index_optimization",
+      "types_index_optimizationstatus",
+      "types_index_optimizerequest",
+      "types_index_order",
+      "types_index_orderstatus",
+      "types_index_plan",
+      "types_index_product",
+      "types_index_profile",
+      "types_index_uploadedproduct",
+      "upload_route_post"
+    ],
+    "11": [
+      "context_dashboardcontext_dashboardcontexttype",
+      "context_dashboardcontext_dashboardstats",
+      "context_dashboardcontext_usedashboard",
+      "frontend_app_dashboard_labels_page_tsx",
+      "frontend_app_dashboard_products_page_tsx",
+      "frontend_lib_context_dashboardcontext_tsx",
+      "frontend_lib_hooks_useinspectionfeed_ts",
+      "frontend_lib_supabase_client_ts",
+      "hooks_usecompany_usecompany",
+      "labels_page_labelspage",
+      "labels_page_templates",
+      "products_page_productspage",
+      "supabase_client_createclient"
+    ],
+    "12": [
+      "calculations_pricing_calcboxprice",
+      "calculations_pricing_calcco2saved",
+      "calculations_pricing_calcdimweight",
+      "calculations_pricing_calcsavings",
+      "calculations_pricing_calcspaceutilization",
+      "frontend_lib_calculations_pricing_ts",
+      "frontend_lib_optimization_engine_ts",
+      "optimization_engine_findoptimalbox",
+      "optimization_engine_generatefragilityscore",
+      "optimization_engine_generateoptimizationscore",
+      "optimization_engine_generateriskscore",
+      "optimization_engine_optimizeproduct",
+      "optimization_engine_standard_boxes"
+    ],
+    "13": [
+      "checkout_route_post",
+      "frontend_app_api_stripe_checkout_route_ts",
+      "frontend_app_api_stripe_webhook_route_ts",
+      "frontend_lib_stripe_ts",
+      "lib_stripe_plankey",
+      "lib_stripe_plans",
+      "lib_stripe_stripe",
+      "webhook_route_get",
+      "webhook_route_logwebhook",
+      "webhook_route_post",
+      "webhook_route_webhooklog",
+      "webhook_route_webhooklogs"
+    ],
+    "14": [
+      "3d_box3dviewer_box2dfallback",
+      "3d_box3dviewer_box3derrorboundary",
+      "3d_box3dviewer_box3derrorboundary_componentdidcatch",
+      "3d_box3dviewer_box3derrorboundary_constructor",
+      "3d_box3dviewer_box3derrorboundary_getderivedstatefromerror",
+      "3d_box3dviewer_box3derrorboundary_render",
+      "3d_box3dviewer_box3dviewer",
+      "3d_box3dviewer_box3dviewercontent",
+      "3d_box3dviewer_box3dviewerprops",
+      "3d_page_box3dviewer"
+    ],
+    "15": [
+      "frontend_lib_fileparser_ts",
+      "lib_fileparser_aliases",
+      "lib_fileparser_findvalue",
+      "lib_fileparser_generatecsvtemplate",
+      "lib_fileparser_normalizeheader",
+      "lib_fileparser_parsedproduct",
+      "lib_fileparser_parseerror",
+      "lib_fileparser_parsefile",
+      "lib_fileparser_parseresult",
+      "lib_fileparser_processrawdata"
+    ],
+    "16": [
+      "app_layout_inter",
+      "app_layout_metadata",
+      "app_layout_outfit",
+      "app_layout_rootlayout",
+      "app_layout_spacegrotesk",
+      "app_layout_spacemono",
+      "app_layout_syne",
+      "app_layout_viewport",
+      "frontend_app_layout_tsx"
+    ],
+    "17": [
+      "dashboard_dashboardlayoutclient_dashboardlayoutclient",
+      "dashboard_sidebar_navitems",
+      "dashboard_sidebar_sidebar",
+      "dashboard_topbar_topbar",
+      "frontend_components_dashboard_sidebar_tsx",
+      "frontend_components_dashboard_topbar_tsx",
+      "frontend_lib_store_subscriptionstore_ts",
+      "store_subscriptionstore_subscriptionstate",
+      "store_subscriptionstore_usesubscriptionstore"
+    ],
+    "18": [
+      "frontend_package_json",
+      "frontend_package_name",
+      "frontend_package_private",
+      "frontend_package_scripts",
+      "frontend_package_scripts_build",
+      "frontend_package_scripts_dev",
+      "frontend_package_scripts_lint",
+      "frontend_package_scripts_start",
+      "frontend_package_version"
+    ],
+    "19": [
+      "frontend_app_api_optimize_reanalyze_route_ts",
+      "frontend_lib_optimization_mloptimizer_ts",
+      "optimization_mloptimizer_boxspec",
+      "optimization_mloptimizer_findbestbox",
+      "optimization_mloptimizer_mlrunresult",
+      "optimization_mloptimizer_optimizationresult",
+      "optimization_mloptimizer_productinput",
+      "optimization_mloptimizer_runmloptimization",
+      "reanalyze_route_post"
+    ],
+    "20": [
+      "frontend_app_auth_signup_page_tsx",
+      "signup_page_floatingelements",
+      "signup_page_industries",
+      "signup_page_inter",
+      "signup_page_line_speeds",
+      "signup_page_signuppage",
+      "signup_page_syne"
+    ],
+    "21": [
+      "frontend_scratch_found_log_json",
+      "scratch_found_log_created_at",
+      "scratch_found_log_source",
+      "scratch_found_log_status",
+      "scratch_found_log_step_index",
+      "scratch_found_log_tool_calls",
+      "scratch_found_log_type"
+    ],
+    "22": [
+      "frontend_app_auth_login_page_tsx",
+      "login_page_features",
+      "login_page_floatingelements",
+      "login_page_inter",
+      "login_page_loginpage",
+      "login_page_syne"
+    ],
+    "23": [
+      "frontend_app_auth_reset_password_page_tsx",
+      "reset_password_page_features",
+      "reset_password_page_floatingelements",
+      "reset_password_page_inter",
+      "reset_password_page_resetpasswordpage",
+      "reset_password_page_syne"
+    ],
+    "24": [
+      "frontend_app_api_auth_otp_route_ts",
+      "frontend_lib_twilio_ts",
+      "lib_twilio_checkverificationcode",
+      "lib_twilio_client",
+      "lib_twilio_sendverificationcode",
+      "otp_route_post"
+    ],
+    "25": [
+      "backend_test_backend_py",
+      "backend_test_backend_testpackvisionbackend",
+      "backend_test_backend_testpackvisionbackend_setup",
+      "backend_test_backend_testpackvisionbackend_test_health_check",
+      "backend_test_backend_testpackvisionbackend_test_optimization"
+    ],
+    "26": [
+      "box_catalog_page_box3dviewer",
+      "box_catalog_page_boxcatalogpage",
+      "box_catalog_page_carrier_boxes",
+      "box_catalog_page_tabs",
+      "frontend_app_dashboard_box_catalog_page_tsx"
+    ],
+    "27": [
+      "frontend_lib_supabase_queries_ts",
+      "supabase_queries_getcompanybyowner",
+      "supabase_queries_getoptimizationresults",
+      "supabase_queries_getoptimizationruns",
+      "supabase_queries_getuserprofile"
+    ],
+    "28": [
+      "frontend_lib_optimization_csvparser_ts",
+      "optimization_csvparser_findcolumnvalue",
+      "optimization_csvparser_normalizeheader",
+      "optimization_csvparser_parsecsv",
+      "optimization_csvparser_parsedproduct"
+    ],
+    "29": [
+      "frontend_scratch_test_db_js",
+      "scratch_test_db_fs",
+      "scratch_test_db_main",
+      "scratch_test_db_path",
+      "scratch_test_db_readline"
+    ],
+    "30": [
+      "dashboard_data_route_get",
+      "db_status_route_get",
+      "frontend_app_api_dashboard_data_route_ts",
+      "frontend_app_api_debug_db_status_route_ts",
+      "supabase_server_createserviceclient"
+    ],
+    "31": [
+      "frontend_app_api_products_route_ts",
+      "products_route_delete",
+      "products_route_get",
+      "products_route_post",
+      "products_route_productschema"
+    ],
+    "32": [
+      "components_limitreachedwall_limitguard",
+      "frontend_components_limitreachedwall_tsx",
+      "frontend_hooks_usesubscription_ts",
+      "hooks_usesubscription_subscriptionstate"
+    ],
+    "33": [
+      "frontend_components_landing_navbar_tsx",
+      "frontend_hooks_useauth_ts",
+      "hooks_useauth_useauth",
+      "landing_navbar_navbar"
+    ],
+    "34": [
+      "frontend_components_orders_box3dviewer_tsx",
+      "orders_box3dviewer_box3dviewer",
+      "orders_box3dviewer_boxmodel",
+      "orders_box3dviewer_boxprops"
+    ],
+    "35": [
+      "packiq_main_vercel_app_api_optimize_route_ts_maxduration",
+      "packiq_main_vercel_functions",
+      "packiq_main_vercel_functions_app_api_optimize_route_ts",
+      "vercel_json"
+    ],
+    "36": [
+      "backend_main_add_process_time_header",
+      "backend_main_py",
+      "backend_main_py_request"
+    ],
+    "37": [
+      "charts_boxusagechart_boxusagechart",
+      "charts_boxusagechart_gradients",
+      "frontend_components_charts_boxusagechart_tsx"
+    ],
+    "38": [
+      "frontend_app_api_optimize_save_route_ts",
+      "save_route_getsupabase",
+      "save_route_post"
+    ],
+    "39": [
+      "frontend_app_api_orders_route_ts",
+      "orders_route_get",
+      "orders_route_getadminclient"
+    ],
+    "40": [
+      "balance_route_get",
+      "balance_route_plan_limits",
+      "frontend_app_api_tokens_balance_route_ts"
+    ],
+    "41": [
+      "deduct_route_plan_limits",
+      "deduct_route_post",
+      "frontend_app_api_tokens_deduct_route_ts"
+    ],
+    "42": [
+      "charts_savingschart_datapoint",
+      "charts_savingschart_savingschart",
+      "frontend_components_charts_savingschart_tsx"
+    ],
+    "43": [
+      "frontend_components_onboarding_step1welcome_tsx",
+      "onboarding_step1welcome_step1props",
+      "onboarding_step1welcome_step1welcome"
+    ],
+    "44": [
+      "calculations_co2_calcco2saved",
+      "calculations_co2_co2totrees",
+      "frontend_lib_calculations_co2_ts"
+    ],
+    "45": [
+      "frontend_app_onboarding_page_tsx",
+      "onboarding_onboardingwizard_onboardingwizard",
+      "onboarding_page_onboardingpage"
+    ],
+    "46": [
+      "components_authprovider_authcontext",
+      "components_authprovider_useauth",
+      "frontend_components_authprovider_tsx"
+    ],
+    "47": [
+      "frontend_lib_utils_parser_ts",
+      "utils_parser_parsedimensions",
+      "utils_parser_validateuploadschema"
+    ],
+    "48": [
+      "onboarding_step2companydetails_industries",
+      "onboarding_step2companydetails_step2companydetails",
+      "onboarding_step2companydetails_step2props"
+    ],
+    "49": [
+      "frontend_app_api_optimization_results_route_ts",
+      "optimization_results_route_get",
+      "optimization_results_route_getadminclient"
+    ],
+    "50": [
+      "3d_boxpreview_boxpreview",
+      "3d_boxpreview_rotatingbox"
+    ],
+    "51": [
+      "3d_boxwithlabel_boxwithlabel",
+      "3d_boxwithlabel_boxwithlabelmesh"
+    ],
+    "52": [
+      "backend_readme",
+      "backend_render_yaml"
+    ],
+    "53": [
+      "backend_routes_health_py",
+      "routes_health_health_check"
+    ],
+    "54": [
+      "analyses_route_get",
+      "frontend_app_api_ai_analyses_route_ts"
+    ],
+    "55": [
+      "analyze_route_post",
+      "frontend_app_api_ai_analyze_route_ts"
+    ],
+    "56": [
+      "configure_route_post",
+      "frontend_app_api_alerts_configure_route_ts"
+    ],
+    "57": [
+      "frontend_app_api_health_route_ts",
+      "health_route_get"
+    ],
+    "58": [
+      "frontend_app_api_inspections_summary_route_ts",
+      "summary_route_get"
+    ],
+    "59": [
+      "frontend_app_api_settings_test_openrouter_route_ts",
+      "test_openrouter_route_get"
+    ],
+    "60": [
+      "frontend_middleware_config",
+      "frontend_middleware_ts"
+    ],
+    "61": [
+      "frontend_postcss_config_config",
+      "frontend_postcss_config_mjs"
+    ],
+    "62": [
+      "frontend_testsprite_tests_tc006_search_by_tracking_number_and_open_shipment_timeline_py",
+      "testsprite_tests_tc006_search_by_tracking_number_and_open_shipment_timeline_run_test"
+    ],
+    "63": [
+      "frontend_testsprite_tests_tc006_upload_valid_csv_and_preview_parsed_rows_py",
+      "testsprite_tests_tc006_upload_valid_csv_and_preview_parsed_rows_run_test"
+    ],
+    "64": [
+      "frontend_testsprite_tests_tc007_add_a_new_catalog_item_and_see_it_in_the_catalog_list_py",
+      "testsprite_tests_tc007_add_a_new_catalog_item_and_see_it_in_the_catalog_list_run_test"
+    ],
+    "65": [
+      "frontend_testsprite_tests_tc007_open_results_table_py",
+      "testsprite_tests_tc007_open_results_table_run_test"
+    ],
+    "66": [
+      "frontend_testsprite_tests_tc008_view_dashboard_overview_metrics_and_recent_optimizations_py",
+      "testsprite_tests_tc008_view_dashboard_overview_metrics_and_recent_optimizations_run_test"
+    ],
+    "67": [
+      "frontend_testsprite_tests_tc011_view_settings_categories_and_profile_fields_py",
+      "testsprite_tests_tc011_view_settings_categories_and_profile_fields_run_test"
+    ],
+    "68": [
+      "frontend_testsprite_tests_tc012_view_catalog_items_in_the_catalog_grid_py",
+      "testsprite_tests_tc012_view_catalog_items_in_the_catalog_grid_run_test"
+    ],
+    "69": [
+      "frontend_testsprite_tests_tc013_create_a_new_order_and_see_it_in_the_list_py",
+      "testsprite_tests_tc013_create_a_new_order_and_see_it_in_the_list_run_test"
+    ],
+    "70": [
+      "frontend_testsprite_tests_tc014_select_domain_and_proceed_to_employees_step_py",
+      "testsprite_tests_tc014_select_domain_and_proceed_to_employees_step_run_test"
+    ],
+    "71": [
+      "frontend_testsprite_tests_tc014_toggle_annual_billing_and_see_pricing_update_py",
+      "testsprite_tests_tc014_toggle_annual_billing_and_see_pricing_update_run_test"
+    ],
+    "72": [
+      "frontend_testsprite_tests_tc015_filter_results_and_export_csv_py",
+      "testsprite_tests_tc015_filter_results_and_export_csv_run_test"
+    ],
+    "73": [
+      "frontend_testsprite_tests_tc015_filter_shipments_to_only_in_transit_py",
+      "testsprite_tests_tc015_filter_shipments_to_only_in_transit_run_test"
+    ],
+    "74": [
+      "frontend_testsprite_tests_tc016_view_current_subscription_plan_and_status_py",
+      "testsprite_tests_tc016_view_current_subscription_plan_and_status_run_test"
+    ],
+    "75": [
+      "frontend_testsprite_tests_tc017_view_analytics_charts_py",
+      "testsprite_tests_tc017_view_analytics_charts_run_test"
+    ],
+    "76": [
+      "frontend_testsprite_tests_tc018_view_orders_list_with_status_indicators_py",
+      "testsprite_tests_tc018_view_orders_list_with_status_indicators_run_test"
+    ],
+    "77": [
+      "frontend_testsprite_tests_tc021_expand_ai_reasoning_for_a_result_py",
+      "testsprite_tests_tc021_expand_ai_reasoning_for_a_result_run_test"
+    ],
+    "78": [
+      "frontend_testsprite_tests_tc023_switch_settings_categories_without_losing_navigation_py",
+      "testsprite_tests_tc023_switch_settings_categories_without_losing_navigation_run_test"
+    ],
+    "79": [
+      "frontend_app_api_inspections_ingest_route_ts",
+      "ingest_route_post"
+    ],
+    "80": [
+      "frontend_app_auth_mfa_page_tsx",
+      "mfa_page_otppage"
+    ],
+    "81": [
+      "onboarding_step3logoupload_step3logoupload",
+      "onboarding_step3logoupload_step3props"
+    ],
+    "82": [
+      "onboarding_step4review_step4props",
+      "onboarding_step4review_step4review"
+    ],
+    "83": [
+      "onboarding_step5success_step5props",
+      "onboarding_step5success_step5success"
+    ],
+    "84": [
+      "scripts_test_optimize_runtest",
+      "scripts_test_optimize_ts"
+    ],
+    "85": [
+      "frontend_testsprite_tests_tc001_access_dashboard_after_logging_in_py",
+      "testsprite_tests_tc001_access_dashboard_after_logging_in_run_test"
+    ],
+    "86": [
+      "frontend_testsprite_tests_tc002_access_gating_redirects_unauthenticated_user_away_from_subscription_page_py",
+      "testsprite_tests_tc002_access_gating_redirects_unauthenticated_user_away_from_subscription_page_run_test"
+    ],
+    "87": [
+      "frontend_testsprite_tests_tc002_sign_up_and_start_onboarding_py",
+      "testsprite_tests_tc002_sign_up_and_start_onboarding_run_test"
+    ],
+    "88": [
+      "frontend_testsprite_tests_tc003_complete_onboarding_and_reach_dashboard_py",
+      "testsprite_tests_tc003_complete_onboarding_and_reach_dashboard_run_test"
+    ],
+    "89": [
+      "frontend_testsprite_tests_tc004_add_a_new_product_and_see_it_in_the_table_py",
+      "testsprite_tests_tc004_add_a_new_product_and_see_it_in_the_table_run_test"
+    ],
+    "90": [
+      "frontend_testsprite_tests_tc004_run_an_optimization_from_manually_entered_products_and_view_3d_recommendation_py",
+      "testsprite_tests_tc004_run_an_optimization_from_manually_entered_products_and_view_3d_recommendation_run_test"
+    ],
+    "91": [
+      "frontend_testsprite_tests_tc005_create_a_new_account_and_start_onboarding_py",
+      "testsprite_tests_tc005_create_a_new_account_and_start_onboarding_run_test"
+    ],
+    "92": [
+      "frontend_testsprite_tests_tc005_run_an_optimization_from_csv_upload_and_view_3d_recommendation_py",
+      "testsprite_tests_tc005_run_an_optimization_from_csv_upload_and_view_3d_recommendation_run_test"
+    ],
+    "93": [
+      "frontend_testsprite_tests_tc008_view_kpi_metrics_and_recent_history_on_dashboard_py",
+      "testsprite_tests_tc008_view_kpi_metrics_and_recent_history_on_dashboard_run_test"
+    ],
+    "94": [
+      "frontend_testsprite_tests_tc009_view_current_plan_and_usage_overview_py",
+      "testsprite_tests_tc009_view_current_plan_and_usage_overview_run_test"
+    ],
+    "95": [
+      "frontend_testsprite_tests_tc009_view_products_list_py",
+      "testsprite_tests_tc009_view_products_list_run_test"
+    ],
+    "96": [
+      "frontend_testsprite_tests_tc010_update_company_profile_and_notification_preferences_py",
+      "testsprite_tests_tc010_update_company_profile_and_notification_preferences_run_test"
+    ],
+    "97": [
+      "frontend_testsprite_tests_tc010_view_shipment_tracking_cards_in_the_tracking_grid_py",
+      "testsprite_tests_tc010_view_shipment_tracking_cards_in_the_tracking_grid_run_test"
+    ],
+    "98": [
+      "frontend_testsprite_tests_tc011_delete_a_product_and_verify_it_is_removed_py",
+      "testsprite_tests_tc011_delete_a_product_and_verify_it_is_removed_run_test"
+    ],
+    "99": [
+      "frontend_testsprite_tests_tc012_save_company_profile_information_in_onboarding_company_step_py",
+      "testsprite_tests_tc012_save_company_profile_information_in_onboarding_company_step_run_test"
+    ],
+    "100": [
+      "frontend_testsprite_tests_tc013_show_csv_validation_error_for_missing_or_malformed_required_columns_py",
+      "testsprite_tests_tc013_show_csv_validation_error_for_missing_or_malformed_required_columns_run_test"
+    ],
+    "101": [
+      "frontend_testsprite_tests_tc016_save_profile_changes_after_unsaved_warning_py",
+      "testsprite_tests_tc016_save_profile_changes_after_unsaved_warning_run_test"
+    ],
+    "102": [
+      "frontend_testsprite_tests_tc017_search_the_catalog_and_see_filtered_results_py",
+      "testsprite_tests_tc017_search_the_catalog_and_see_filtered_results_run_test"
+    ],
+    "103": [
+      "frontend_testsprite_tests_tc018_start_upgrade_plan_flow_from_subscription_page_py",
+      "testsprite_tests_tc018_start_upgrade_plan_flow_from_subscription_page_run_test"
+    ],
+    "104": [
+      "frontend_testsprite_tests_tc019_navigate_from_dashboard_to_products_using_sidebar_py",
+      "testsprite_tests_tc019_navigate_from_dashboard_to_products_using_sidebar_run_test"
+    ],
+    "105": [
+      "frontend_testsprite_tests_tc019_switch_between_grid_and_list_views_in_the_catalog_py",
+      "testsprite_tests_tc019_switch_between_grid_and_list_views_in_the_catalog_run_test"
+    ],
+    "106": [
+      "frontend_testsprite_tests_tc020_toggle_a_notification_preference_py",
+      "testsprite_tests_tc020_toggle_a_notification_preference_run_test"
+    ],
+    "107": [
+      "frontend_testsprite_tests_tc021_require_exact_confirmation_text_for_danger_zone_action_py",
+      "testsprite_tests_tc021_require_exact_confirmation_text_for_danger_zone_action_run_test"
+    ],
+    "108": [
+      "frontend_testsprite_tests_tc022_add_a_catalog_box_to_a_product_py",
+      "testsprite_tests_tc022_add_a_catalog_box_to_a_product_run_test"
+    ],
+    "109": [
+      "frontend_testsprite_tests_tc022_view_billing_history_section_py",
+      "testsprite_tests_tc022_view_billing_history_section_run_test"
+    ],
+    "110": [
+      "frontend_testsprite_tests_tc023_view_current_company_settings_py",
+      "testsprite_tests_tc023_view_current_company_settings_run_test"
+    ],
+    "111": [
+      "frontend_testsprite_tests_tc024_filter_orders_by_status_py",
+      "testsprite_tests_tc024_filter_orders_by_status_run_test"
+    ],
+    "112": [
+      "frontend_testsprite_tests_tc024_proceed_with_danger_zone_action_after_correct_confirmation_text_py",
+      "testsprite_tests_tc024_proceed_with_danger_zone_action_after_correct_confirmation_text_run_test"
+    ],
+    "113": [
+      "frontend_testsprite_tests_tc025_show_csv_format_validation_error_for_missing_required_columns_py",
+      "testsprite_tests_tc025_show_csv_format_validation_error_for_missing_required_columns_run_test"
+    ],
+    "114": [
+      "frontend_testsprite_tests_tc026_open_invoice_download_flow_from_billing_history_py",
+      "testsprite_tests_tc026_open_invoice_download_flow_from_billing_history_run_test"
+    ],
+    "115": [
+      "frontend_testsprite_tests_tc026_prevent_saving_a_product_with_missing_required_fields_py",
+      "testsprite_tests_tc026_prevent_saving_a_product_with_missing_required_fields_run_test"
+    ],
+    "116": [
+      "frontend_testsprite_tests_tc027_handle_empty_billing_history_state_py",
+      "testsprite_tests_tc027_handle_empty_billing_history_state_run_test"
+    ],
+    "117": [
+      "frontend_testsprite_tests_tc027_look_up_a_shipment_and_view_status_timeline_py",
+      "testsprite_tests_tc027_look_up_a_shipment_and_view_status_timeline_run_test"
+    ],
+    "118": [
+      "frontend_testsprite_tests_tc028_require_company_name_before_proceeding_from_onboarding_company_step_py",
+      "testsprite_tests_tc028_require_company_name_before_proceeding_from_onboarding_company_step_run_test"
+    ],
+    "119": [
+      "frontend_testsprite_tests_tc029_update_analytics_with_date_range_filter_py",
+      "testsprite_tests_tc029_update_analytics_with_date_range_filter_run_test"
+    ],
+    "120": [
+      "frontend_testsprite_tests_tc030_view_box_catalog_grid_py",
+      "testsprite_tests_tc030_view_box_catalog_grid_run_test"
+    ],
+    "121": [
+      "frontend_app_api_tracking_route_ts",
+      "tracking_route_get"
+    ],
+    "122": [
+      "frontend_global_d_ts"
+    ],
+    "123": [
+      "frontend_next_env_d_ts"
+    ],
+    "124": [
+      "frontend_next_config_ts"
+    ],
+    "125": [
+      "components_emptystate_emptystate"
+    ],
+    "126": [
+      "charts_costbarchart_costbarchart"
+    ],
+    "127": [
+      "charts_efficiencygauge_efficiencygauge"
+    ],
+    "128": [
+      "charts_fragilitydonut_fragilitydonut"
+    ],
+    "129": [
+      "charts_totalsavedbarchart_totalsavedbarchart"
+    ],
+    "130": [
+      "charts_utilizationgauge_utilizationgauge"
+    ],
+    "131": [
+      "frontend_testsprite_tests_testsprite_frontend_test_plan_json"
+    ],
+    "132": [
+      "agents_nextjs_agent_rules"
+    ],
+    "133": [
+      "todo_auth_onboarding"
+    ],
+    "134": [
+      "graphify_rules"
+    ]
+  },
+  "cohesion": {
+    "0": 0.12337662337662338,
+    "1": 0.06464646464646465,
+    "2": 0.04878048780487805,
+    "3": 0.1,
+    "4": 0.1111111111111111,
+    "5": 0.16176470588235295,
+    "6": 0.125,
+    "7": 0.13333333333333333,
+    "8": 0.15384615384615385,
+    "9": 0.2087912087912088,
+    "10": 0.15384615384615385,
+    "11": 0.24358974358974358,
+    "12": 0.3076923076923077,
+    "13": 0.24242424242424243,
+    "14": 0.2,
+    "15": 0.2222222222222222,
+    "16": 0.2222222222222222,
+    "17": 0.2777777777777778,
+    "18": 0.2222222222222222,
+    "19": 0.3055555555555556,
+    "20": 0.2857142857142857,
+    "21": 0.2857142857142857,
+    "22": 0.3333333333333333,
+    "23": 0.3333333333333333,
+    "24": 0.6,
+    "25": 0.4,
+    "26": 0.4,
+    "27": 0.4,
+    "28": 0.4,
+    "29": 0.4,
+    "30": 0.6,
+    "31": 0.4,
+    "32": 0.6666666666666666,
+    "33": 0.6666666666666666,
+    "34": 0.5,
+    "35": 0.5,
+    "36": 0.6666666666666666,
+    "37": 0.6666666666666666,
+    "38": 1.0,
+    "39": 1.0,
+    "40": 0.6666666666666666,
+    "41": 0.6666666666666666,
+    "42": 0.6666666666666666,
+    "43": 0.6666666666666666,
+    "44": 0.6666666666666666,
+    "45": 0.6666666666666666,
+    "46": 0.6666666666666666,
+    "47": 1.0,
+    "48": 0.6666666666666666,
+    "49": 1.0,
+    "50": 1.0,
+    "51": 1.0,
+    "52": 1.0,
+    "53": 1.0,
+    "54": 1.0,
+    "55": 1.0,
+    "56": 1.0,
+    "57": 1.0,
+    "58": 1.0,
+    "59": 1.0,
+    "60": 1.0,
+    "61": 1.0,
+    "62": 1.0,
+    "63": 1.0,
+    "64": 1.0,
+    "65": 1.0,
+    "66": 1.0,
+    "67": 1.0,
+    "68": 1.0,
+    "69": 1.0,
+    "70": 1.0,
+    "71": 1.0,
+    "72": 1.0,
+    "73": 1.0,
+    "74": 1.0,
+    "75": 1.0,
+    "76": 1.0,
+    "77": 1.0,
+    "78": 1.0,
+    "79": 1.0,
+    "80": 1.0,
+    "81": 1.0,
+    "82": 1.0,
+    "83": 1.0,
+    "84": 1.0,
+    "85": 1.0,
+    "86": 1.0,
+    "87": 1.0,
+    "88": 1.0,
+    "89": 1.0,
+    "90": 1.0,
+    "91": 1.0,
+    "92": 1.0,
+    "93": 1.0,
+    "94": 1.0,
+    "95": 1.0,
+    "96": 1.0,
+    "97": 1.0,
+    "98": 1.0,
+    "99": 1.0,
+    "100": 1.0,
+    "101": 1.0,
+    "102": 1.0,
+    "103": 1.0,
+    "104": 1.0,
+    "105": 1.0,
+    "106": 1.0,
+    "107": 1.0,
+    "108": 1.0,
+    "109": 1.0,
+    "110": 1.0,
+    "111": 1.0,
+    "112": 1.0,
+    "113": 1.0,
+    "114": 1.0,
+    "115": 1.0,
+    "116": 1.0,
+    "117": 1.0,
+    "118": 1.0,
+    "119": 1.0,
+    "120": 1.0,
+    "121": 1.0,
+    "122": 1.0,
+    "123": 1.0,
+    "124": 1.0,
+    "125": 1.0,
+    "126": 1.0,
+    "127": 1.0,
+    "128": 1.0,
+    "129": 1.0,
+    "130": 1.0,
+    "131": 1.0,
+    "132": 1.0,
+    "133": 1.0,
+    "134": 1.0
+  },
+  "gods": [
+    {
+      "id": "models_schemas_boxspec",
+      "label": "BoxSpec",
+      "degree": 25
+    },
+    {
+      "id": "models_schemas_optimizationinput",
+      "label": "OptimizationInput",
+      "degree": 25
+    },
+    {
+      "id": "models_schemas_optimizationresponse",
+      "label": "OptimizationResponse",
+      "degree": 25
+    },
+    {
+      "id": "supabase_client_createclient",
+      "label": "createClient()",
+      "degree": 23
+    },
+    {
+      "id": "models_schemas_alternativebox",
+      "label": "AlternativeBox",
+      "degree": 17
+    },
+    {
+      "id": "models_schemas_scorebreakdown",
+      "label": "ScoreBreakdown",
+      "degree": 16
+    },
+    {
+      "id": "frontend_tsconfig_compileroptions",
+      "label": "compilerOptions",
+      "degree": 16
+    },
+    {
+      "id": "backend_engine_advanced_scorer_py_float",
+      "label": "float",
+      "degree": 14
+    },
+    {
+      "id": "dashboard_page_dashboardclient",
+      "label": "DashboardClient",
+      "degree": 14
+    },
+    {
+      "id": "engine_advanced_scorer_run_advanced_optimization",
+      "label": "run_advanced_optimization()",
+      "degree": 13
+    }
+  ],
+  "surprises": [
+    {
+      "source": "Fix Summary: Orders-Products Relationship Error",
+      "target": "Backend Database Schema",
+      "source_files": [
+        "MIGRATION_FIX.md",
+        "database/database.sql"
+      ],
+      "confidence": "EXTRACTED",
+      "relation": "references",
+      "why": "crosses file types (doc \u2194 code); connects across different repos/directories"
+    },
+    {
+      "source": "Fix Summary: Orders-Products Relationship Error",
+      "target": "Frontend Supabase Schema",
+      "source_files": [
+        "MIGRATION_FIX.md",
+        "frontend/supabase/schema.sql"
+      ],
+      "confidence": "EXTRACTED",
+      "relation": "references",
+      "why": "crosses file types (doc \u2194 code); connects across different repos/directories"
+    },
+    {
+      "source": "Fix Summary: Orders-Products Relationship Error",
+      "target": "Migration: Fix Orders Shipments Schema",
+      "source_files": [
+        "MIGRATION_FIX.md",
+        "supabase/migrations/fix_orders_shipments_schema.sql"
+      ],
+      "confidence": "EXTRACTED",
+      "relation": "references",
+      "why": "crosses file types (doc \u2194 code); connects across different repos/directories"
+    },
+    {
+      "source": "run_xgboost_optimization()",
+      "target": "check_all_orientations()",
+      "source_files": [
+        "backend/engine/xgboost_engine.py",
+        "backend/engine/advanced_scorer.py"
+      ],
+      "confidence": "INFERRED",
+      "relation": "calls",
+      "why": "inferred connection - not explicitly stated in source"
+    },
+    {
+      "source": "float",
+      "target": "OptimizationInput",
+      "source_files": [
+        "backend/engine/advanced_scorer.py",
+        "backend/models/schemas.py"
+      ],
+      "confidence": "INFERRED",
+      "relation": "uses",
+      "why": "inferred connection - not explicitly stated in source"
+    }
+  ],
+  "tokens": {
+    "input": 22835,
+    "output": 1821
+  }
+}

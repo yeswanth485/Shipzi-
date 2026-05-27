@@ -1,0 +1,1137 @@
+{
+  "D:\\Packiq-main\\vercel.json": {
+    "mtime": 1779808233.0845475,
+    "ast_hash": "56a7704ade1261b7a14fdc6463619c29",
+    "semantic_hash": "56a7704ade1261b7a14fdc6463619c29"
+  },
+  "D:\\Packiq-main\\backend\\main.py": {
+    "mtime": 1779808232.131167,
+    "ast_hash": "c3e43b0e7720a2d907169017dda7d69f",
+    "semantic_hash": "c3e43b0e7720a2d907169017dda7d69f"
+  },
+  "D:\\Packiq-main\\backend\\test_backend.py": {
+    "mtime": 1779808232.220146,
+    "ast_hash": "6a977c13542c810ad2ee3143b4ad7b7b",
+    "semantic_hash": "6a977c13542c810ad2ee3143b4ad7b7b"
+  },
+  "D:\\Packiq-main\\backend\\engine\\advanced_scorer.py": {
+    "mtime": 1779808232.1230936,
+    "ast_hash": "e977eacc4629de62c4c0801bb3f1c603",
+    "semantic_hash": "e977eacc4629de62c4c0801bb3f1c603"
+  },
+  "D:\\Packiq-main\\backend\\engine\\heuristic.py": {
+    "mtime": 1779808232.125108,
+    "ast_hash": "60b1b7068f23665219eee0ce31070d6c",
+    "semantic_hash": "60b1b7068f23665219eee0ce31070d6c"
+  },
+  "D:\\Packiq-main\\backend\\engine\\xgboost_engine.py": {
+    "mtime": 1779808232.129149,
+    "ast_hash": "5665b3dc1f0b1bc4e8feac0643b1bebd",
+    "semantic_hash": "5665b3dc1f0b1bc4e8feac0643b1bebd"
+  },
+  "D:\\Packiq-main\\backend\\models\\schemas.py": {
+    "mtime": 1779863363.7732143,
+    "ast_hash": "64e41245dcb3838047a670f1b7b8e2b3",
+    "semantic_hash": ""
+  },
+  "D:\\Packiq-main\\backend\\routes\\health.py": {
+    "mtime": 1779808232.216102,
+    "ast_hash": "049afbf0990b6940bd8f51e6170f4143",
+    "semantic_hash": "049afbf0990b6940bd8f51e6170f4143"
+  },
+  "D:\\Packiq-main\\backend\\routes\\optimize.py": {
+    "mtime": 1779864026.2023053,
+    "ast_hash": "43eff3669968bc116f2a084a076b945f",
+    "semantic_hash": ""
+  },
+  "D:\\Packiq-main\\database\\database.sql": {
+    "mtime": 1779857166.460181,
+    "ast_hash": "e43ea549f09ee89b9486a3541e9251a1",
+    "semantic_hash": "e43ea549f09ee89b9486a3541e9251a1"
+  },
+  "D:\\Packiq-main\\frontend\\eslint.config.mjs": {
+    "mtime": 1779808232.740544,
+    "ast_hash": "068ef0f76bae9c56937ed67340612f5f",
+    "semantic_hash": "068ef0f76bae9c56937ed67340612f5f"
+  },
+  "D:\\Packiq-main\\frontend\\global.d.ts": {
+    "mtime": 1779808232.7425647,
+    "ast_hash": "8b4b8776da15df30cee6721093b01ab1",
+    "semantic_hash": "8b4b8776da15df30cee6721093b01ab1"
+  },
+  "D:\\Packiq-main\\frontend\\middleware.ts": {
+    "mtime": 1779857366.3061106,
+    "ast_hash": "20e3ebf30885aad81bf9ce1c8279f1ee",
+    "semantic_hash": "20e3ebf30885aad81bf9ce1c8279f1ee"
+  },
+  "D:\\Packiq-main\\frontend\\next-env.d.ts": {
+    "mtime": 1779716247.2370405,
+    "ast_hash": "90426577ad8f38459f3e566411c85589",
+    "semantic_hash": "90426577ad8f38459f3e566411c85589"
+  },
+  "D:\\Packiq-main\\frontend\\next.config.ts": {
+    "mtime": 1779808232.830584,
+    "ast_hash": "816866e41fd469a3d32b1ea2f864d0a6",
+    "semantic_hash": "816866e41fd469a3d32b1ea2f864d0a6"
+  },
+  "D:\\Packiq-main\\frontend\\package.json": {
+    "mtime": 1779863967.6371775,
+    "ast_hash": "2eb5d7ce2ee51a486ce74edec723c1fd",
+    "semantic_hash": ""
+  },
+  "D:\\Packiq-main\\frontend\\postcss.config.mjs": {
+    "mtime": 1779808232.8355918,
+    "ast_hash": "4c0eaa18cbcae605a48df7d972f9d0ba",
+    "semantic_hash": "4c0eaa18cbcae605a48df7d972f9d0ba"
+  },
+  "D:\\Packiq-main\\frontend\\tsconfig.json": {
+    "mtime": 1779808233.0595613,
+    "ast_hash": "c57d9c0fb5baa59b8ff1cb394096f2ca",
+    "semantic_hash": "c57d9c0fb5baa59b8ff1cb394096f2ca"
+  },
+  "D:\\Packiq-main\\frontend\\app\\layout.tsx": {
+    "mtime": 1779808232.603419,
+    "ast_hash": "e23ec7284929d1abccd6d3f729ace087",
+    "semantic_hash": "e23ec7284929d1abccd6d3f729ace087"
+  },
+  "D:\\Packiq-main\\frontend\\app\\page.tsx": {
+    "mtime": 1779808232.6069815,
+    "ast_hash": "0520ee17dd54f7875838ff6252037e9a",
+    "semantic_hash": "0520ee17dd54f7875838ff6252037e9a"
+  },
+  "D:\\Packiq-main\\frontend\\app\\api\\ai\\analyses\\route.ts": {
+    "mtime": 1779808232.2340274,
+    "ast_hash": "ba32add1fa0eb789a3f7ee62fede47fc",
+    "semantic_hash": "ba32add1fa0eb789a3f7ee62fede47fc"
+  },
+  "D:\\Packiq-main\\frontend\\app\\api\\ai\\analyze\\route.ts": {
+    "mtime": 1779808232.2372336,
+    "ast_hash": "4a1e32fbdb92b1d08fcb1e8ea9d00d22",
+    "semantic_hash": "4a1e32fbdb92b1d08fcb1e8ea9d00d22"
+  },
+  "D:\\Packiq-main\\frontend\\app\\api\\alerts\\configure\\route.ts": {
+    "mtime": 1779808232.2392547,
+    "ast_hash": "8b93f9d67e4312aaac16406a9e86bd6b",
+    "semantic_hash": "8b93f9d67e4312aaac16406a9e86bd6b"
+  },
+  "D:\\Packiq-main\\frontend\\app\\api\\auth\\otp\\route.ts": {
+    "mtime": 1779808232.2432995,
+    "ast_hash": "e36df621c2efc46897a3f853b3d04fac",
+    "semantic_hash": "e36df621c2efc46897a3f853b3d04fac"
+  },
+  "D:\\Packiq-main\\frontend\\app\\api\\box-catalog\\route.ts": {
+    "mtime": 1779808232.25141,
+    "ast_hash": "ff3277ac914739f9907203edbe2eed95",
+    "semantic_hash": "ff3277ac914739f9907203edbe2eed95"
+  },
+  "D:\\Packiq-main\\frontend\\app\\api\\box-catalog\\seed\\route.ts": {
+    "mtime": 1779808232.2544477,
+    "ast_hash": "6d82d126d9876915038b9c0a15432166",
+    "semantic_hash": "6d82d126d9876915038b9c0a15432166"
+  },
+  "D:\\Packiq-main\\frontend\\app\\api\\dashboard-data\\route.ts": {
+    "mtime": 1779808232.256475,
+    "ast_hash": "7fcea7a2eadde6f9c44537694a4c1cfe",
+    "semantic_hash": "7fcea7a2eadde6f9c44537694a4c1cfe"
+  },
+  "D:\\Packiq-main\\frontend\\app\\api\\debug\\db-status\\route.ts": {
+    "mtime": 1779808232.2584932,
+    "ast_hash": "7330ffead7f00fa53eca49dff44d0544",
+    "semantic_hash": "7330ffead7f00fa53eca49dff44d0544"
+  },
+  "D:\\Packiq-main\\frontend\\app\\api\\health\\route.ts": {
+    "mtime": 1779808232.2605183,
+    "ast_hash": "aa510e0ee7372275a5bbb571e0d8a51a",
+    "semantic_hash": "aa510e0ee7372275a5bbb571e0d8a51a"
+  },
+  "D:\\Packiq-main\\frontend\\app\\api\\inspections\\ingest\\route.ts": {
+    "mtime": 1779808232.2863908,
+    "ast_hash": "04e9cce91e26e1d4bbc3370bb42184e9",
+    "semantic_hash": "04e9cce91e26e1d4bbc3370bb42184e9"
+  },
+  "D:\\Packiq-main\\frontend\\app\\api\\inspections\\summary\\route.ts": {
+    "mtime": 1779808232.3241313,
+    "ast_hash": "15a0fef54982b03ee7f1d780fa322dc1",
+    "semantic_hash": "15a0fef54982b03ee7f1d780fa322dc1"
+  },
+  "D:\\Packiq-main\\frontend\\app\\api\\optimization-results\\route.ts": {
+    "mtime": 1779808232.3261557,
+    "ast_hash": "3780932756776cc0e577db524d4f404d",
+    "semantic_hash": "3780932756776cc0e577db524d4f404d"
+  },
+  "D:\\Packiq-main\\frontend\\app\\api\\optimize\\route.ts": {
+    "mtime": 1779865909.0010905,
+    "ast_hash": "052de57c8f510fe1e9b6a0d24440c0e4",
+    "semantic_hash": ""
+  },
+  "D:\\Packiq-main\\frontend\\app\\api\\optimize\\reanalyze\\route.ts": {
+    "mtime": 1779808232.3322737,
+    "ast_hash": "dc908cd05b331026c9382da3cb4da658",
+    "semantic_hash": "dc908cd05b331026c9382da3cb4da658"
+  },
+  "D:\\Packiq-main\\frontend\\app\\api\\optimize\\save\\route.ts": {
+    "mtime": 1779865931.9531283,
+    "ast_hash": "ceb3282443cee904ee61af47e49919bb",
+    "semantic_hash": ""
+  },
+  "D:\\Packiq-main\\frontend\\app\\api\\orders\\route.ts": {
+    "mtime": 1779808232.3405118,
+    "ast_hash": "f6d04ccc01ba83df04e7e1a651721959",
+    "semantic_hash": "f6d04ccc01ba83df04e7e1a651721959"
+  },
+  "D:\\Packiq-main\\frontend\\app\\api\\products\\route.ts": {
+    "mtime": 1779808232.3445542,
+    "ast_hash": "93d068c65f81e31309dea53b525b9d80",
+    "semantic_hash": "93d068c65f81e31309dea53b525b9d80"
+  },
+  "D:\\Packiq-main\\frontend\\app\\api\\settings\\test-openrouter\\route.ts": {
+    "mtime": 1779808232.3501203,
+    "ast_hash": "78098aaf7faed656a7c093a09e3efd23",
+    "semantic_hash": "78098aaf7faed656a7c093a09e3efd23"
+  },
+  "D:\\Packiq-main\\frontend\\app\\api\\shipments\\route.ts": {
+    "mtime": 1779808232.3532043,
+    "ast_hash": "d106e5f164e3d313a32eca0111bfc122",
+    "semantic_hash": "d106e5f164e3d313a32eca0111bfc122"
+  },
+  "D:\\Packiq-main\\frontend\\app\\api\\stripe\\checkout\\route.ts": {
+    "mtime": 1779808232.3592374,
+    "ast_hash": "04b4a126708b755e82883fce34452de3",
+    "semantic_hash": "04b4a126708b755e82883fce34452de3"
+  },
+  "D:\\Packiq-main\\frontend\\app\\api\\stripe\\webhook\\route.ts": {
+    "mtime": 1779808232.364776,
+    "ast_hash": "0983fc7e46195bc431b2a2dc728512aa",
+    "semantic_hash": "0983fc7e46195bc431b2a2dc728512aa"
+  },
+  "D:\\Packiq-main\\frontend\\app\\api\\tokens\\balance\\route.ts": {
+    "mtime": 1779808232.368177,
+    "ast_hash": "67035d3355a8b57663b88b438e9ae23c",
+    "semantic_hash": "67035d3355a8b57663b88b438e9ae23c"
+  },
+  "D:\\Packiq-main\\frontend\\app\\api\\tokens\\deduct\\route.ts": {
+    "mtime": 1779808232.3714697,
+    "ast_hash": "d462253cab0e73259f6d17ec323ad965",
+    "semantic_hash": "d462253cab0e73259f6d17ec323ad965"
+  },
+  "D:\\Packiq-main\\frontend\\app\\api\\tracking\\route.ts": {
+    "mtime": 1779808232.3743267,
+    "ast_hash": "8c56418661f40df2445dee6063743577",
+    "semantic_hash": "8c56418661f40df2445dee6063743577"
+  },
+  "D:\\Packiq-main\\frontend\\app\\api\\upload\\route.ts": {
+    "mtime": 1779808232.4823375,
+    "ast_hash": "f9832a928087cb6ea48700ad6df87cf2",
+    "semantic_hash": "f9832a928087cb6ea48700ad6df87cf2"
+  },
+  "D:\\Packiq-main\\frontend\\app\\auth\\callback\\route.ts": {
+    "mtime": 1779808232.484345,
+    "ast_hash": "821293d805ddf117464307e22d7640da",
+    "semantic_hash": "821293d805ddf117464307e22d7640da"
+  },
+  "D:\\Packiq-main\\frontend\\app\\auth\\login\\page.tsx": {
+    "mtime": 1779808232.4883707,
+    "ast_hash": "52b6cf86d53cf3dc5622a51f05161369",
+    "semantic_hash": "52b6cf86d53cf3dc5622a51f05161369"
+  },
+  "D:\\Packiq-main\\frontend\\app\\auth\\mfa\\page.tsx": {
+    "mtime": 1779808232.4924014,
+    "ast_hash": "4c9e71aeb4a4d68d6380b05cc677a219",
+    "semantic_hash": "4c9e71aeb4a4d68d6380b05cc677a219"
+  },
+  "D:\\Packiq-main\\frontend\\app\\auth\\reset-password\\page.tsx": {
+    "mtime": 1779808232.4961834,
+    "ast_hash": "3e4224553e74615362b5b55518626dfa",
+    "semantic_hash": "3e4224553e74615362b5b55518626dfa"
+  },
+  "D:\\Packiq-main\\frontend\\app\\auth\\signup\\page.tsx": {
+    "mtime": 1779808232.49801,
+    "ast_hash": "28de10182df6cf35b238347af26f2b5e",
+    "semantic_hash": "28de10182df6cf35b238347af26f2b5e"
+  },
+  "D:\\Packiq-main\\frontend\\app\\dashboard\\layout.tsx": {
+    "mtime": 1779808232.527484,
+    "ast_hash": "a2c4ce8f86deff28acae253c1e33d1b4",
+    "semantic_hash": "a2c4ce8f86deff28acae253c1e33d1b4"
+  },
+  "D:\\Packiq-main\\frontend\\app\\dashboard\\loading.tsx": {
+    "mtime": 1779808232.529503,
+    "ast_hash": "e1e0a30cf55df4964470ef710bc90937",
+    "semantic_hash": "e1e0a30cf55df4964470ef710bc90937"
+  },
+  "D:\\Packiq-main\\frontend\\app\\dashboard\\page.tsx": {
+    "mtime": 1779808232.5355618,
+    "ast_hash": "32acb7634a53220658541250a42a2451",
+    "semantic_hash": "32acb7634a53220658541250a42a2451"
+  },
+  "D:\\Packiq-main\\frontend\\app\\dashboard\\3d\\page.tsx": {
+    "mtime": 1779808232.5020702,
+    "ast_hash": "7efa3fd876c0094303edad17128ef10d",
+    "semantic_hash": "7efa3fd876c0094303edad17128ef10d"
+  },
+  "D:\\Packiq-main\\frontend\\app\\dashboard\\analytics\\page.tsx": {
+    "mtime": 1779808232.503596,
+    "ast_hash": "879f1e359b5cf76371b81cfd72b13037",
+    "semantic_hash": "879f1e359b5cf76371b81cfd72b13037"
+  },
+  "D:\\Packiq-main\\frontend\\app\\dashboard\\box-catalog\\page.tsx": {
+    "mtime": 1779808232.5056374,
+    "ast_hash": "2fdad9eab5b7e268c64c8a600b1dbac0",
+    "semantic_hash": "2fdad9eab5b7e268c64c8a600b1dbac0"
+  },
+  "D:\\Packiq-main\\frontend\\app\\dashboard\\labels\\page.tsx": {
+    "mtime": 1779808232.523429,
+    "ast_hash": "170b468a9a4b26765d9047ed0f93b7cf",
+    "semantic_hash": "170b468a9a4b26765d9047ed0f93b7cf"
+  },
+  "D:\\Packiq-main\\frontend\\app\\dashboard\\optimize\\page.tsx": {
+    "mtime": 1779866474.830194,
+    "ast_hash": "ae1719d2bcc9848db108b1a31e6909f6",
+    "semantic_hash": ""
+  },
+  "D:\\Packiq-main\\frontend\\app\\dashboard\\orders\\page.tsx": {
+    "mtime": 1779866355.0807762,
+    "ast_hash": "c97973806b9290d474d2edc550652e29",
+    "semantic_hash": ""
+  },
+  "D:\\Packiq-main\\frontend\\app\\dashboard\\products\\page.tsx": {
+    "mtime": 1779808232.537575,
+    "ast_hash": "74f877d29816ab078c3a8adb9cd7f784",
+    "semantic_hash": "74f877d29816ab078c3a8adb9cd7f784"
+  },
+  "D:\\Packiq-main\\frontend\\app\\dashboard\\settings\\page.tsx": {
+    "mtime": 1779808232.5395882,
+    "ast_hash": "9989a7cd75d5fa28ee2dc58897a2c307",
+    "semantic_hash": "9989a7cd75d5fa28ee2dc58897a2c307"
+  },
+  "D:\\Packiq-main\\frontend\\app\\dashboard\\sustainability\\page.tsx": {
+    "mtime": 1779808232.599383,
+    "ast_hash": "ff1d655b7a767e2f6b662779eb6279bb",
+    "semantic_hash": "ff1d655b7a767e2f6b662779eb6279bb"
+  },
+  "D:\\Packiq-main\\frontend\\app\\onboarding\\layout.tsx": {
+    "mtime": 1779808232.6049414,
+    "ast_hash": "2c2b2c3e2190fbd98a9a9ed4af4bac5e",
+    "semantic_hash": "2c2b2c3e2190fbd98a9a9ed4af4bac5e"
+  },
+  "D:\\Packiq-main\\frontend\\app\\onboarding\\page.tsx": {
+    "mtime": 1779808232.6049414,
+    "ast_hash": "6c725221a5af4c6da8580b629ef46bdc",
+    "semantic_hash": "6c725221a5af4c6da8580b629ef46bdc"
+  },
+  "D:\\Packiq-main\\frontend\\components\\AuthProvider.tsx": {
+    "mtime": 1779808232.615057,
+    "ast_hash": "b3e0f37c2a4f7e8939427b60055fcf51",
+    "semantic_hash": "b3e0f37c2a4f7e8939427b60055fcf51"
+  },
+  "D:\\Packiq-main\\frontend\\components\\EmptyState.tsx": {
+    "mtime": 1779808232.615057,
+    "ast_hash": "42bd55ea70098e78bd417e598793d750",
+    "semantic_hash": "42bd55ea70098e78bd417e598793d750"
+  },
+  "D:\\Packiq-main\\frontend\\components\\LimitReachedWall.tsx": {
+    "mtime": 1779808232.6170776,
+    "ast_hash": "e92d48afd6e9d9e0173d30e026247589",
+    "semantic_hash": "e92d48afd6e9d9e0173d30e026247589"
+  },
+  "D:\\Packiq-main\\frontend\\components\\3d\\Box3DViewer.tsx": {
+    "mtime": 1779808232.6090062,
+    "ast_hash": "73077e7bdf708e05f56c33486b051401",
+    "semantic_hash": "73077e7bdf708e05f56c33486b051401"
+  },
+  "D:\\Packiq-main\\frontend\\components\\3d\\BoxPreview.tsx": {
+    "mtime": 1779808232.6110249,
+    "ast_hash": "fa9afea434d0c7d06667ee7421dedbc1",
+    "semantic_hash": "fa9afea434d0c7d06667ee7421dedbc1"
+  },
+  "D:\\Packiq-main\\frontend\\components\\3d\\BoxWithLabel.tsx": {
+    "mtime": 1779808232.6130402,
+    "ast_hash": "9a7b5d0e897e00dcb17e5935a868b509",
+    "semantic_hash": "9a7b5d0e897e00dcb17e5935a868b509"
+  },
+  "D:\\Packiq-main\\frontend\\components\\animations\\CountUpNumber.tsx": {
+    "mtime": 1779808232.619094,
+    "ast_hash": "88535df035905e65eaeb37739d3a62ff",
+    "semantic_hash": "88535df035905e65eaeb37739d3a62ff"
+  },
+  "D:\\Packiq-main\\frontend\\components\\animations\\DataFlowLine.tsx": {
+    "mtime": 1779808232.6211143,
+    "ast_hash": "4cc2114a564c434cf350eab54a85f593",
+    "semantic_hash": "4cc2114a564c434cf350eab54a85f593"
+  },
+  "D:\\Packiq-main\\frontend\\components\\animations\\index.ts": {
+    "mtime": 1779808232.626939,
+    "ast_hash": "8c71561622e97bd70015509a2e414531",
+    "semantic_hash": "8c71561622e97bd70015509a2e414531"
+  },
+  "D:\\Packiq-main\\frontend\\components\\animations\\NumberTicker.tsx": {
+    "mtime": 1779808232.6211143,
+    "ast_hash": "2b828393e248d902963e435a71e1472f",
+    "semantic_hash": "2b828393e248d902963e435a71e1472f"
+  },
+  "D:\\Packiq-main\\frontend\\components\\animations\\PulsingBorder.tsx": {
+    "mtime": 1779808232.6231382,
+    "ast_hash": "322762aa670b530ed7bbf98fa441dcdc",
+    "semantic_hash": "322762aa670b530ed7bbf98fa441dcdc"
+  },
+  "D:\\Packiq-main\\frontend\\components\\animations\\ScanLineEffect.tsx": {
+    "mtime": 1779808232.6231382,
+    "ast_hash": "8bbec279a25ec8f4a7e98f1db94e901a",
+    "semantic_hash": "8bbec279a25ec8f4a7e98f1db94e901a"
+  },
+  "D:\\Packiq-main\\frontend\\components\\animations\\StaggerContainer.tsx": {
+    "mtime": 1779808232.6251621,
+    "ast_hash": "de9657ce87155bef9d0d169b3579ba08",
+    "semantic_hash": "de9657ce87155bef9d0d169b3579ba08"
+  },
+  "D:\\Packiq-main\\frontend\\components\\charts\\BoxUsageChart.tsx": {
+    "mtime": 1779808232.6294975,
+    "ast_hash": "f229059e7959e79527f16a89d365a049",
+    "semantic_hash": "f229059e7959e79527f16a89d365a049"
+  },
+  "D:\\Packiq-main\\frontend\\components\\charts\\CarrierDistributionDonut.tsx": {
+    "mtime": 1779808232.6324964,
+    "ast_hash": "26924540a2be552431f49459d44695ec",
+    "semantic_hash": "26924540a2be552431f49459d44695ec"
+  },
+  "D:\\Packiq-main\\frontend\\components\\charts\\CO2AreaChart.tsx": {
+    "mtime": 1779808232.6305053,
+    "ast_hash": "7167bdf17b2de44a456f5e31b553bae3",
+    "semantic_hash": "7167bdf17b2de44a456f5e31b553bae3"
+  },
+  "D:\\Packiq-main\\frontend\\components\\charts\\CostBarChart.tsx": {
+    "mtime": 1779808232.6354916,
+    "ast_hash": "ee159242804b82e3ecb7ed444ffb3dae",
+    "semantic_hash": "ee159242804b82e3ecb7ed444ffb3dae"
+  },
+  "D:\\Packiq-main\\frontend\\components\\charts\\EfficiencyGauge.tsx": {
+    "mtime": 1779808232.6374943,
+    "ast_hash": "8c6783a51064ede07f6f10f32a354bc8",
+    "semantic_hash": "8c6783a51064ede07f6f10f32a354bc8"
+  },
+  "D:\\Packiq-main\\frontend\\components\\charts\\FragilityDonut.tsx": {
+    "mtime": 1779808232.6399179,
+    "ast_hash": "d2619f66c3430291fd5ffec209a49691",
+    "semantic_hash": "d2619f66c3430291fd5ffec209a49691"
+  },
+  "D:\\Packiq-main\\frontend\\components\\charts\\SavingsChart.tsx": {
+    "mtime": 1779808232.6429532,
+    "ast_hash": "60d7c779c9b85398f031b1b205497f75",
+    "semantic_hash": "60d7c779c9b85398f031b1b205497f75"
+  },
+  "D:\\Packiq-main\\frontend\\components\\charts\\SavingsDistributionChart.tsx": {
+    "mtime": 1779808232.6472082,
+    "ast_hash": "f4f5febc95753c1b09f7a49ba1444cb9",
+    "semantic_hash": "f4f5febc95753c1b09f7a49ba1444cb9"
+  },
+  "D:\\Packiq-main\\frontend\\components\\charts\\SavingsLineChart.tsx": {
+    "mtime": 1779808232.64971,
+    "ast_hash": "e6eeba444f894be8423404ba1fd89b45",
+    "semantic_hash": "e6eeba444f894be8423404ba1fd89b45"
+  },
+  "D:\\Packiq-main\\frontend\\components\\charts\\SKUComparisonChart.tsx": {
+    "mtime": 1779808232.6419563,
+    "ast_hash": "a8b853295b1e9bfeaed9b28a34689755",
+    "semantic_hash": "a8b853295b1e9bfeaed9b28a34689755"
+  },
+  "D:\\Packiq-main\\frontend\\components\\charts\\SpaceUtilizationScatter.tsx": {
+    "mtime": 1779808232.650709,
+    "ast_hash": "8e35e356af10f83a03fce11c5b0dd1e5",
+    "semantic_hash": "8e35e356af10f83a03fce11c5b0dd1e5"
+  },
+  "D:\\Packiq-main\\frontend\\components\\charts\\SuccessRateAreaChart.tsx": {
+    "mtime": 1779808232.6526966,
+    "ast_hash": "211e2d95457813827122a8f04e6eadd6",
+    "semantic_hash": "211e2d95457813827122a8f04e6eadd6"
+  },
+  "D:\\Packiq-main\\frontend\\components\\charts\\TotalSavedBarChart.tsx": {
+    "mtime": 1779808232.6526966,
+    "ast_hash": "39b099a009d662d67f8ee8ba19a8e6bf",
+    "semantic_hash": "39b099a009d662d67f8ee8ba19a8e6bf"
+  },
+  "D:\\Packiq-main\\frontend\\components\\charts\\UtilizationGauge.tsx": {
+    "mtime": 1779808232.6544118,
+    "ast_hash": "52a07f253aa61f3635db60e0a02c3a3a",
+    "semantic_hash": "52a07f253aa61f3635db60e0a02c3a3a"
+  },
+  "D:\\Packiq-main\\frontend\\components\\charts\\VoidPercentageLineChart.tsx": {
+    "mtime": 1779808232.6554255,
+    "ast_hash": "fbf842e19dca7e1b18b26232de72bd6d",
+    "semantic_hash": "fbf842e19dca7e1b18b26232de72bd6d"
+  },
+  "D:\\Packiq-main\\frontend\\components\\dashboard\\CompanyHeader.tsx": {
+    "mtime": 1779808232.6574268,
+    "ast_hash": "09ebd19211fe8dd4b84351416cad8bd9",
+    "semantic_hash": "09ebd19211fe8dd4b84351416cad8bd9"
+  },
+  "D:\\Packiq-main\\frontend\\components\\dashboard\\DashboardClient.tsx": {
+    "mtime": 1779808232.6584303,
+    "ast_hash": "49bbd75532e2a1b7d26931941eb4ec24",
+    "semantic_hash": "49bbd75532e2a1b7d26931941eb4ec24"
+  },
+  "D:\\Packiq-main\\frontend\\components\\dashboard\\DashboardLayoutClient.tsx": {
+    "mtime": 1779808232.6594305,
+    "ast_hash": "e61b954e3d4eafe7c20dd9f63b749b78",
+    "semantic_hash": "e61b954e3d4eafe7c20dd9f63b749b78"
+  },
+  "D:\\Packiq-main\\frontend\\components\\dashboard\\KPICard.tsx": {
+    "mtime": 1779808232.662692,
+    "ast_hash": "fae9564db832d1c03dc4a08b658c50f8",
+    "semantic_hash": "fae9564db832d1c03dc4a08b658c50f8"
+  },
+  "D:\\Packiq-main\\frontend\\components\\dashboard\\Sidebar.tsx": {
+    "mtime": 1779808232.666031,
+    "ast_hash": "9b7955f6a25dccd91c2129f3eedc9747",
+    "semantic_hash": "9b7955f6a25dccd91c2129f3eedc9747"
+  },
+  "D:\\Packiq-main\\frontend\\components\\dashboard\\TopBar.tsx": {
+    "mtime": 1779808232.667372,
+    "ast_hash": "387ee222680c94dbf3cc2bee8798ce3b",
+    "semantic_hash": "387ee222680c94dbf3cc2bee8798ce3b"
+  },
+  "D:\\Packiq-main\\frontend\\components\\landing\\Features.tsx": {
+    "mtime": 1779808232.6694522,
+    "ast_hash": "47723a70d60189ab5448d3bc4332879b",
+    "semantic_hash": "47723a70d60189ab5448d3bc4332879b"
+  },
+  "D:\\Packiq-main\\frontend\\components\\landing\\Footer.tsx": {
+    "mtime": 1779808232.6714616,
+    "ast_hash": "d346ec00e015ef487f595e30e6fe1280",
+    "semantic_hash": "d346ec00e015ef487f595e30e6fe1280"
+  },
+  "D:\\Packiq-main\\frontend\\components\\landing\\Hero.tsx": {
+    "mtime": 1779808232.672458,
+    "ast_hash": "3e84b5d609608207e0f0076dbc897140",
+    "semantic_hash": "3e84b5d609608207e0f0076dbc897140"
+  },
+  "D:\\Packiq-main\\frontend\\components\\landing\\HowItWorks.tsx": {
+    "mtime": 1779808232.6742399,
+    "ast_hash": "cbc13a218dcb85cb2951ea2bdfa242b6",
+    "semantic_hash": "cbc13a218dcb85cb2951ea2bdfa242b6"
+  },
+  "D:\\Packiq-main\\frontend\\components\\landing\\Navbar.tsx": {
+    "mtime": 1779808232.6754293,
+    "ast_hash": "88049c0ca5ba53303d61ad7824082586",
+    "semantic_hash": "88049c0ca5ba53303d61ad7824082586"
+  },
+  "D:\\Packiq-main\\frontend\\components\\landing\\Pricing.tsx": {
+    "mtime": 1779808232.6774437,
+    "ast_hash": "7f1e66a67f45a911970e315227c1d0a0",
+    "semantic_hash": "7f1e66a67f45a911970e315227c1d0a0"
+  },
+  "D:\\Packiq-main\\frontend\\components\\landing\\StatsBar.tsx": {
+    "mtime": 1779808232.6794689,
+    "ast_hash": "b55060c201b8290667235f755d3cbe79",
+    "semantic_hash": "b55060c201b8290667235f755d3cbe79"
+  },
+  "D:\\Packiq-main\\frontend\\components\\landing\\Suppliers.tsx": {
+    "mtime": 1779808232.6821187,
+    "ast_hash": "c0980982d3c285c773b8eed207777942",
+    "semantic_hash": "c0980982d3c285c773b8eed207777942"
+  },
+  "D:\\Packiq-main\\frontend\\components\\onboarding\\OnboardingWizard.tsx": {
+    "mtime": 1779812397.4067292,
+    "ast_hash": "d9f987f5fc4e652109370a765306f417",
+    "semantic_hash": "d9f987f5fc4e652109370a765306f417"
+  },
+  "D:\\Packiq-main\\frontend\\components\\onboarding\\Step1Welcome.tsx": {
+    "mtime": 1779808232.7177508,
+    "ast_hash": "689cef2dc04fdef4b52126eac16b11aa",
+    "semantic_hash": "689cef2dc04fdef4b52126eac16b11aa"
+  },
+  "D:\\Packiq-main\\frontend\\components\\onboarding\\Step2CompanyDetails.tsx": {
+    "mtime": 1779808232.7197485,
+    "ast_hash": "9ad0995575b88a3927c79ca489ec1ac1",
+    "semantic_hash": "9ad0995575b88a3927c79ca489ec1ac1"
+  },
+  "D:\\Packiq-main\\frontend\\components\\onboarding\\Step3LogoUpload.tsx": {
+    "mtime": 1779808232.7207553,
+    "ast_hash": "8ee786797b98d0e47269bf6d677af3a1",
+    "semantic_hash": "8ee786797b98d0e47269bf6d677af3a1"
+  },
+  "D:\\Packiq-main\\frontend\\components\\onboarding\\Step4Review.tsx": {
+    "mtime": 1779808232.7278342,
+    "ast_hash": "a57b4cf8e277a05569b2e239aa15df45",
+    "semantic_hash": "a57b4cf8e277a05569b2e239aa15df45"
+  },
+  "D:\\Packiq-main\\frontend\\components\\onboarding\\Step5Success.tsx": {
+    "mtime": 1779808232.7324696,
+    "ast_hash": "21141de5de10b22187caee2369433b78",
+    "semantic_hash": "21141de5de10b22187caee2369433b78"
+  },
+  "D:\\Packiq-main\\frontend\\components\\orders\\Box3DViewer.tsx": {
+    "mtime": 1779808232.734486,
+    "ast_hash": "6dafd604cf93270c4ae96b45905be096",
+    "semantic_hash": "6dafd604cf93270c4ae96b45905be096"
+  },
+  "D:\\Packiq-main\\frontend\\components\\orders\\OrderDetailsModal.tsx": {
+    "mtime": 1779865867.7770994,
+    "ast_hash": "19b4f3a46039618a62d32b583bc7cdb2",
+    "semantic_hash": ""
+  },
+  "D:\\Packiq-main\\frontend\\components\\orders\\OrdersTable.tsx": {
+    "mtime": 1779865808.2211595,
+    "ast_hash": "eb07ebfa9370ebb43c69b86a3f8c3c45",
+    "semantic_hash": ""
+  },
+  "D:\\Packiq-main\\frontend\\components\\ui\\Badge.tsx": {
+    "mtime": 1779808232.740544,
+    "ast_hash": "d6c785ca2c02f4cdf9053e50cd328315",
+    "semantic_hash": "d6c785ca2c02f4cdf9053e50cd328315"
+  },
+  "D:\\Packiq-main\\frontend\\components\\ui\\Skeleton.tsx": {
+    "mtime": 1779808232.740544,
+    "ast_hash": "3fb661b0f2ad01ad02d7db142f726015",
+    "semantic_hash": "3fb661b0f2ad01ad02d7db142f726015"
+  },
+  "D:\\Packiq-main\\frontend\\hooks\\useAuth.ts": {
+    "mtime": 1779808232.746595,
+    "ast_hash": "1bce910ab583e8e38e965b646e89ad12",
+    "semantic_hash": "1bce910ab583e8e38e965b646e89ad12"
+  },
+  "D:\\Packiq-main\\frontend\\hooks\\useSubscription.ts": {
+    "mtime": 1779808232.7496011,
+    "ast_hash": "022666edbd7919fdeddfe4f6789d423f",
+    "semantic_hash": "022666edbd7919fdeddfe4f6789d423f"
+  },
+  "D:\\Packiq-main\\frontend\\lib\\animations.ts": {
+    "mtime": 1779808232.7506022,
+    "ast_hash": "3f038b0fb01279edceec3a8d756ec3e7",
+    "semantic_hash": "3f038b0fb01279edceec3a8d756ec3e7"
+  },
+  "D:\\Packiq-main\\frontend\\lib\\fileParser.ts": {
+    "mtime": 1779808232.7578762,
+    "ast_hash": "fb99febbcb41d1172aad2e942ef34372",
+    "semantic_hash": "fb99febbcb41d1172aad2e942ef34372"
+  },
+  "D:\\Packiq-main\\frontend\\lib\\stripe.ts": {
+    "mtime": 1779808232.8164449,
+    "ast_hash": "6045bc3116392990f4501cb5949d5e66",
+    "semantic_hash": "6045bc3116392990f4501cb5949d5e66"
+  },
+  "D:\\Packiq-main\\frontend\\lib\\twilio.ts": {
+    "mtime": 1779808232.8222022,
+    "ast_hash": "df0e5ba2eedc0b8c5b9e49b91b0dc846",
+    "semantic_hash": "df0e5ba2eedc0b8c5b9e49b91b0dc846"
+  },
+  "D:\\Packiq-main\\frontend\\lib\\utils.ts": {
+    "mtime": 1779808232.8242292,
+    "ast_hash": "1d8011eb18769078bf77502b220daa5e",
+    "semantic_hash": "1d8011eb18769078bf77502b220daa5e"
+  },
+  "D:\\Packiq-main\\frontend\\lib\\calculations\\co2.ts": {
+    "mtime": 1779808232.752843,
+    "ast_hash": "925bac6205e778604d76c45438731cfe",
+    "semantic_hash": "925bac6205e778604d76c45438731cfe"
+  },
+  "D:\\Packiq-main\\frontend\\lib\\calculations\\pricing.ts": {
+    "mtime": 1779808232.7538602,
+    "ast_hash": "7fc5ce0aeebc52f9f167fcddc48ae3b9",
+    "semantic_hash": "7fc5ce0aeebc52f9f167fcddc48ae3b9"
+  },
+  "D:\\Packiq-main\\frontend\\lib\\context\\DashboardContext.tsx": {
+    "mtime": 1779808232.7558818,
+    "ast_hash": "4d49adb88cf1b45cf3bcbbc4e0bc3b44",
+    "semantic_hash": "4d49adb88cf1b45cf3bcbbc4e0bc3b44"
+  },
+  "D:\\Packiq-main\\frontend\\lib\\hooks\\useCompany.ts": {
+    "mtime": 1779808232.758891,
+    "ast_hash": "56706dddefe0ad65e12732d2b7257781",
+    "semantic_hash": "56706dddefe0ad65e12732d2b7257781"
+  },
+  "D:\\Packiq-main\\frontend\\lib\\hooks\\useDashboardData.ts": {
+    "mtime": 1779808232.7609794,
+    "ast_hash": "97d595ea8b0e20d677e9e42ac24ee8a3",
+    "semantic_hash": "97d595ea8b0e20d677e9e42ac24ee8a3"
+  },
+  "D:\\Packiq-main\\frontend\\lib\\hooks\\useInspectionFeed.ts": {
+    "mtime": 1779808232.7640588,
+    "ast_hash": "e7a61fb84b8a58bdc4b21f5ebf9ffafb",
+    "semantic_hash": "e7a61fb84b8a58bdc4b21f5ebf9ffafb"
+  },
+  "D:\\Packiq-main\\frontend\\lib\\hooks\\useOptimizationRuns.ts": {
+    "mtime": 1779808232.766318,
+    "ast_hash": "c0be34b72ae5f792986f729b5bb836a3",
+    "semantic_hash": "c0be34b72ae5f792986f729b5bb836a3"
+  },
+  "D:\\Packiq-main\\frontend\\lib\\optimization\\csvParser.ts": {
+    "mtime": 1779808232.7673213,
+    "ast_hash": "ba18cf156d8b210b1a4f05f5397d6a53",
+    "semantic_hash": "ba18cf156d8b210b1a4f05f5397d6a53"
+  },
+  "D:\\Packiq-main\\frontend\\lib\\optimization\\engine.ts": {
+    "mtime": 1779808232.8103726,
+    "ast_hash": "64702dae506f13525cf16858e33c1d23",
+    "semantic_hash": "64702dae506f13525cf16858e33c1d23"
+  },
+  "D:\\Packiq-main\\frontend\\lib\\optimization\\mlOptimizer.ts": {
+    "mtime": 1779808232.8134177,
+    "ast_hash": "5cc8870c12405907a25a345d93cac198",
+    "semantic_hash": "5cc8870c12405907a25a345d93cac198"
+  },
+  "D:\\Packiq-main\\frontend\\lib\\store\\optimizationStore.ts": {
+    "mtime": 1779808232.8144312,
+    "ast_hash": "c09490bcbcbab3f15b0d010d86497e89",
+    "semantic_hash": "c09490bcbcbab3f15b0d010d86497e89"
+  },
+  "D:\\Packiq-main\\frontend\\lib\\store\\subscriptionStore.ts": {
+    "mtime": 1779808232.8164449,
+    "ast_hash": "022d464060f71f82a149facb50a38b28",
+    "semantic_hash": "022d464060f71f82a149facb50a38b28"
+  },
+  "D:\\Packiq-main\\frontend\\lib\\supabase\\client.ts": {
+    "mtime": 1779808232.8201756,
+    "ast_hash": "a90e4d1743da11b3fd4b3e6d9464788b",
+    "semantic_hash": "a90e4d1743da11b3fd4b3e6d9464788b"
+  },
+  "D:\\Packiq-main\\frontend\\lib\\supabase\\queries.ts": {
+    "mtime": 1779808232.8201756,
+    "ast_hash": "c2e479804350852617307c791cb724a8",
+    "semantic_hash": "c2e479804350852617307c791cb724a8"
+  },
+  "D:\\Packiq-main\\frontend\\lib\\supabase\\server.ts": {
+    "mtime": 1779808232.8222022,
+    "ast_hash": "2ebd256a924765d3ab33de9642411b11",
+    "semantic_hash": "2ebd256a924765d3ab33de9642411b11"
+  },
+  "D:\\Packiq-main\\frontend\\lib\\utils\\parser.ts": {
+    "mtime": 1779808232.8242292,
+    "ast_hash": "374be456a2df81534817d8df30c96f28",
+    "semantic_hash": "374be456a2df81534817d8df30c96f28"
+  },
+  "D:\\Packiq-main\\frontend\\lib\\utils\\rateLimit.ts": {
+    "mtime": 1779808232.826254,
+    "ast_hash": "d551d76c0f2d574102ab4e2463484cc7",
+    "semantic_hash": "d551d76c0f2d574102ab4e2463484cc7"
+  },
+  "D:\\Packiq-main\\frontend\\scratch\\found_log.json": {
+    "mtime": 1779808232.91051,
+    "ast_hash": "7538b3d22ca7a3fb2f74df7ee17a982e",
+    "semantic_hash": "7538b3d22ca7a3fb2f74df7ee17a982e"
+  },
+  "D:\\Packiq-main\\frontend\\scratch\\test_db.js": {
+    "mtime": 1779808232.9115272,
+    "ast_hash": "61ec21a69e3c098c6efb013085053ce6",
+    "semantic_hash": "61ec21a69e3c098c6efb013085053ce6"
+  },
+  "D:\\Packiq-main\\frontend\\supabase\\schema.sql": {
+    "mtime": 1779808232.9135432,
+    "ast_hash": "e98feff838fd54798772af73a7617e7f",
+    "semantic_hash": "e98feff838fd54798772af73a7617e7f"
+  },
+  "D:\\Packiq-main\\frontend\\testsprite_tests\\standard_prd.json": {
+    "mtime": 1779808233.0555243,
+    "ast_hash": "5a9b6d28652266bba07b138234ccc981",
+    "semantic_hash": "5a9b6d28652266bba07b138234ccc981"
+  },
+  "D:\\Packiq-main\\frontend\\testsprite_tests\\TC001_Access_dashboard_after_logging_in.py": {
+    "mtime": 1779808232.917593,
+    "ast_hash": "9814bccbeeb4c795f3d07ae89fba5aeb",
+    "semantic_hash": "9814bccbeeb4c795f3d07ae89fba5aeb"
+  },
+  "D:\\Packiq-main\\frontend\\testsprite_tests\\TC002_Access_gating_redirects_unauthenticated_user_away_from_subscription_page.py": {
+    "mtime": 1779808232.9216342,
+    "ast_hash": "bf71cd594cbfe406764749a5cd430207",
+    "semantic_hash": "bf71cd594cbfe406764749a5cd430207"
+  },
+  "D:\\Packiq-main\\frontend\\testsprite_tests\\TC002_Sign_up_and_start_onboarding.py": {
+    "mtime": 1779808232.9216342,
+    "ast_hash": "6407f2543ff28c5c05bd872daff84ebb",
+    "semantic_hash": "6407f2543ff28c5c05bd872daff84ebb"
+  },
+  "D:\\Packiq-main\\frontend\\testsprite_tests\\TC003_Complete_onboarding_and_reach_dashboard.py": {
+    "mtime": 1779808232.9236517,
+    "ast_hash": "c40df30c1faaf954114a4d7f914bd019",
+    "semantic_hash": "c40df30c1faaf954114a4d7f914bd019"
+  },
+  "D:\\Packiq-main\\frontend\\testsprite_tests\\TC004_Add_a_new_product_and_see_it_in_the_table.py": {
+    "mtime": 1779808232.9256747,
+    "ast_hash": "bf71cd594cbfe406764749a5cd430207",
+    "semantic_hash": "bf71cd594cbfe406764749a5cd430207"
+  },
+  "D:\\Packiq-main\\frontend\\testsprite_tests\\TC004_Run_an_optimization_from_manually_entered_products_and_view_3D_recommendation.py": {
+    "mtime": 1779808232.929713,
+    "ast_hash": "1f02619678c3a4ae6080ed4ffe8e077f",
+    "semantic_hash": "1f02619678c3a4ae6080ed4ffe8e077f"
+  },
+  "D:\\Packiq-main\\frontend\\testsprite_tests\\TC005_Create_a_new_account_and_start_onboarding.py": {
+    "mtime": 1779808232.931731,
+    "ast_hash": "bf71cd594cbfe406764749a5cd430207",
+    "semantic_hash": "bf71cd594cbfe406764749a5cd430207"
+  },
+  "D:\\Packiq-main\\frontend\\testsprite_tests\\TC005_Run_an_optimization_from_CSV_upload_and_view_3D_recommendation.py": {
+    "mtime": 1779808232.9337506,
+    "ast_hash": "543ba3a2864978377c43b87070166481",
+    "semantic_hash": "543ba3a2864978377c43b87070166481"
+  },
+  "D:\\Packiq-main\\frontend\\testsprite_tests\\TC006_Search_by_tracking_number_and_open_shipment_timeline.py": {
+    "mtime": 1779808232.9337506,
+    "ast_hash": "89c5cb492c2ba5cac2e2ca79c22fa90e",
+    "semantic_hash": "89c5cb492c2ba5cac2e2ca79c22fa90e"
+  },
+  "D:\\Packiq-main\\frontend\\testsprite_tests\\TC006_Upload_valid_CSV_and_preview_parsed_rows.py": {
+    "mtime": 1779808232.9355154,
+    "ast_hash": "bf71cd594cbfe406764749a5cd430207",
+    "semantic_hash": "bf71cd594cbfe406764749a5cd430207"
+  },
+  "D:\\Packiq-main\\frontend\\testsprite_tests\\TC007_Add_a_new_catalog_item_and_see_it_in_the_catalog_list.py": {
+    "mtime": 1779808232.937528,
+    "ast_hash": "38cc4afa61c3978cee6de9ea73aae2fd",
+    "semantic_hash": "38cc4afa61c3978cee6de9ea73aae2fd"
+  },
+  "D:\\Packiq-main\\frontend\\testsprite_tests\\TC007_Open_results_table.py": {
+    "mtime": 1779808232.937528,
+    "ast_hash": "bf71cd594cbfe406764749a5cd430207",
+    "semantic_hash": "bf71cd594cbfe406764749a5cd430207"
+  },
+  "D:\\Packiq-main\\frontend\\testsprite_tests\\TC008_View_dashboard_overview_metrics_and_recent_optimizations.py": {
+    "mtime": 1779808232.9395392,
+    "ast_hash": "bf71cd594cbfe406764749a5cd430207",
+    "semantic_hash": "bf71cd594cbfe406764749a5cd430207"
+  },
+  "D:\\Packiq-main\\frontend\\testsprite_tests\\TC008_View_KPI_metrics_and_recent_history_on_dashboard.py": {
+    "mtime": 1779808232.9395392,
+    "ast_hash": "3a224fc0afae2493af8bb28955d4c1e4",
+    "semantic_hash": "3a224fc0afae2493af8bb28955d4c1e4"
+  },
+  "D:\\Packiq-main\\frontend\\testsprite_tests\\TC009_View_current_plan_and_usage_overview.py": {
+    "mtime": 1779808232.9415596,
+    "ast_hash": "e2b5b25122fc3c335052f4b23d6d750d",
+    "semantic_hash": "e2b5b25122fc3c335052f4b23d6d750d"
+  },
+  "D:\\Packiq-main\\frontend\\testsprite_tests\\TC009_View_products_list.py": {
+    "mtime": 1779808232.9415596,
+    "ast_hash": "bf71cd594cbfe406764749a5cd430207",
+    "semantic_hash": "bf71cd594cbfe406764749a5cd430207"
+  },
+  "D:\\Packiq-main\\frontend\\testsprite_tests\\TC010_Update_company_profile_and_notification_preferences.py": {
+    "mtime": 1779808232.94358,
+    "ast_hash": "bf71cd594cbfe406764749a5cd430207",
+    "semantic_hash": "bf71cd594cbfe406764749a5cd430207"
+  },
+  "D:\\Packiq-main\\frontend\\testsprite_tests\\TC010_View_shipment_tracking_cards_in_the_tracking_grid.py": {
+    "mtime": 1779808232.9476194,
+    "ast_hash": "11236e36b1682daafb3e20e9777ee299",
+    "semantic_hash": "11236e36b1682daafb3e20e9777ee299"
+  },
+  "D:\\Packiq-main\\frontend\\testsprite_tests\\TC011_Delete_a_product_and_verify_it_is_removed.py": {
+    "mtime": 1779808232.9752314,
+    "ast_hash": "bf71cd594cbfe406764749a5cd430207",
+    "semantic_hash": "bf71cd594cbfe406764749a5cd430207"
+  },
+  "D:\\Packiq-main\\frontend\\testsprite_tests\\TC011_View_settings_categories_and_profile_fields.py": {
+    "mtime": 1779808232.9802625,
+    "ast_hash": "8195fd79a1c31cdb0b8fb0eb0e038fb4",
+    "semantic_hash": "8195fd79a1c31cdb0b8fb0eb0e038fb4"
+  },
+  "D:\\Packiq-main\\frontend\\testsprite_tests\\TC012_Save_company_profile_information_in_onboarding_company_step.py": {
+    "mtime": 1779808232.9802625,
+    "ast_hash": "bf71cd594cbfe406764749a5cd430207",
+    "semantic_hash": "bf71cd594cbfe406764749a5cd430207"
+  },
+  "D:\\Packiq-main\\frontend\\testsprite_tests\\TC012_View_catalog_items_in_the_catalog_grid.py": {
+    "mtime": 1779808232.9824297,
+    "ast_hash": "a9191656ebf9f47108802847d8f67742",
+    "semantic_hash": "a9191656ebf9f47108802847d8f67742"
+  },
+  "D:\\Packiq-main\\frontend\\testsprite_tests\\TC013_Create_a_new_order_and_see_it_in_the_list.py": {
+    "mtime": 1779808232.9824297,
+    "ast_hash": "bf71cd594cbfe406764749a5cd430207",
+    "semantic_hash": "bf71cd594cbfe406764749a5cd430207"
+  },
+  "D:\\Packiq-main\\frontend\\testsprite_tests\\TC013_Show_CSV_validation_error_for_missing_or_malformed_required_columns.py": {
+    "mtime": 1779808232.9844496,
+    "ast_hash": "a9191656ebf9f47108802847d8f67742",
+    "semantic_hash": "a9191656ebf9f47108802847d8f67742"
+  },
+  "D:\\Packiq-main\\frontend\\testsprite_tests\\TC014_Select_domain_and_proceed_to_employees_step.py": {
+    "mtime": 1779808232.986467,
+    "ast_hash": "bf71cd594cbfe406764749a5cd430207",
+    "semantic_hash": "bf71cd594cbfe406764749a5cd430207"
+  },
+  "D:\\Packiq-main\\frontend\\testsprite_tests\\TC014_Toggle_annual_billing_and_see_pricing_update.py": {
+    "mtime": 1779808232.986467,
+    "ast_hash": "a9191656ebf9f47108802847d8f67742",
+    "semantic_hash": "a9191656ebf9f47108802847d8f67742"
+  },
+  "D:\\Packiq-main\\frontend\\testsprite_tests\\TC015_Filter_results_and_export_CSV.py": {
+    "mtime": 1779808232.9884846,
+    "ast_hash": "bf71cd594cbfe406764749a5cd430207",
+    "semantic_hash": "bf71cd594cbfe406764749a5cd430207"
+  },
+  "D:\\Packiq-main\\frontend\\testsprite_tests\\TC015_Filter_shipments_to_only_In_Transit.py": {
+    "mtime": 1779808232.9884846,
+    "ast_hash": "a9191656ebf9f47108802847d8f67742",
+    "semantic_hash": "a9191656ebf9f47108802847d8f67742"
+  },
+  "D:\\Packiq-main\\frontend\\testsprite_tests\\TC016_Save_profile_changes_after_unsaved_warning.py": {
+    "mtime": 1779808232.9902732,
+    "ast_hash": "a9191656ebf9f47108802847d8f67742",
+    "semantic_hash": "a9191656ebf9f47108802847d8f67742"
+  },
+  "D:\\Packiq-main\\frontend\\testsprite_tests\\TC016_View_current_subscription_plan_and_status.py": {
+    "mtime": 1779808232.9902732,
+    "ast_hash": "bf71cd594cbfe406764749a5cd430207",
+    "semantic_hash": "bf71cd594cbfe406764749a5cd430207"
+  },
+  "D:\\Packiq-main\\frontend\\testsprite_tests\\TC017_Search_the_catalog_and_see_filtered_results.py": {
+    "mtime": 1779808232.9930098,
+    "ast_hash": "f4e1e79f893c55686e89ad7f699f61fd",
+    "semantic_hash": "f4e1e79f893c55686e89ad7f699f61fd"
+  },
+  "D:\\Packiq-main\\frontend\\testsprite_tests\\TC017_View_analytics_charts.py": {
+    "mtime": 1779808232.9930098,
+    "ast_hash": "bf71cd594cbfe406764749a5cd430207",
+    "semantic_hash": "bf71cd594cbfe406764749a5cd430207"
+  },
+  "D:\\Packiq-main\\frontend\\testsprite_tests\\TC018_Start_upgrade_plan_flow_from_subscription_page.py": {
+    "mtime": 1779808232.9953747,
+    "ast_hash": "a9191656ebf9f47108802847d8f67742",
+    "semantic_hash": "a9191656ebf9f47108802847d8f67742"
+  },
+  "D:\\Packiq-main\\frontend\\testsprite_tests\\TC018_View_orders_list_with_status_indicators.py": {
+    "mtime": 1779808232.996421,
+    "ast_hash": "bf71cd594cbfe406764749a5cd430207",
+    "semantic_hash": "bf71cd594cbfe406764749a5cd430207"
+  },
+  "D:\\Packiq-main\\frontend\\testsprite_tests\\TC019_Navigate_from_dashboard_to_products_using_sidebar.py": {
+    "mtime": 1779808232.997416,
+    "ast_hash": "bf71cd594cbfe406764749a5cd430207",
+    "semantic_hash": "bf71cd594cbfe406764749a5cd430207"
+  },
+  "D:\\Packiq-main\\frontend\\testsprite_tests\\TC019_Switch_between_grid_and_list_views_in_the_catalog.py": {
+    "mtime": 1779808232.9984174,
+    "ast_hash": "a9191656ebf9f47108802847d8f67742",
+    "semantic_hash": "a9191656ebf9f47108802847d8f67742"
+  },
+  "D:\\Packiq-main\\frontend\\testsprite_tests\\TC020_Toggle_a_notification_preference.py": {
+    "mtime": 1779808233.0012634,
+    "ast_hash": "a9191656ebf9f47108802847d8f67742",
+    "semantic_hash": "a9191656ebf9f47108802847d8f67742"
+  },
+  "D:\\Packiq-main\\frontend\\testsprite_tests\\TC021_Expand_AI_reasoning_for_a_result.py": {
+    "mtime": 1779808233.0012634,
+    "ast_hash": "19bf6654c02956db4931c7826705bcb4",
+    "semantic_hash": "19bf6654c02956db4931c7826705bcb4"
+  },
+  "D:\\Packiq-main\\frontend\\testsprite_tests\\TC021_Require_exact_confirmation_text_for_danger_zone_action.py": {
+    "mtime": 1779808233.0032823,
+    "ast_hash": "a9191656ebf9f47108802847d8f67742",
+    "semantic_hash": "a9191656ebf9f47108802847d8f67742"
+  },
+  "D:\\Packiq-main\\frontend\\testsprite_tests\\TC022_Add_a_catalog_box_to_a_product.py": {
+    "mtime": 1779808233.0032823,
+    "ast_hash": "bf71cd594cbfe406764749a5cd430207",
+    "semantic_hash": "bf71cd594cbfe406764749a5cd430207"
+  },
+  "D:\\Packiq-main\\frontend\\testsprite_tests\\TC022_View_billing_history_section.py": {
+    "mtime": 1779808233.005313,
+    "ast_hash": "a9191656ebf9f47108802847d8f67742",
+    "semantic_hash": "a9191656ebf9f47108802847d8f67742"
+  },
+  "D:\\Packiq-main\\frontend\\testsprite_tests\\TC023_Switch_settings_categories_without_losing_navigation.py": {
+    "mtime": 1779808233.0073302,
+    "ast_hash": "a9191656ebf9f47108802847d8f67742",
+    "semantic_hash": "a9191656ebf9f47108802847d8f67742"
+  },
+  "D:\\Packiq-main\\frontend\\testsprite_tests\\TC023_View_current_company_settings.py": {
+    "mtime": 1779808233.0073302,
+    "ast_hash": "3fb0cf74fe791dfe3f2f0e1c3f66f827",
+    "semantic_hash": "3fb0cf74fe791dfe3f2f0e1c3f66f827"
+  },
+  "D:\\Packiq-main\\frontend\\testsprite_tests\\TC024_Filter_orders_by_status.py": {
+    "mtime": 1779808233.0097463,
+    "ast_hash": "bf71cd594cbfe406764749a5cd430207",
+    "semantic_hash": "bf71cd594cbfe406764749a5cd430207"
+  },
+  "D:\\Packiq-main\\frontend\\testsprite_tests\\TC024_Proceed_with_danger_zone_action_after_correct_confirmation_text.py": {
+    "mtime": 1779808233.01026,
+    "ast_hash": "a9191656ebf9f47108802847d8f67742",
+    "semantic_hash": "a9191656ebf9f47108802847d8f67742"
+  },
+  "D:\\Packiq-main\\frontend\\testsprite_tests\\TC025_Show_CSV_format_validation_error_for_missing_required_columns.py": {
+    "mtime": 1779808233.012787,
+    "ast_hash": "bf71cd594cbfe406764749a5cd430207",
+    "semantic_hash": "bf71cd594cbfe406764749a5cd430207"
+  },
+  "D:\\Packiq-main\\frontend\\testsprite_tests\\TC026_Open_invoice_download_flow_from_billing_history.py": {
+    "mtime": 1779808233.015016,
+    "ast_hash": "a9191656ebf9f47108802847d8f67742",
+    "semantic_hash": "a9191656ebf9f47108802847d8f67742"
+  },
+  "D:\\Packiq-main\\frontend\\testsprite_tests\\TC026_Prevent_saving_a_product_with_missing_required_fields.py": {
+    "mtime": 1779808233.0467646,
+    "ast_hash": "bf71cd594cbfe406764749a5cd430207",
+    "semantic_hash": "bf71cd594cbfe406764749a5cd430207"
+  },
+  "D:\\Packiq-main\\frontend\\testsprite_tests\\TC027_Handle_empty_billing_history_state.py": {
+    "mtime": 1779808233.0487883,
+    "ast_hash": "a9191656ebf9f47108802847d8f67742",
+    "semantic_hash": "a9191656ebf9f47108802847d8f67742"
+  },
+  "D:\\Packiq-main\\frontend\\testsprite_tests\\TC027_Look_up_a_shipment_and_view_status_timeline.py": {
+    "mtime": 1779808233.0508068,
+    "ast_hash": "bf71cd594cbfe406764749a5cd430207",
+    "semantic_hash": "bf71cd594cbfe406764749a5cd430207"
+  },
+  "D:\\Packiq-main\\frontend\\testsprite_tests\\TC028_Require_company_name_before_proceeding_from_onboarding_company_step.py": {
+    "mtime": 1779808233.0533442,
+    "ast_hash": "bf71cd594cbfe406764749a5cd430207",
+    "semantic_hash": "bf71cd594cbfe406764749a5cd430207"
+  },
+  "D:\\Packiq-main\\frontend\\testsprite_tests\\TC029_Update_analytics_with_date_range_filter.py": {
+    "mtime": 1779808233.0533442,
+    "ast_hash": "bf71cd594cbfe406764749a5cd430207",
+    "semantic_hash": "bf71cd594cbfe406764749a5cd430207"
+  },
+  "D:\\Packiq-main\\frontend\\testsprite_tests\\TC030_View_box_catalog_grid.py": {
+    "mtime": 1779808233.0555243,
+    "ast_hash": "bf71cd594cbfe406764749a5cd430207",
+    "semantic_hash": "bf71cd594cbfe406764749a5cd430207"
+  },
+  "D:\\Packiq-main\\frontend\\testsprite_tests\\testsprite_frontend_test_plan.json": {
+    "mtime": 1779808233.0575454,
+    "ast_hash": "ffd2800bfcadbe544387d76672f3c82f",
+    "semantic_hash": "ffd2800bfcadbe544387d76672f3c82f"
+  },
+  "D:\\Packiq-main\\frontend\\types\\index.ts": {
+    "mtime": 1779808233.0625954,
+    "ast_hash": "e122cd5187421e7a99fb2535a02207d2",
+    "semantic_hash": "e122cd5187421e7a99fb2535a02207d2"
+  },
+  "D:\\Packiq-main\\scripts\\test-optimize.ts": {
+    "mtime": 1779808233.0666273,
+    "ast_hash": "49721451dc88b68917e9d6a92f2160db",
+    "semantic_hash": "49721451dc88b68917e9d6a92f2160db"
+  },
+  "D:\\Packiq-main\\supabase\\migrations\\20260522_add_orders_product_fk.sql": {
+    "mtime": 1779808233.0686548,
+    "ast_hash": "460ed217f7f6065be0a8775f54c06012",
+    "semantic_hash": "460ed217f7f6065be0a8775f54c06012"
+  },
+  "D:\\Packiq-main\\supabase\\migrations\\20260523_shipzi_master_upgrade.sql": {
+    "mtime": 1779808233.0686548,
+    "ast_hash": "b36f60b734b3232e23f4488060eca7f4",
+    "semantic_hash": "b36f60b734b3232e23f4488060eca7f4"
+  },
+  "D:\\Packiq-main\\supabase\\migrations\\20260524_fix_storage_and_companies.sql": {
+    "mtime": 1779808233.0706801,
+    "ast_hash": "e481a7ccc277269ffb3d9483d362741e",
+    "semantic_hash": "e481a7ccc277269ffb3d9483d362741e"
+  },
+  "D:\\Packiq-main\\supabase\\migrations\\20260525_feature_updates.sql": {
+    "mtime": 1779808233.0727057,
+    "ast_hash": "a22e5c8732b56eb6882de7b376872c4c",
+    "semantic_hash": "a22e5c8732b56eb6882de7b376872c4c"
+  },
+  "D:\\Packiq-main\\supabase\\migrations\\20260601_normalized_canonical_migration.sql": {
+    "mtime": 1779808233.0747204,
+    "ast_hash": "435840202828eb49dd9482e14e9f7fca",
+    "semantic_hash": "435840202828eb49dd9482e14e9f7fca"
+  },
+  "D:\\Packiq-main\\supabase\\migrations\\comprehensive_fix.sql": {
+    "mtime": 1779808233.0747204,
+    "ast_hash": "2503e8dddaa5b1caa34a19b058236c2d",
+    "semantic_hash": "2503e8dddaa5b1caa34a19b058236c2d"
+  },
+  "D:\\Packiq-main\\supabase\\migrations\\final_repair_migration.sql": {
+    "mtime": 1779808233.0785046,
+    "ast_hash": "0073ca2eeb5a20cba34a8b91ce6b632e",
+    "semantic_hash": "0073ca2eeb5a20cba34a8b91ce6b632e"
+  },
+  "D:\\Packiq-main\\supabase\\migrations\\fix_orders_shipments_schema.sql": {
+    "mtime": 1779808233.0805185,
+    "ast_hash": "be0fcf48d2a5c3545517edd3f275cf77",
+    "semantic_hash": "be0fcf48d2a5c3545517edd3f275cf77"
+  },
+  "D:\\Packiq-main\\supabase\\migrations\\prompt_2_migration.sql": {
+    "mtime": 1779808233.0825326,
+    "ast_hash": "fc0718cdbff757b37d81e5558e8b7a37",
+    "semantic_hash": "fc0718cdbff757b37d81e5558e8b7a37"
+  },
+  "D:\\Packiq-main\\supabase\\migrations\\relationship_fix.sql": {
+    "mtime": 1779808233.0825326,
+    "ast_hash": "638c269a2b2a5d0b66d2f863ea56fda3",
+    "semantic_hash": "638c269a2b2a5d0b66d2f863ea56fda3"
+  },
+  "D:\\Packiq-main\\AGENTS.md": {
+    "mtime": 1779808232.111998,
+    "ast_hash": "9346a4897ff955555ddedb7bebf77adb",
+    "semantic_hash": ""
+  },
+  "D:\\Packiq-main\\CLAUDE.md": {
+    "mtime": 1779808232.1140099,
+    "ast_hash": "771faa62feb60b7de901a397aebb29b0",
+    "semantic_hash": ""
+  },
+  "D:\\Packiq-main\\MIGRATION_FIX.md": {
+    "mtime": 1779808232.1160204,
+    "ast_hash": "5d4caf8802086c9fb25e80fd2ccf927b",
+    "semantic_hash": ""
+  },
+  "D:\\Packiq-main\\TODO.md": {
+    "mtime": 1779808232.1180382,
+    "ast_hash": "3bfe7d314b6c294d07b312f96eb4b5c2",
+    "semantic_hash": ""
+  },
+  "D:\\Packiq-main\\.agents\\rules\\graphify.md": {
+    "mtime": 1779860266.4039352,
+    "ast_hash": "a0e4d192b9e2e17256124dbfc8e24e6a",
+    "semantic_hash": ""
+  },
+  "D:\\Packiq-main\\.agents\\workflows\\graphify.md": {
+    "mtime": 1779860266.4099567,
+    "ast_hash": "84de69efd46ab0b8430393bd4188f8f2",
+    "semantic_hash": ""
+  },
+  "D:\\Packiq-main\\backend\\README.md": {
+    "mtime": 1779808232.1210716,
+    "ast_hash": "4a02879ccfa1d7af0d5767ed64badc59",
+    "semantic_hash": ""
+  },
+  "D:\\Packiq-main\\backend\\render.yaml": {
+    "mtime": 1779808232.2140768,
+    "ast_hash": "5811be6c85f7b2c8e73ff1d6608f17fe",
+    "semantic_hash": ""
+  },
+  "D:\\Packiq-main\\backend\\requirements.txt": {
+    "mtime": 1779808232.216102,
+    "ast_hash": "2c48d812ac4fc43edd2c1a6bbb45732a",
+    "semantic_hash": ""
+  },
+  "D:\\Packiq-main\\frontend\\README.md": {
+    "mtime": 1779808232.2261992,
+    "ast_hash": "9162add00befbcdb432430f405c4ad8d",
+    "semantic_hash": ""
+  },
+  "D:\\Packiq-main\\frontend\\public\\file.svg": {
+    "mtime": 1779808232.8378327,
+    "ast_hash": "d09f95206c3fa0bb9bd9fefabfd0ea71",
+    "semantic_hash": ""
+  },
+  "D:\\Packiq-main\\frontend\\public\\globe.svg": {
+    "mtime": 1779808232.8398488,
+    "ast_hash": "2aaafa6a49b6563925fe440891e32717",
+    "semantic_hash": ""
+  },
+  "D:\\Packiq-main\\frontend\\public\\next.svg": {
+    "mtime": 1779808232.8490639,
+    "ast_hash": "8e061864f388b47f33a1c3780831193e",
+    "semantic_hash": ""
+  },
+  "D:\\Packiq-main\\frontend\\public\\shipzi-logo.png": {
+    "mtime": 1779808232.9053648,
+    "ast_hash": "959fed4e6644196d4e9ed039eed8cf55",
+    "semantic_hash": ""
+  },
+  "D:\\Packiq-main\\frontend\\public\\vercel.svg": {
+    "mtime": 1779808232.9079516,
+    "ast_hash": "c0af2f507b369b085b35ef4bbe3bcf1e",
+    "semantic_hash": ""
+  },
+  "D:\\Packiq-main\\frontend\\public\\window.svg": {
+    "mtime": 1779808232.9084704,
+    "ast_hash": "a2760511c65806022ad20adf74370ff3",
+    "semantic_hash": ""
+  }
+}

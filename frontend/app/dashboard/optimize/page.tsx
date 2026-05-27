@@ -197,7 +197,7 @@ export default function OptimizePage() {
       setCurrentRun({ id: sessionId } as any)
       setResults(responseData.results)
 
-      toast.success('Successfully optimized ' + responseData.total_optimized + ' products')
+      toast.success('Successfully optimized ' + (responseData.total_optimized ?? responseData.results?.length ?? 0) + ' products')
 
       setTimeout(() => {
         setIsOptimizing(false)

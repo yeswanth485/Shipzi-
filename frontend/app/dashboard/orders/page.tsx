@@ -94,7 +94,7 @@ export default function OrdersPage() {
                 <div className="flex flex-wrap items-center gap-6">
                    <div className="flex items-center gap-2">
                      <Box className="w-4 h-4 text-zinc-500" />
-                     <span className="text-white font-bold">{run.total_processed || 0} SKUs</span>
+                     <span className="text-white font-bold">{run.total_items || run.total_processed || 0} SKUs</span>
                    </div>
                    <div className="flex items-center gap-2">
                      <TrendingUp className="w-4 h-4 text-emerald-500" />

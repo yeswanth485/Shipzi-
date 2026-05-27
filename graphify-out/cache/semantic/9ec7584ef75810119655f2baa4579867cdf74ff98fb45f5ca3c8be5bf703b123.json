@@ -1,0 +1,1 @@
+{"nodes": [{"id": "frontend_supabase_schema_sql", "label": "Frontend Supabase Schema", "file_type": "code", "source_file": "frontend/supabase/schema.sql", "source_location": null, "source_url": null, "captured_at": null, "author": null, "contributor": null}], "edges": [], "hyperedges": []}
