@@ -7,27 +7,17 @@ export default function CarrierDistributionDonut({ data }: { data: any[] }) {
   let chartData = []
   
   if (data && data.length > 0) {
-    const carrierCount: Record<string, number> = {}
+    const boxCount: Record<string, number> = {}
     data.forEach(d => {
-      // The backend saves carrier/optimized_box. Let's infer carrier from optimized_box.
-      const box = d.optimized_box || ''
-      let carrier = 'Other'
-      if (box.toLowerCase().includes('fedex')) carrier = 'FedEx'
-      else if (box.toLowerCase().includes('ups')) carrier = 'UPS'
-      else if (box.toLowerCase().includes('usps')) carrier = 'USPS'
-      else if (box.toLowerCase().includes('dhl')) carrier = 'DHL'
-      
-      carrierCount[carrier] = (carrierCount[carrier] || 0) + 1
+      const box = d.new_box_name || d.optimized_box || 'Unknown'
+      boxCount[box] = (boxCount[box] || 0) + 1
     })
     
-    chartData = Object.keys(carrierCount).map(k => ({ name: k, value: carrierCount[k] }))
+    chartData = Object.keys(boxCount).map(k => ({ name: k, value: boxCount[k] }))
   } else {
     chartData = [
-      { name: 'FedEx', value: 400 },
-      { name: 'UPS', value: 300 },
-      { name: 'USPS', value: 300 },
-      { name: 'DHL', value: 200 }
-    ] // Fallback
+      { name: 'No Data', value: 1 },
+    ]
   }
 
   const COLORS = ['#4D148C', '#FFB500', '#333366', '#D40511', '#8884d8']
