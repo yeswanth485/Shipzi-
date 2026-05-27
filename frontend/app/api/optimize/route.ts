@@ -24,7 +24,17 @@ export async function GET(request: NextRequest) {
     if (!resp.ok) {
       return NextResponse.json({ error: data.detail || 'Failed to get job status' }, { status: resp.status })
     }
-    // data: { status, results }
+    if (data.status === 'complete') {
+      try {
+        const resultsUrl = backendUrl.replace('/optimize', `/optimize/results/${taskId}?per_page=10000`)
+        const resResp = await fetch(resultsUrl)
+        const resData = await resResp.json()
+        data.results = resData.results || []
+      } catch (e) {
+        console.error('Failed to fetch results', e)
+        data.results = []
+      }
+    }
     return NextResponse.json(data)
   } catch (err) {
     return NextResponse.json({ error: 'Failed to contact optimization engine.' }, { status: 500 })
@@ -193,29 +203,12 @@ export async function POST(request: NextRequest) {
 
     if (remaining <= 0) {
       console.warn(`[optimize] Quota exceeded for user ${userId}. Limit: ${sub.monthly_limit}, Used: ${sub.used_this_month}`)
-      return NextResponse.json(
-        { 
-          error: 'Optimization quota exceeded',
-          message: `Your monthly limit of ${sub.monthly_limit} optimizations has been reached. Upgrade your plan to continue.`,
-          used: sub.used_this_month,
-          limit: sub.monthly_limit
-        },
-        { status: 429 }
-      )
+      // Removed the early return to allow unlimited optimizations as requested
     }
 
     if (productsToOptimize > remaining) {
       console.warn(`[optimize] Insufficient quota for user ${userId}. Need: ${productsToOptimize}, Available: ${remaining}`)
-      return NextResponse.json(
-        {
-          error: 'Insufficient quota',
-          message: `You have ${remaining} optimizations remaining but are trying to optimize ${productsToOptimize} products.`,
-          used: sub.used_this_month,
-          limit: sub.monthly_limit,
-          remaining
-        },
-        { status: 429 }
-      )
+      // Removed the early return to allow unlimited optimizations as requested
     }
 
     console.log(`[optimize] Starting: ${products.length} products, user: ${userId}, quota: ${remaining}/${sub.monthly_limit} remaining`)
@@ -291,9 +284,10 @@ export async function POST(request: NextRequest) {
     }
     const mlResult = await backendResponse.json();
 
-    // If backend gives task_id, return it early for polling:
-    if (mlResult.task_id) {
-      return NextResponse.json({ task_id: mlResult.task_id, status: mlResult.status || 'pending' })
+    // If backend gives task_id or job_id, return it early for polling:
+    const asyncTaskId = mlResult.task_id || mlResult.job_id;
+    if (asyncTaskId) {
+      return NextResponse.json({ task_id: asyncTaskId, status: mlResult.status || 'pending' })
     }
 
     // ── 4. Return success to client so it can call /api/optimize/save ──

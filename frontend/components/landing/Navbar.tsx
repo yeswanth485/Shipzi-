@@ -53,24 +53,26 @@ export default function Navbar() {
             <div className="w-24 h-10 flex items-center justify-center">
               <Loader2 className="w-5 h-5 text-white animate-spin" />
             </div>
-          ) : user ? (
-            <Link
-              href={profile?.onboarding_complete ? "/dashboard" : "/onboarding"}
-              className="bg-gradient-to-r from-blue-600 to-blue-500 text-white px-6 py-2.5 rounded-xl text-sm font-bold shadow-[0_0_20px_rgba(37,99,235,0.3)] hover:scale-105 active:scale-95 transition-all"
-            >
-              Dashboard
-            </Link>
-          ) : (
             <>
+              {user && (
+                <Link
+                  href={profile?.onboarding_complete ? "/dashboard" : "/onboarding"}
+                  className="bg-gradient-to-r from-blue-600 to-blue-500 text-white px-6 py-2.5 rounded-xl text-sm font-bold shadow-[0_0_20px_rgba(37,99,235,0.3)] hover:scale-105 active:scale-95 transition-all mr-2"
+                >
+                  Dashboard
+                </Link>
+              )}
               <Link href="/auth/login" className="border border-white/30 text-white px-4 py-2 rounded-lg hover:bg-white/10 transition text-sm font-bold">
                 Login
               </Link>
-              <Link
-                href="/auth/signup"
-                className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition text-sm font-bold"
-              >
-                Start Free Trial
-              </Link>
+              {!user && (
+                <Link
+                  href="/auth/signup"
+                  className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition text-sm font-bold"
+                >
+                  Start Free Trial
+                </Link>
+              )}
             </>
           )}
         </div>
